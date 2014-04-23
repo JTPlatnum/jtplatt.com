@@ -61,7 +61,7 @@ h3 {
 	padding-left: 5px;
 }
 
-@media only screen and (min-width : 678px) and (max-width : 970px) {
+@media only screen and (min-device-width : 678px) and (max-device-width : 970px) {
 	#main_thumbs ul li img {
 		width: 33%;
 		min-width: 200px;
@@ -70,6 +70,27 @@ h3 {
 	#main_thumbs ul li p {
 		width: 200px;
 		font-size: 0.9em;
+	}
+
+}
+
+@media only screen and (min-device-width: 677px) {
+	#main_thumbs ul li img {
+		width: 100%;
+		min-width: 300px;
+	}
+
+	#main_thumbs ul li img.alpha {
+		padding-top: 20px;
+	}
+
+	#main_thumbs ul li img.omega {
+		padding-bottom: 20px;
+	}
+
+	#main_thumbs ul li p {
+		width: 100%;
+		font-size: 1.0em;
 	}
 
 }
