@@ -11,15 +11,19 @@
 	z-index: 1;
 	width: 100%;
 	background: white;
-	max-width: 970px;
+	max-width: 1070px;
 }
 
-h3 {
-	padding-top: 10px;
+#name span {
+	padding-left: 20px; 
+	font-size: 48px;
 }
 
 #header ul {
 	list-style-type: none;
+	float:right;
+	padding-right: 20px;
+
 }
 
 #header li {
@@ -33,6 +37,10 @@ h3 {
 	display: inline-block;
 	height: 100%; 
 	width: 100%;
+}
+
+#clear {
+	clear:both;
 }
 
 #main_thumbs {
@@ -57,11 +65,10 @@ h3 {
 	width: 300px;
 	height: auto;
 	vertical-align: top;
-	overflow: scroll;
 	padding-left: 5px;
 }
 
-@media only screen and (min-device-width : 678px) and (max-device-width : 970px) {
+@media only screen and (min-width : 678px) and (max-width : 970px) {
 	#main_thumbs ul li img {
 		width: 33%;
 		min-width: 200px;
@@ -69,12 +76,16 @@ h3 {
 
 	#main_thumbs ul li p {
 		width: 200px;
-		font-size: 0.9em;
+		font-size: 0.8em;
+	}
+
+	#main_thumbs {
+		margin-top: 150px;
 	}
 
 }
 
-@media only screen and (min-device-width: 677px) {
+@media only screen and (max-device-width: 677px) {
 	#main_thumbs ul li img {
 		width: 100%;
 		min-width: 300px;
