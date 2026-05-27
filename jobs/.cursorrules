@@ -1,0 +1,65 @@
+# jobagent — Cursor Agent Rules
+
+## 1. SCOPE DISCIPLINE
+- Only make changes explicitly requested. Do not modify files, values, or logic beyond what is asked.
+- Do not change scoring weights, thresholds, score component caps, or filter rules without specific approval.
+- If a fix requires touching something outside the stated scope, ASK before doing it.
+- Show audit/results BEFORE making changes when asked to investigate an issue.
+
+## 2. INVENTORY IS SACRED
+- `data/inventory.py` is JT's actual career data. Never invent, extend, or "fill in" experience that isn't there.
+- The scorer reads from inventory. If a posting requires something not in inventory, the scorer flags it as a gap — does not paper over it.
+- The Tier 2 LLM prompt MUST include the no-fabrication rule.
+
+## 3. PROJECT ARCHITECTURE
+- **Stack:** Python 3.10+, Flask, SQLite, requests + BeautifulSoup4, Jinja2, anthropic, gunicorn
+- **Hosting:** Opalstack shared, subdomain `jobs.jtplatt.com`
+- **Cron:** Daily 06:00 PT, full Python path required
+- **Key files:**
+  - `data/inventory.py` (source of truth)
+  - `score.py` (Tier 1 rule-based)
+  - `score_llm.py` (Tier 2 LLM, top 10 only)
+  - `filter.py` (hard filters)
+  - `crawler/base.py` + `crawler/sources/*.py`
+
+## 4. THRESHOLDS (do not change without approval)
+- Email trigger: Tier 1 >= 80 AND Tier 2 >= 8
+- Tier 2 runs only on daily top 10 by Tier 1
+- Page sections: 80+ (perfect), 60-79 (strong), 40-59 (decent), <40 (hidden)
+
+## 5. SCRAPING DISCIPLINE
+- Default 2-second delay between requests within a single source
+- Sequential pagination only — never parallel within a source
+- On 429 or 5xx: back off, skip rest of source for this run, log loudly
+- Respect robots.txt where reasonable
+
+## 6. DATA INTEGRITY
+- Empty scrape NEVER overwrites previous good data
+- If a scraper returns zero where it previously returned results, treat as failure
+- Backup `data/jobs.db` before destructive migrations
+
+## 7. SOURCES — V1 LIST IS FIXED
+- CalCareers, governmentjobs.com (multi-tenant), EdJoin, USAJobs (API), Peace Corps, Making Waves
+- LinkedIn / Indeed are deliberately excluded — do NOT attempt to scrape them
+- New sources require explicit approval and an entry in `data/sources.yaml`
+
+## 8. EMAIL DISCIPLINE
+- Never re-email the same job ID (check `emails` table first)
+- Send only on the dual threshold (80 / 8)
+- On send failure: log + mark for retry next run — never silently drop
+
+## 9. DEPLOYMENT (from SOUL.md)
+- `./deploy.sh` is the only path to prod
+- Never SSH to patch live
+- Server `.env` is independent and NEVER touched by deploy
+- Test locally first (`python main.py --dry-run`)
+
+## 10. LOGGING
+- Every cron run writes to `logs/run-YYYY-MM-DD.log`
+- Log per-source: postings found (new vs seen), filter rejects with reason counts, Tier 1 histogram, Tier 2 calls, errors, total time
+- Never silent failures
+
+## 11. WHEN UNCERTAIN
+- If a decision isn't in SPEC.md, ASK before deciding
+- Implementation details (variable names, file structure within the spec) — your call
+- Design decisions (new sources, new scoring components, threshold changes) — JT's call
