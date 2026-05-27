@@ -247,22 +247,24 @@ Per SOUL.md hard rules:
 
 ## Build Order
 
-1. Repo init (already done — adding `jobs/` as a subdirectory of the existing `jtplatt.com` repo), venv inside `jobs/`, deps, project skeleton from this spec
-2. `inventory.py` is already written — verify it
-3. Base Source class + CalCareers scraper (highest yield)
-4. `filter.py` against `employers.yaml`
-5. `score.py` (Tier 1) + `title_patterns.yaml`
-6. `store.py` + SQLite schema
-7. `render.py` + minimal `results.html`
-8. End-to-end local run, eyeball results
-9. Add governmentjobs.com (multi-tenant)
-10. Add USAJobs (API, easy)
-11. Add EdJoin, Peace Corps, Making Waves
-12. `score_llm.py` (Tier 2)
-13. `notify.py` (email)
-14. Flask `server.py` with basic auth
-15. `deploy.sh` + Opalstack cron
-16. Tune thresholds after 2 weeks of data
+1. [completed] Repo init / skeleton
+2. [completed] inventory.py
+3. [completed] crawler/base.py
+4. USAJobs source (API) — first real source
+5. filter.py
+6. score.py + title_patterns.yaml
+7. store.py
+8. render.py + minimal template
+9. End-to-end local run with USAJobs as sole source
+10. CalCareers — deferred until pipeline proven
+11. governmentjobs.com (similar ASP.NET pattern; benefits from CalCareers lessons)
+12. EdJoin
+13. CSU Careers
+14. score_llm.py
+15. notify.py
+16. server.py
+17. deploy.sh
+18. Tune thresholds
 
 Do one source end-to-end before adding the next. Resist the urge to write all six scrapers up front.
 

@@ -19,29 +19,26 @@ Pre-implementation. Spec just landed. Repo not initialized yet.
 
 ## What's Next (Build Order)
 
-1. **Repo init.** `git init`, venv, `requirements.txt`, project skeleton from SPEC.md → "Project Structure"
-2. **Verify `data/inventory.py`** with JT — confirm structure matches his actual career data, no inventions
-3. **`crawler/base.py`** — abstract `Source` class with `fetch_listings()` and `parse_posting()`
-4. **`crawler/sources/calcareers.py`** — highest yield, structured pages. Get this end-to-end first.
-5. **`data/employers.yaml`** — allow-list and excludes
-6. **`filter.py`** — hard filters per SPEC.md
-7. **`data/title_patterns.yaml`** — yes/no title bias lists
-8. **`score.py`** — Tier 1 only
-9. **`store.py`** — SQLite schema + I/O
-10. **`render.py`** + minimal `templates/results.html` — page generation
-11. **`main.py`** — wire it all into a single cron entry point with `--dry-run`
-12. **Local end-to-end** — run against CalCareers live, eyeball output
-13. **Add governmentjobs.com** with multi-tenant config
-14. **Add USAJobs** (API, easy)
-15. **Add EdJoin**
-16. **Add CSU Careers**
-17. **`score_llm.py`** — Tier 2 via Anthropic API
-18. **`notify.py`** — email send (provider TBD)
-19. **`server.py`** — Flask app with HTTP basic auth, serves the rendered HTML
-20. **`deploy.sh`** + Opalstack cron entry
-21. **Tune thresholds** after 2 weeks of data
+1. ✓ **Repo init** — skeleton, venv, requirements
+2. ✓ **`data/inventory.py`** — verified
+3. ✓ **`crawler/base.py`** — abstract `Source` class
+4. **USAJobs source (API)** — first real source (developer.usajobs.gov)
+5. **`filter.py`** — hard filters per SPEC.md
+6. **`score.py`** + **`data/title_patterns.yaml`** — Tier 1
+7. **`store.py`** — SQLite schema + I/O
+8. **`render.py`** + minimal **`templates/results.html`**
+9. **End-to-end local run** with USAJobs as sole source
+10. **CalCareers** — deferred until pipeline proven
+11. **`governmentjobs.com`** — similar ASP.NET pattern; benefits from CalCareers lessons
+12. **EdJoin**
+13. **CSU Careers**
+14. **`score_llm.py`** — Tier 2 via Anthropic API
+15. **`notify.py`** — email send
+16. **`server.py`** — Flask app with HTTP basic auth
+17. **`deploy.sh`** + Opalstack cron entry
+18. **Tune thresholds** after 2 weeks of data
 
-Do one source end-to-end (steps 3–12) before adding more scrapers. Resist parallel-track temptation.
+Do one source end-to-end (steps 4–9) before adding more scrapers. Resist parallel-track temptation.
 
 ## Open Items for JT
 
