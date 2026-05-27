@@ -108,9 +108,8 @@ Page rebuilds at the end of each cron run.
 | CalCareers | Scrape search URL pagination | CA state departments + Covered California |
 | governmentjobs.com | Scrape with per-tenant config | Sacramento County, City of Sacramento, City of West Sac, Folsom, others — list in `data/sources.yaml` |
 | EdJoin (edjoin.org) | Scrape | CA K-12 + community colleges |
+| CSU Careers | Scrape — system TBD during implementation | All 23 CSU campuses statewide — CalPERS-covered staff. Covers Sac State, Monterey Bay, San Marcos, etc. |
 | USAJobs | Official API (developer.usajobs.gov) | Federal incl. DODEA, State Dept |
-| Peace Corps | Scrape peacecorps.gov careers | Peace Corps Response slots |
-| Making Waves | Scrape making-waves.org/careers | CA ed nonprofit |
 
 ### Deferred / research items (not v1)
 
@@ -119,6 +118,8 @@ Page rebuilds at the end of each cron run.
 - **Foreign Service Specialist (Diplomatic Technology Officer)** — exam-pipeline via Pearson, not crawlable. JT already has an account; manages manually.
 - **FBI** — separate portal. JT manages manually.
 - **LinkedIn / Indeed** — actively block scraping. Paid APIs not worth it for v1.
+- **Peace Corps** — pays stipends, would always fail the salary floor hard filter.
+- **Making Waves** — mostly nonprofit ops without CalPERS/CalSTRS coverage.
 
 ---
 

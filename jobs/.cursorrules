@@ -39,7 +39,7 @@
 - Backup `data/jobs.db` before destructive migrations
 
 ## 7. SOURCES — V1 LIST IS FIXED
-- CalCareers, governmentjobs.com (multi-tenant), EdJoin, USAJobs (API), Peace Corps, Making Waves
+- CalCareers, governmentjobs.com (multi-tenant), EdJoin, CSU Careers, USAJobs (API)
 - LinkedIn / Indeed are deliberately excluded — do NOT attempt to scrape them
 - New sources require explicit approval and an entry in `data/sources.yaml`
 

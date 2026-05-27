@@ -33,12 +33,13 @@ Pre-implementation. Spec just landed. Repo not initialized yet.
 12. **Local end-to-end** — run against CalCareers live, eyeball output
 13. **Add governmentjobs.com** with multi-tenant config
 14. **Add USAJobs** (API, easy)
-15. **Add EdJoin, Peace Corps, Making Waves**
-16. **`score_llm.py`** — Tier 2 via Anthropic API
-17. **`notify.py`** — email send (provider TBD)
-18. **`server.py`** — Flask app with HTTP basic auth, serves the rendered HTML
-19. **`deploy.sh`** + Opalstack cron entry
-20. **Tune thresholds** after 2 weeks of data
+15. **Add EdJoin**
+16. **Add CSU Careers**
+17. **`score_llm.py`** — Tier 2 via Anthropic API
+18. **`notify.py`** — email send (provider TBD)
+19. **`server.py`** — Flask app with HTTP basic auth, serves the rendered HTML
+20. **`deploy.sh`** + Opalstack cron entry
+21. **Tune thresholds** after 2 weeks of data
 
 Do one source end-to-end (steps 3–12) before adding more scrapers. Resist parallel-track temptation.
 
