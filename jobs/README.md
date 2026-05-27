@@ -22,7 +22,7 @@ Open `jobs/` as the Cursor workspace root when working on the agent. That way `.
 cd jobs
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-dev.txt
 cp .env.example .env
 # edit .env with secrets, SALARY_FLOOR, etc.
 python main.py --dry-run
