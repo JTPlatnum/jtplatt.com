@@ -227,12 +227,14 @@ body {
 
 .why > summary {
   cursor: pointer;
-  color: var(--link);
+  color: var(--muted);
   font-size: 13px;
   list-style: none;
   user-select: none;
   display: inline-block;
 }
+
+.why > summary:hover { color: var(--fg); }
 
 .why > summary::-webkit-details-marker { display: none; }
 .why > summary::before { content: "▸ "; }
@@ -260,15 +262,47 @@ body {
 .why-body ul { margin: 0; padding-left: 20px; }
 .why-body p { margin: 0; }
 
-.card-link {
-  display: inline-block;
-  margin-top: 6px;
-  color: var(--link);
-  text-decoration: none;
-  font-size: 14px;
+.card-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 
-.card-link:hover { text-decoration: underline; }
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.btn--primary {
+  background: var(--link);
+  color: #ffffff;
+  border-color: var(--link);
+}
+
+.btn--primary:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
 
 .page-footer {
   margin-top: 36px;
