@@ -1,1 +1,16 @@
-# Source configs (governmentjobs.com tenants, etc.). See SPEC.md.
+# Source configs. See SPEC.md.
+
+usajobs:
+  api_base: https://data.usajobs.gov/api/search
+  # List of query param sets. Each entry is one Search-API search; the scraper
+  # paginates each independently and dedups by PositionID across queries.
+  # Add a second query (remote/overseas) later as another list entry.
+  queries:
+    - name: sacramento_metro
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Sacramento, California"
+      radius: 50
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
