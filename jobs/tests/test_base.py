@@ -35,5 +35,21 @@ def test_posting_only_required_fields():
     assert p.salary_min is None
     assert p.salary_max is None
     assert p.location is None
+    assert p.all_locations is None
     assert p.telework_flag is None
     assert p.posted_date is None
+
+
+def test_posting_accepts_all_locations():
+    p = Posting(
+        source="test",
+        source_job_id="abc-123",
+        title="Test Job",
+        employer="Test Employer",
+        url="https://example.com/job/abc-123",
+        raw_text="full posting body",
+        location="Sacramento, California",
+        all_locations=["Sacramento, California", "Wiesbaden, Germany"],
+    )
+    assert p.location == "Sacramento, California"
+    assert p.all_locations == ["Sacramento, California", "Wiesbaden, Germany"]

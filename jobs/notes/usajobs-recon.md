@@ -181,20 +181,35 @@ Filter for DODEA non-teacher roles via:
 
 ## 4. Field Mapping (USAJobs response → our `Posting` dataclass)
 
-The Search response embeds the full posting payload in `MatchedObjectDescriptor`. No follow-up GET required for our purposes — but per `MatchedObjectId` there is a separate detail endpoint if we ever need the longer formatted description. Field mapping below is **inferred from training-data familiarity and third-party wrapper code** — verify against the first real response.
+The Search response embeds the full posting payload in `MatchedObjectDescriptor`. No follow-up GET required for our purposes — but per `MatchedObjectId` there is a separate detail endpoint if we ever need the longer formatted description. Field mapping below was originally **inferred from training-data familiarity and third-party wrapper code**, then corrected against a real probe response.
+
+### Probe corrections (2026-05-28)
+
+A live authenticated probe (5 results, JobCategoryCode=2210, Sacramento+50mi) surfaced five divergences from the originally-inferred mapping. Each is now corrected below:
+
+1. **`raw_text` source.** `PositionFormattedDescription` is NOT the description — every probed posting had a single entry with `Label: "Dynamic Teaser"` and `LabelDescription: "Hit highlighting for keyword searches."` That's a search-results teaser placeholder, not the job body. The real description content is on `UserArea.Details.*` as individual string fields.
+2. **Salary types.** `PositionRemuneration[*].MinimumRange` and `MaximumRange` are **strings** ("90925"), not numbers. Convert to `float` before dividing by 12.
+3. **Location ordering.** `PositionLocation` is alphabetized by `LocationName` — so `[0]` for a multi-location posting is typically `Birmingham, Alabama`, not whatever the user searched for. `[0]` is unreliable as a display location.
+4. **`PublicationStartDate` format.** Returns `"2026-05-26T07:11:05.6100"` — four-digit fractional seconds, no `Z`/timezone suffix. Python 3.10 `datetime.fromisoformat` rejects this format (3.11+ tolerates it).
+5. **`PositionURI` cosmetics.** Includes an explicit `:443` port (`https://www.usajobs.gov:443/job/...`). Strip before display/storage.
+
+The conclusion that **no second request per posting is needed** still holds — the Search response carries the full description — but the content lives in `UserArea.Details`, not `PositionFormattedDescription`.
+
+### Corrected mapping
 
 | Our `Posting` field | JSON path | Notes |
 |---|---|---|
-| `source_job_id` | `MatchedObjectDescriptor.PositionID` | The `JC-`/`CD-`prefixed posting ID. Stable per posting. |
+| `source_job_id` | `MatchedObjectDescriptor.PositionID` | E.g., `"260004MP-12951788-CS"`. Stable per posting. |
 | `title` | `MatchedObjectDescriptor.PositionTitle` | Free-form job title. |
-| `employer` | `MatchedObjectDescriptor.DepartmentName` + ` / ` + `OrganizationName` | E.g., "Department of Defense / Department of the Army." Use department for the high-level allow-list check; org for display. |
-| `url` | `MatchedObjectDescriptor.PositionURI` | The public usajobs.gov posting URL. JT clicks this. |
-| `salary_min` | `PositionRemuneration[0].MinimumRange` ÷ 12 | **Convert annual → monthly.** Federal pay is annualized. Convert before comparing to `SALARY_FLOOR`. Watch for `RateIntervalCode` — if `"Per Hour"`, multiply by ~2080 then ÷12 (or just reject hourly roles outright — see open items). |
-| `salary_max` | `PositionRemuneration[0].MaximumRange` ÷ 12 | Same conversion. |
-| `location` | `PositionLocation[0].LocationName` | First location only for the field; multi-location postings get all locations stored in `raw_text`. |
-| `telework_flag` | Multiple paths possible: `UserArea.Details.TeleworkEligible` (boolean) OR keyword scan of `QualificationSummary` + `PositionFormattedDescription` for "telework"/"remote"/"hybrid" | **The structured field is unreliable** — many postings leave it blank or set it to `false` when they mean "ask manager." Treat the structured field as a HINT, and confirm with a keyword scan of the description. Same approach as CalCareers. |
-| `raw_text` | Concat `QualificationSummary` + `PositionFormattedDescription[i].LabelDescription` for each label | Description is split into labeled blocks ("Duties", "Requirements", "Qualifications", etc.). Concatenate all for `raw_text`; use individual blocks only if score.py needs specificity later. |
-| `posted_date` | `MatchedObjectDescriptor.PublicationStartDate` | ISO timestamp. Cast to `date`. |
+| `employer` | `MatchedObjectDescriptor.DepartmentName` + ` / ` + `OrganizationName` | E.g., "Department of Justice / Federal Bureau of Investigation". |
+| `url` | `MatchedObjectDescriptor.PositionURI`, with `:443` stripped | Probe returns `https://www.usajobs.gov:443/job/870502400`; strip the port for display. |
+| `salary_min` | `float(PositionRemuneration[*].MinimumRange)` ÷ 12 | Values arrive as **strings**, not numbers. Per locked decision #2: use the **lowest** `MinimumRange` across all entries (most multi-grade postings will have one). Federal pay is annualized; convert annual → monthly before comparing to `SALARY_FLOOR`. Filter for `RateIntervalCode == "PA"` (Per Annum); reject `"PH"` (Per Hour) and `"WC"` (Without Compensation). |
+| `salary_max` | `float(PositionRemuneration[*].MaximumRange)` ÷ 12 | Same string-to-float conversion. Use the **highest** `MaximumRange` across all entries. |
+| `location` | See note | `PositionLocation[0]` is **not reliable** — the array is alphabetized by `LocationName`, so a 54-location nationwide posting starts at "Birmingham, Alabama" regardless of the search radius. Strategy: if `len(PositionLocation) == 1`, use that entry's `LocationName`. If more than one, use `PositionLocationDisplay` (e.g., `"Multiple Locations"`) and store the full list in `all_locations`. |
+| `all_locations` | `[loc.LocationName for loc in PositionLocation]` | New `Posting` field. Powers the hard-filter check (ANY entry matching Sacramento metro OR overseas qualifies) and smart display. Overseas detection: `CountryCode != "United States"` on any entry. |
+| `telework_flag` | `UserArea.Details.TeleworkEligible` (boolean) — confirm with keyword scan of `raw_text` for `"telework"`/`"remote"`/`"hybrid"` | Field IS present on every probed posting (boolean, sometimes `False` when posting actually mentions hybrid). Treat structured field as a HINT; confirm with description scan. Same approach as CalCareers. |
+| `raw_text` | Labeled concat of `QualificationSummary` + `UserArea.Details.JobSummary` + joined `UserArea.Details.MajorDuties` + `UserArea.Details.Requirements` + `UserArea.Details.Education` + `UserArea.Details.OtherInformation` | **NOT** `PositionFormattedDescription` (placeholder — see probe correction #1). Excluded sections (boilerplate, not scoring signal): `Evaluations`, `HowToApply`, `WhatToExpectNext`, `RequiredDocuments`, `Benefits`. Prefix each included section with its label (e.g., `"=== Job Summary ===\n..."`) so `score.py` and `score_llm.py` can locate context if needed. |
+| `posted_date` | `MatchedObjectDescriptor.PublicationStartDate`, parsed as `date.fromisoformat(value[:10])` | Format is `"2026-05-26T07:11:05.6100"` — 4-digit fractional seconds, no timezone. `datetime.fromisoformat` fails on Python 3.10 (works on 3.11+). 3.10-safe approach: slice the leading `YYYY-MM-DD` (first 10 chars) and feed to `date.fromisoformat`. |
 
 ### Federal salary specifics
 
