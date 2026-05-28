@@ -55,3 +55,12 @@ usajobs:
       sort_field: OpenDate
       sort_direction: Desc
       results_per_page: 250
+
+calcareers:
+  # CalCareers Advanced Search is ASP.NET WebForms / DevExpress; results render
+  # via JS callbacks driven by window.location.hash. Source uses Playwright
+  # (headless Chromium) — not requests — for both search and detail pages.
+  # See notes/calcareers-recon.md.
+  queries:
+    - keyword: "Information Technology Specialist"   # catches 1402 ITS I + 1414 ITS II
+    - keyword: "Staff Services Analyst"              # catches 5157 SSA-General

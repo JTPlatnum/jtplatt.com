@@ -132,6 +132,14 @@ Spec assumption ("CA state departments + Covered California") holds. No separate
 
 ## 2. Sample Posting
 
+### Probe corrections (2026-05-28)
+
+After the Phase 2a Playwright probe captured a real live posting (jcid=505623, .Net Developer, saved at `tests/fixtures/calcareers_sample.html`), the field-mapping table below was verified end-to-end. One discrepancy from the initial inference:
+
+- **`pnlMinimumRequirements` does not exist as a wrapper div on the print page.** The page contains only an `<h3 class="postingHeader">Minimum Requirements</h3>` followed by `<span id="lblMinimumReqsInClassSpec">` containing a link to the separate CalHR class-spec page. The requirements bullets themselves live on that other URL. Capturing them requires a second Playwright fetch per classification. **Deferred to v1.1, planned to land with Tier 2.** The `_RAW_TEXT_PANELS` list in `crawler/sources/calcareers.py` is 6 panels, not 7.
+
+Everything else in the verified mapping below matches the live DOM.
+
 **Important caveat:** I was unable to confirm an open posting via curl during this recon. I probed JobControlIds at 488k, 492k, 496k, 500k, 504k, 508k, 512k, 516k, 520k, 525k, 528k, 530k, 532k, 534k, 536k, 540k, 545k, 550k, 555k, 560k, 570k, 580k, 590k, 600k, plus 502478 (a recent IT Specialist I per Google). **Every one** returned the "no longer available" stub. Open postings exist (the CalCareers homepage advertises 1,000+ jobs) — they're just sparse in the ID space and the ones Google has indexed have all aged out.
 
 The first thing the scraper should do during initial build: a real search POST will return a results page with currently-open JCs. Fetch one of those and verify the selectors below against ground truth. The structure below is **inferred** from URL patterns, Google snippets of historical postings, and standard ASP.NET WebForms conventions — not confirmed against a live posting.
@@ -142,19 +150,20 @@ The first thing the scraper should do during initial build: a real search POST w
 https://calcareers.ca.gov/CalHrPublic/Jobs/JobPostingPrint.aspx?jcid={JobControlId}
 ```
 
-### Posting field mapping (inferred — verify against first live posting)
+### Posting field mapping (verified 2026-05-28 against fixture jcid=505623)
 
-| Posting field | Source page | Likely extraction |
+| Posting field | Source page | Selector / extraction |
 |---|---|---|
-| `source_job_id` | URL | `jcid` query param (or `JobControlId` from non-print URL) |
-| `title` | Detail page | Likely `<h1>` or first prominent heading. The non-print version includes the working title (e.g., "Information Technology Specialist II – Telework Hybrid"). |
-| `employer` | Detail page | Department name appears in a header band. Likely under a labeled section "Department Information" or similar. **Needs live confirmation.** |
-| `salary_min` / `salary_max` | Detail page | Salary range shown as "$X,XXX.XX - $Y,YYY.YY per month" — parse the range string. CalHR uses Range A / Range L / Range B suffixes for some classes (e.g., ITS II: `$8,625 - $11,557 (A)`, `$8,881 - $11,905 (L)`). Take the highest max across ranges, or document a Range-A-only convention. |
-| `location` | Detail page | "City" + "County" labels in a "Work Location" or "Position Details" block. Sometimes listed as "Multiple Locations." |
-| `telework_flag` | Detail page | Free-text — search the body for keywords (`telework`, `hybrid`, `remote`). The search form has a "Telework" facet, but the value isn't reliably echoed on the detail page in structured form. Plan: treat `telework_flag` as boolean derived from a keyword scan of the description, not a parsed structural field. |
-| `raw_text` | Detail page | Capture the full body of the description / duty statement section. Use the print-view (`JobPostingPrint.aspx`) for cleaner extraction — strip nav, header, footer. |
-| `posted_date` | Detail page | "Date Posted" or similar label. Sometimes only "Final Filing Date" is shown. If posted_date is missing, fall back to first_seen at store-time. |
-| `url` | Constructed | The print URL or web URL, whichever we decide is canonical for storage. Recommend storing the **web URL** as `url` since that's what JT will click; use print for parsing. |
+| `source_job_id` | Print detail page | `span#lblDetailsJobControlNumber` text (keeps `JC-` prefix, e.g. `JC-505623`) |
+| `title` | Print detail page | `span#lblWorkingTitle` — working title, populated post-load by the DevExpress JS layer |
+| `classification` | Print detail page | `span#lblPrimaryClassification`, title-cased with Roman numerals preserved (e.g. `Information Technology Specialist II`) |
+| `employer` | Print detail page | `span#lblDepartmentName` |
+| `salary_min` / `salary_max` | Print detail page | `span#lblPrimarySalary`, regex `\$([\d,]+(?:\.\d{1,2})?)\s*-\s*\$([\d,]+(?:\.\d{1,2})?)\s*per\s*Month`. Salary is already monthly (no /12). Anything other than "per Month" → `(None, None)` + log. Range A is the primary salary field; alternate ranges are not parsed (Range-A convention from decision §1). |
+| `location` | Print detail page | `span#lblWorkLocation` literal text. `all_locations` is a single-element list `[location]` for v1. |
+| `telework_flag` | Print detail page | `span#lblTelework`: `"Yes"` or `"Hybrid"` → True; `"No"` → keyword scan over raw_text (overrides if `telework`/`remote`/`hybrid` present); missing/empty → keyword scan only |
+| `raw_text` | Print detail page | Concatenated panels with `=== Header ===` separators, in visible-page order: `pnlJobDescription`, `pnlWorkingConditions`, `pnlPositionDetails`, `pnlDepartmentInfo`, `pnlSpecialRequirements`, `pnlDesirableQualifications`. Classification text prepended so the keyword matcher sees it. **6 panels total** — Minimum Requirements punted to class-spec page (deferred to v1.1; see Probe corrections above). |
+| `posted_date` | Print detail page | Not present on print page — set to `None` and rely on `first_seen` at store time |
+| `url` | Constructed | Web view: `https://calcareers.ca.gov/CalHrPublic/Jobs/JobPosting.aspx?JobControlId={INT_ID}` (integer only, no `JC-` prefix). Print URL is parse-time-only. |
 
 **Fields that vary across postings (per inferred reading):**
 - Salary: monthly vs. annual depending on classification; multiple range bands for some classes
