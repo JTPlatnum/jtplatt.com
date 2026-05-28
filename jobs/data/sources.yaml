@@ -4,12 +4,53 @@ usajobs:
   api_base: https://data.usajobs.gov/api/search
   # List of query param sets. Each entry is one Search-API search; the scraper
   # paginates each independently and dedups by PositionID across queries.
-  # Add a second query (remote/overseas) later as another list entry.
+  # Per-city queries (vs combined LocationName CSV) because Radius is a single
+  # value per search and we want per-city radii to differ.
   queries:
     - name: sacramento_metro
       job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
       location_name: "Sacramento, California"
       radius: 50
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
+    - name: honolulu_metro
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Honolulu, Hawaii"
+      radius: 50
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
+    - name: monterey_metro
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Monterey, California"
+      radius: 40
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
+    - name: santa_cruz_metro
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Santa Cruz, California"
+      radius: 30
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
+    - name: oceanside_metro
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Oceanside, California"
+      radius: 30
+      who_may_apply: Public
+      sort_field: OpenDate
+      sort_direction: Desc
+      results_per_page: 250
+    - name: truckee_tahoe
+      job_category_codes: [2210, 0343, 0301, 1701, 1710, 1712, 1740, 1750]
+      location_name: "Truckee, California"
+      radius: 40
       who_may_apply: Public
       sort_field: OpenDate
       sort_direction: Desc

@@ -394,6 +394,7 @@ PREFERENCES = {
     "target_titles_yes": [
         "Information Technology Specialist I",
         "Information Technology Specialist II",
+        "IT Specialist",  # federal short form of "Information Technology Specialist"
         "Business Systems Analyst",
         "Applications Analyst",
         "Training Officer",
