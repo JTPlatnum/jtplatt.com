@@ -145,14 +145,19 @@ def _score_keywords(raw_text: str) -> Dict[str, Any]:
     return {"points": points, "matched_keywords": matched}
 
 
-def _score_title(title: str) -> Dict[str, Any]:
-    t = title or ""
+def _score_title(posting: Posting) -> Dict[str, Any]:
+    """Title-pattern match against BOTH posting.title and posting.classification.
+    NO wins over YES. A YES that matches both fields counts once (single +25),
+    not twice — the function returns on the first hit it finds."""
+    candidates = [c for c in (posting.title, posting.classification) if c]
     for original, pat in _NO_TITLES:
-        if pat.search(t):
-            return {"points": -25, "matched": original, "list": "no"}
+        for cand in candidates:
+            if pat.search(cand):
+                return {"points": -25, "matched": original, "list": "no"}
     for original, pat in _YES_TITLES:
-        if pat.search(t):
-            return {"points": 25, "matched": original, "list": "yes"}
+        for cand in candidates:
+            if pat.search(cand):
+                return {"points": 25, "matched": original, "list": "yes"}
     return {"points": 0, "matched": None, "list": None}
 
 
@@ -205,7 +210,7 @@ def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any
     now = now or date.today()
     components = {
         "keyword_match": _score_keywords(posting.raw_text),
-        "title_match": _score_title(posting.title),
+        "title_match": _score_title(posting),
         "flexibility": _score_flexibility(posting),
         "person_facing": _score_person_facing(posting.raw_text),
         "international": _score_international(posting),

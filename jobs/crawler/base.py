@@ -13,6 +13,12 @@ class Posting:
     employer: str
     url: str
     raw_text: str
+    # Structural job series, distinct from the display title — e.g., CalCareers
+    # posts title='.Net Developer' but classification='Information Technology
+    # Specialist I'. score.py's title pattern matcher checks BOTH title and
+    # classification against target_titles. Sources without a separate
+    # classification (USAJobs etc.) leave this None.
+    classification: Optional[str] = None
     salary_min: Optional[float] = None
     salary_max: Optional[float] = None
     location: Optional[str] = None

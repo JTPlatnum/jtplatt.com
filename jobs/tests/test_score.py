@@ -76,6 +76,58 @@ def test_title_word_boundary_avoids_substring_collision():
     assert matched != "Information Technology Specialist II"
 
 
+# --- Title-OR-classification (CalCareers pattern) ---------------------------
+
+def test_classification_matches_yes_when_title_does_not():
+    """CalCareers: title='.Net Developer' (non-matching display name),
+    classification='Information Technology Specialist I' (YES). Score the YES."""
+    p = _make(
+        title=".Net Developer",
+        classification="Information Technology Specialist I",
+        raw_text="",
+    )
+    comp = score_posting(p)["components"]["title_match"]
+    assert comp["points"] == 25
+    assert comp["list"] == "yes"
+    assert comp["matched"] == "Information Technology Specialist I"
+
+
+def test_both_fields_matching_yes_counts_once():
+    """When both title and classification match YES entries, score +25 (not +50)."""
+    p = _make(
+        title="IT Specialist",
+        classification="Information Technology Specialist I",
+        raw_text="",
+    )
+    comp = score_posting(p)["components"]["title_match"]
+    assert comp["points"] == 25
+    assert comp["list"] == "yes"
+
+
+def test_no_in_classification_beats_yes_in_title():
+    """NO penalty wins regardless of which field carries it."""
+    p = _make(
+        title="IT Specialist",  # YES
+        classification="Senior Software Engineer",  # NO
+        raw_text="",
+    )
+    comp = score_posting(p)["components"]["title_match"]
+    assert comp["points"] == -25
+    assert comp["list"] == "no"
+
+
+def test_classification_none_falls_back_to_title_only():
+    """USAJobs-shaped Posting (no classification) still scores from title."""
+    p = _make(
+        title="Senior Software Engineer",
+        classification=None,
+        raw_text="",
+    )
+    comp = score_posting(p)["components"]["title_match"]
+    assert comp["points"] == -25
+    assert comp["list"] == "no"
+
+
 # --- Keyword density --------------------------------------------------------
 
 def test_keyword_density_lifts_score():

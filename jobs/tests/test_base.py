@@ -38,6 +38,7 @@ def test_posting_only_required_fields():
     assert p.all_locations is None
     assert p.telework_flag is None
     assert p.posted_date is None
+    assert p.classification is None
 
 
 def test_posting_accepts_all_locations():
@@ -53,3 +54,17 @@ def test_posting_accepts_all_locations():
     )
     assert p.location == "Sacramento, California"
     assert p.all_locations == ["Sacramento, California", "Wiesbaden, Germany"]
+
+
+def test_posting_accepts_classification():
+    p = Posting(
+        source="test",
+        source_job_id="abc-123",
+        title=".Net Developer",
+        employer="Department of General Services",
+        url="https://example.com/job/abc-123",
+        raw_text="full posting body",
+        classification="Information Technology Specialist I",
+    )
+    assert p.title == ".Net Developer"
+    assert p.classification == "Information Technology Specialist I"
