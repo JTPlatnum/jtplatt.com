@@ -38,11 +38,13 @@ CURRENT_ROLE = {
         "Track work and build custom forms in ServiceNow",
         "Support ADA/accessibility compliance for enterprise web and document publishing",
         "Contribute to external website and internal SharePoint development",
+        "Publish and deploy websites via Azure",
     ],
     "skills_used": [
         "BluePrism", "RPA", "ServiceNow", "WordPress", "SharePoint",
         "security audits", "ADA compliance", "accessibility",
         "custom form design", "workflow design",
+        "Azure (website publishing and deployment)",
     ],
 }
 
@@ -311,7 +313,10 @@ SKILLS = {
         "FI$CAL", "Oracle", "MS Access", "proprietary trade capture systems",
         "QuickBooks",
     ],
-    "it_service": ["ServiceNow", "SharePoint", "custom form design"],
+    "it_service": [
+        "ServiceNow", "SharePoint", "custom form design",
+        "Azure (website publishing/deployment)",
+    ],
     "education_tools": [
         "curriculum design", "Google Workspace for Education",
         "PowerSchool", "code.org", "mastery-based grading",
