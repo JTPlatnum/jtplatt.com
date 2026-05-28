@@ -413,6 +413,24 @@ PREFERENCES = {
         "Lead DevOps Engineer",
         "Cybersecurity Analyst requiring CISSP/CCIE",
     ],
+    # Geographic wishlist for hard-filter location matching. Substring,
+    # case-insensitive — "Sacramento" catches "Sacramento, California" and
+    # "West Sacramento" alike. Sacramento metro (home), Hawaii (Honolulu),
+    # Monterey Bay (CSUMB), Santa Cruz (UCSC town), Oceanside (CSUSM
+    # commute), and the Tahoe/Truckee corridor (childhood home).
+    "target_locations": [
+        "Sacramento",
+        "Yolo",
+        "Placer",
+        "El Dorado",
+        "Honolulu",
+        "Hawaii",
+        "Monterey",
+        "Santa Cruz",
+        "Oceanside",
+        "Truckee",
+        "Tahoe",
+    ],
 }
 
 # --- Convenience: flattened skill keywords for scorer -----------------------

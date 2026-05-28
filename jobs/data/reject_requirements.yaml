@@ -1,1 +1,34 @@
-# Disqualifying credentials and recent-stack requirements. See SPEC.md → Hard Filters.
+# Disqualifying-requirement substrings. If any of these appears in a
+# posting's raw_text (case-insensitive, word-boundary where reasonable),
+# filter.should_keep() rejects with reason "disqualifying: <pattern>".
+#
+# Per CLAUDE.md "inventory is sacred" — JT doesn't hold these; we don't fudge.
+# Update when JT's credentials change (data/inventory.py CREDENTIALS).
+
+# Vendor / network certifications
+- CISSP   # (ISC)² security cert — broad infosec leadership track
+- CCIE    # Cisco Certified Internetwork Expert
+- CCNP    # Cisco Certified Network Professional
+- CCNA    # Cisco Certified Network Associate
+
+# Professional licenses
+- PE      # Professional Engineer (state-licensed)
+- CPA     # Certified Public Accountant
+- JD      # Juris Doctor — law degree / bar-admission proxy
+- MD      # Doctor of Medicine
+- RN      # Registered Nurse
+
+# Security / pentest certifications
+- OSCP    # Offensive Security Certified Professional
+- GIAC    # SANS Global Information Assurance Certification family
+
+# US federal clearances — JT does not hold any
+- Top Secret      # TS clearance
+- Q clearance     # DOE equivalent of TS
+- TS/SCI          # Top Secret / Sensitive Compartmented Information
+- Polygraph       # CI-poly or full-scope — gates IC-adjacent roles
+- Active Secret   # Active DoD Secret-level clearance
+
+# Advanced degree gates — JT holds a BA only
+- Master's degree in   # phrase prefix; matches "Master's degree in CS" etc.
+- PhD                  # doctorate
