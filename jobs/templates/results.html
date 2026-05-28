@@ -1,0 +1,127 @@
+{% macro money(n) -%}
+${{ "{:,.0f}".format(n) }}
+{%- endmacro %}
+
+{% macro card(row) -%}
+<article class="card">
+  <div class="card-head">
+    <h3 class="card-title">{{ row.title }}</h3>
+    <div class="card-scores">
+      {% set t1_color = "green" if row.tier1_score >= 90 else ("amber" if row.tier1_score >= 80 else "muted") %}
+      <span class="badge badge--{{ t1_color }}">T1&nbsp;{{ row.tier1_score }}</span>
+      {% if row.tier2_score is not none %}
+        <span class="badge badge--t2">T2&nbsp;{{ "%.1f"|format(row.tier2_score) }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <p class="card-employer">
+    {{ row.employer }}{% if row.grade %} &middot; {{ row.grade }}{% endif %}
+  </p>
+
+  <ul class="card-facts">
+    <li class="salary">
+      {% if row.salary_monthly_min is not none and row.salary_monthly_max is not none %}
+        {{ money(row.salary_monthly_min) }}&ndash;{{ money(row.salary_monthly_max) }}/mo
+        <span class="muted">({{ money(row.salary_annual_min) }}&ndash;{{ money(row.salary_annual_max) }}/yr)</span>
+      {% else %}
+        <span class="muted">salary not posted</span>
+      {% endif %}
+    </li>
+    <li class="location">
+      {{ row.location_display }}
+      {% if row.all_locations and row.all_locations|length > 1 %}
+        <span class="muted">({{ row.all_locations|length }} locations)</span>
+      {% endif %}
+    </li>
+    {% if row.telework or row.is_overseas %}
+    <li class="flags">
+      {% if row.telework %}<span class="flag flag--telework">Telework</span>{% endif %}
+      {% if row.is_overseas %}<span class="flag flag--overseas">Overseas</span>{% endif %}
+    </li>
+    {% endif %}
+    <li class="posted">
+      <span class="muted">posted</span>
+      {% if row.posted_date %}{{ row.posted_date.isoformat() }}{% else %}&mdash;{% endif %}
+      <span class="muted">&middot; {{ row.source }}</span>
+    </li>
+  </ul>
+
+  <details class="why">
+    <summary>Why this score</summary>
+    <div class="why-body">
+      <p class="why-rationale">{{ row.why.rationale }}</p>
+      {% if row.why.matched_from_background %}
+        <h4>Matched from your background</h4>
+        <ul>
+          {% for m in row.why.matched_from_background %}<li>{{ m }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+      {% if row.why.gaps %}
+        <h4>Gaps</h4>
+        <ul>
+          {% for g in row.why.gaps %}<li>{{ g }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </details>
+
+  <a class="card-link" href="{{ row.url }}" target="_blank" rel="noopener">Open posting &rarr;</a>
+</article>
+{%- endmacro %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jobs.jtplatt.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>jobs.jtplatt.com</h1>
+    <p class="meta">
+      Last run {{ stats.last_run_at.strftime('%Y-%m-%d %H:%M') }}
+      &middot; sources: {{ stats.sources | join(', ') }}
+      &middot; <a href="#audit" class="audit-link">audit view</a>
+    </p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span class="stat-num">{{ stats.scanned }}</span><span class="stat-label">scanned</span></div>
+    <div class="stat"><span class="stat-num">{{ stats.surfaced }}</span><span class="stat-label">surfaced</span></div>
+    <div class="stat"><span class="stat-num">{{ stats.emailed_count }}</span><span class="stat-label">emailed</span></div>
+  </section>
+
+  <section class="bucket bucket--perfect">
+    <h2>Perfect fits <span class="bucket-count">({{ perfect|length }})</span></h2>
+    {% if perfect %}
+      {% for row in perfect %}{{ card(row) }}{% endfor %}
+    {% else %}
+      <p class="empty">None today.</p>
+    {% endif %}
+  </section>
+
+  <section class="bucket bucket--strong">
+    <h2>Strong matches <span class="bucket-count">({{ strong|length }})</span></h2>
+    {% if strong %}
+      {% for row in strong %}{{ card(row) }}{% endfor %}
+    {% else %}
+      <p class="empty">None today.</p>
+    {% endif %}
+  </section>
+
+  <details class="bucket bucket--decent">
+    <summary><span class="bucket-heading">Decent matches 40&ndash;79 <span class="bucket-count">({{ decent|length }})</span></span></summary>
+    {% if decent %}
+      {% for row in decent %}{{ card(row) }}{% endfor %}
+    {% else %}
+      <p class="empty">None today.</p>
+    {% endif %}
+  </details>
+
+  <footer class="page-footer">
+    Rejected (below 40): {{ stats.rejected }}
+  </footer>
+</body>
+</html>
