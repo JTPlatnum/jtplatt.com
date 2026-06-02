@@ -64,3 +64,16 @@ calcareers:
   queries:
     - keyword: "Information Technology Specialist"   # catches 1402 ITS I + 1414 ITS II
     - keyword: "Staff Services Analyst"              # catches 5157 SSA-General
+
+csu:
+  # CSU Careers is PageUp People (tenant 873), shared across all 23 campuses +
+  # Chancellor's Office. Server-side HTML, GET-based search. Source uses
+  # requests + BeautifulSoup. Page 1 only for v1; pagination deferred until
+  # results exceed page_items=50. See notes/csu-recon.md.
+  queries:
+    - category: "Information Systems & Technology"   # primary IT bucket
+      work_type: "Staff"
+    - search_keyword: "Instructional Designer"
+      work_type: "Staff"
+    - search_keyword: "Training Coordinator"
+      work_type: "Staff"

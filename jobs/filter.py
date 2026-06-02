@@ -49,9 +49,9 @@ def _salary_floor() -> float:
 SALARY_FLOOR = _salary_floor()
 
 # Sources whose postings are eligible for filtering. New scrapers land here as
-# they're implemented (governmentjobs, edjoin, csu_careers). Anything else is
-# rejected — keeps stray test postings or future-source bleed out of results.
-ALLOWED_SOURCES = frozenset({"usajobs", "calcareers"})
+# they're implemented (governmentjobs, edjoin). Anything else is rejected —
+# keeps stray test postings or future-source bleed out of results.
+ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu"})
 
 # Current employer JT is leaving — never surface a posting from FI$CAL.
 # Both spellings observed in the wild: "FI$CAL" (official) and "FISCal"
