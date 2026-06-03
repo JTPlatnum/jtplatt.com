@@ -60,7 +60,7 @@ def test_no_title_wins_when_both_match():
 
 
 def test_neutral_title_is_zero():
-    p = _make(title="Custodian II", raw_text="")
+    p = _make(title="Receptionist II", raw_text="")
     result = score_posting(p)
     assert result["components"]["title_match"]["points"] == 0
 

@@ -417,6 +417,14 @@ PREFERENCES = {
         "Application Analyst",
         "Information Technology Consultant",
         "Instructional Technologist",
+        # CTE / Adult Ed surface forms surfaced during EdJoin recon
+        # (2026-06-03). Bare phrases — EdJoin's jobTypeID=6 advertises as
+        # "ADULT EDUCATION TEACHER", and CTE postings spell it both as the
+        # acronym and the full phrase. Added globally because CalCareers,
+        # CSU, and USAJobs also surface these phrasings.
+        "CTE",
+        "Career Technical Education",
+        "Adult Education",
     ],
     "target_titles_no": [
         "Senior Software Engineer",
@@ -425,6 +433,17 @@ PREFERENCES = {
         "Senior Full-Stack Developer",
         "Lead DevOps Engineer",
         "Cybersecurity Analyst requiring CISSP/CCIE",
+        # K-12 noise rejects surfaced during EdJoin recon (2026-06-03).
+        # EdJoin volume is heavy on these roles; without explicit rejects
+        # they pollute the scored set. score.py returns on first NO hit
+        # (NO beats YES), so "Substitute Adult Education Teacher" gets
+        # rejected as substitute work even if Adult Education matches YES.
+        "Substitute Teacher",
+        "Bus Driver",
+        "Custodian",
+        "Cafeteria Worker",
+        "Instructional Aide",
+        "Paraprofessional",
     ],
     # Geographic wishlist for hard-filter location matching. Substring,
     # case-insensitive — "Sacramento" catches "Sacramento, California" and
