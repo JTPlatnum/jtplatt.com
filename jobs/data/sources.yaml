@@ -77,3 +77,40 @@ csu:
       work_type: "Staff"
     - search_keyword: "Training Coordinator"
       work_type: "Staff"
+
+edjoin:
+  # EdJoin is CA K-12 + community college + COE job board on Microsoft IIS +
+  # ASP.NET MVC 5.3 with an Azure Cognitive Search backend. Public JSON API at
+  # /Home/LoadJobs; detail pages SSR HTML with schema.org JSON-LD JobPosting.
+  # Source uses requests + BeautifulSoup. Pagination enabled day-1 per locked
+  # decision §11.7 (stop when page returns <50 records; 20-page safety cap).
+  # See notes/edjoin-recon.md "Decisions (locked 2026-06-03)".
+  #
+  # JT-target counties (countyIDs): El Dorado=9, Monterey=27, Nevada=29,
+  # Placer=31, Sacramento=34, San Diego=37, Santa Cruz=44, Yolo=58.
+  queries:
+    # Lane 1 — Adult Ed Teacher (primary CTE-credential match, jobTypeID=6)
+    - keywords: ""
+      jobTypes: "6"
+      regions: "9,27,29,31,34,37,44,58"
+      rows: 50
+    # Lane 2 — CTE keyword sweep
+    - keywords: "CTE"
+      jobTypes: "0"
+      regions: "9,27,29,31,34,37,44,58"
+      rows: 50
+    # Lane 3 — Career Technical Education full phrase
+    - keywords: "Career Technical Education"
+      jobTypes: "0"
+      regions: "9,27,29,31,34,37,44,58"
+      rows: 50
+    # Lane 4 — Remote keyword sweep (system-wide; remote roles aren't geo-bound)
+    - keywords: "remote"
+      jobTypes: "0"
+      regions: "0"
+      rows: 50
+    # Lane 5 — Virtual teacher sweep (system-wide)
+    - keywords: "virtual teacher"
+      jobTypes: "0"
+      regions: "0"
+      rows: 50

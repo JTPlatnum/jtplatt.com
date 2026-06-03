@@ -106,6 +106,12 @@ def test_csu_source_passes(monkeypatch):
     assert ok is True
 
 
+def test_edjoin_source_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    ok, _ = filter_mod.should_keep(_posting(source="edjoin"))
+    assert ok is True
+
+
 # --- Rule 4: disqualifying requirements ------------------------------------
 
 def test_cissp_requirement_rejects(monkeypatch):
