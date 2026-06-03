@@ -404,6 +404,19 @@ PREFERENCES = {
         "Instructional Designer",
         "Staff Services Analyst (training/program focus)",
         "Educational Programs Assistant",
+        # Working titles surfaced during CSU recon (2026-06-02). Added globally
+        # because they apply across sources, not only CSU. The CSU IT Consultant
+        # class series is not in the structured DOM — these surface forms are
+        # how the work actually advertises across CSU, CalCareers, and USAJobs.
+        "Systems Administrator",
+        "Software Developer",
+        "Programmer",
+        "Programmer Analyst",
+        "Systems Analyst",
+        "Web Developer",
+        "Application Analyst",
+        "Information Technology Consultant",
+        "Instructional Technologist",
     ],
     "target_titles_no": [
         "Senior Software Engineer",
@@ -428,6 +441,7 @@ PREFERENCES = {
         "Monterey",
         "Santa Cruz",
         "Oceanside",
+        "San Marcos",
         "Truckee",
         "Tahoe",
     ],
