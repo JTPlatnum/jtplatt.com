@@ -103,6 +103,14 @@ server stops compiling/installing Playwright (and greenlet) it never uses.
   if the Mac is off at the scheduled run time, there's no fresh crawl that day. GitHub
   Actions is the v2 fallback if this dependency becomes friction.
 
+### Known Regressions
+
+- **EdJoin returning 0 records as of 2026-06-26** across all 5 locked queries (was 234 on
+  2026-06-03). Endpoint healthy (200 OK, well-formed empty result set, same IIS/ASP.NET
+  stack). Suspected filter-param drift (jobTypes and/or region IDs renumbered). Triage
+  path: unfiltered baseline probe → bisect jobTypes vs regions to find the drifted IDs.
+  Not blocking other sources. Investigate before next inventory tuning pass.
+
 ## Decisions Log
 
 - **2026-05-27** — Hosting: `jobs.jtplatt.com` subdomain on Opalstack (separate app).
