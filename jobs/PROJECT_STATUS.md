@@ -48,7 +48,7 @@ These files exist as one-line stubs:
    surface (current top T1 is 60, so the LLM has nothing to upgrade). Cost-conscious
    decision.
 4. **Email notifications (`notify.py`)** — deferred with Tier 2, since the trigger is
-   specced as T1 >= 90 AND T2 >= 8. Can be unblocked earlier by changing the trigger to
+   specced as T1 >= 80 AND T2 >= 8. Can be unblocked earlier by changing the trigger to
    T1-only if desired.
 5. **Threshold tuning** after 2–4 weeks of live data.
 
@@ -89,7 +89,7 @@ These files exist as one-line stubs:
 - **2026-06** — CalCareers + CSU built on Playwright (JS-heavy); deviates from spec's requests+BS4.
 - **2026-06** — EdJoin: 5-query design with pagination, listing-API-first field mapping.
 - **2026-06** — Tier 2 DEFERRED until real T1 >= 80 candidates emerge. Top T1 score with 4 sources is 60.
-- **2026-06** — Email DEFERRED with Tier 2; trigger is T1 >= 90 AND T2 >= 8 per spec.
+- **2026-06** — Email DEFERRED with Tier 2; trigger is T1 >= 80 AND T2 >= 8 per spec.
 - **2026-06** — governmentjobs DE-PRIORITIZED as optional v1.x; not blocking v1 deploy.
 - **2026-06** — Sustained-pace probe (N>1 fetches at production cadence) locked as recon standard after CSU/AWS WAF incident.
 - **2026-06** — Upsert-then-filter architecture locked (main.py = production entry point; scripts/render_demo.py deleted).
