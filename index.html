@@ -4,167 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>James T. Platt</title>
-  <meta name="description" content="JT Platt builds systems that handle the work people shouldn't have to. Finance, classrooms, California state IT, and a job-search agent that runs itself.">
+  <meta name="description" content="JT Platt. From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, sneakers in Oregon, and state IT in Sacramento.">
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header class="hero">
-    <div class="wrap hero-inner">
-      <img class="headshot" src="img/headshot.png" alt="JT Platt">
-      <div>
-        <p class="eyebrow">james t. platt — jt</p>
-        <h1>I automate the boring parts and figure out the rest.</h1>
-        <p class="lede">Two decades of dropping into new fields, finance to classrooms to California state IT, and building whatever the work needed.</p>
+    <div class="wrap wrap--wide">
+      <p class="eyebrow">james t. platt — jt</p>
+      <div class="hero-head">
+        <div class="hero-text">
+          <h1 class="hero-arc">From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, sneakers in Oregon, and state IT in Sacramento.</h1>
+          <p class="lede">I build systems that handle the work people shouldn't have to.</p>
+        </div>
+        <img class="headshot" src="img/headshot.png" alt="JT Platt">
       </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <main>
 
-    <!-- ============ SELECTED PROJECT: jobs agent ============ -->
-    <section class="section" id="project">
-      <p class="kicker">selected project</p>
-      <h2>A job-search agent that runs itself</h2>
+    <!-- ============ SELECTED WORK ============ -->
+    <section class="work">
+      <div class="wrap wrap--wide">
+        <p class="kicker">selected work</p>
 
-      <p>A personal distributed system that does my job search for me. Every morning it crawls four public-sector job boards (USAJobs, CalCareers, the CSU system, and EdJoin), normalizes a few hundred raw postings, and scores each one against a structured inventory of my actual experience. Only near-perfect matches surface; the rare standout triggers an email.</p>
+        <!-- Featured: jobs agent -->
+        <article class="work-feature">
+          <figure>
+            <img src="img/jobs-agent.png" alt="The agent's daily report: scanned and surfaced counts, scored postings, and a per-posting scoring breakdown. Employer and title fields blurred.">
+            <figcaption>A daily run. Employer and title fields blurred; the scoring breakdown is real.</figcaption>
+          </figure>
+          <div>
+            <h3>jobs.jtplatt.com</h3>
+            <p class="lede-sm">A personal distributed system that runs my job search. A daily launchd cron on my Mac crawls four public-sector job boards, scores each posting against a structured inventory of my experience in two tiers (a cheap deterministic filter, then an LLM pass on the survivors), and publishes a static report the server serves behind auth. Rate-limited, robots-aware, and built so an empty scrape never overwrites the last good run.</p>
+            <p class="work-meta">Solo build &middot; Python, Flask, SQLite, BeautifulSoup, Claude API &middot; 2026</p>
+          </div>
+        </article>
 
-      <p>The architecture splits the heavy work from the serving. A launchd cron job on my Mac runs the full crawl, filter, and score pipeline locally each day, renders a static HTML report, and publishes just that artifact to the server. The server's only job is to serve the page. Nothing scrapes in production, so there is no long-running crawler to babysit and no production cost to the model calls.</p>
+        <!-- Grid: the rest -->
+        <div class="work-grid">
 
-      <p>Scoring runs in two tiers. A deterministic pass (keywords, title rules, location, salary floor) filters and ranks cheaply; only the survivors reach the LLM tier, which keeps token spend near zero. Crawlers are rate-limited and robots-aware, and an empty scrape never overwrites the last good run.</p>
+          <article class="work-card">
+            <h3>The Sneaker Savant &amp; Shoemetrics</h3>
+            <p>Built a sneaker authentication brand from nothing, including Shoemetrics, a proprietary methodology for grading sneaker condition. Grew a community of 16,000+ reaching 1.5M accounts a month, and advised StockX.</p>
+            <p class="work-meta">Founder &middot; brand, product, methodology &middot; 2013–present</p>
+          </article>
 
-      <figure>
-        <img src="img/jobs-agent.png" alt="The agent's daily report: scanned and surfaced counts, scored postings, and a per-posting scoring breakdown. Employer and title fields blurred.">
-        <figcaption>A daily run. Employer and title fields blurred; the scoring breakdown is real.</figcaption>
-      </figure>
+          <article class="work-card">
+            <h3>Budweiser "Puppy Love" microsite</h3>
+            <p>The microsite for Budweiser's "Puppy Love" campaign at Super Bowl XLVIII, which reached more than 40 million people. Built at Thismoment, a brand-experience platform whose curated, scrollable content streams predated the timeline interface Facebook later made the norm.</p>
+            <p class="work-meta">Front-end engineer &middot; HTML, CSS, JavaScript on a proprietary CMS &middot; Super Bowl XLVIII, 2014</p>
+          </article>
 
-      <ul class="facts">
-        <li><strong>Pipeline</strong> &middot; daily launchd cron on Mac, publish to server, serve static</li>
-        <li><strong>Scoring</strong> &middot; deterministic filter, then a Claude LLM tier on the survivors</li>
-        <li><strong>Reliability</strong> &middot; rate-limited crawlers, robots-aware, empty-scrape protection</li>
-      </ul>
+          <article class="work-card">
+            <h3>CodeKings → RewardStyle</h3>
+            <p>Early product development at an ad-tech startup. Managed ad-server systems for hundreds of clients and ran delivery as the team scaled from 4 to 20+ people, through its acquisition by RewardStyle.</p>
+            <p class="work-meta">Project manager &amp; front-end developer &middot; ad-server systems &middot; 2015–2017</p>
+          </article>
 
-      <ul class="tags">
-        <li>Python</li><li>Flask</li><li>SQLite</li><li>BeautifulSoup</li>
-        <li>Jinja2</li><li>Claude API</li><li>gunicorn</li><li>launchd</li>
-      </ul>
+          <article class="work-card">
+            <h3>Computer Science &amp; CTE</h3>
+            <p>Taught Geometry and Computer Science in East Oakland, built a Geometry curriculum to California standards from scratch, and earned a California Career Technical Education credential.</p>
+            <p class="work-meta">Teacher &middot; curriculum design, classroom delivery &middot; 2017–2020</p>
+          </article>
 
-      <p class="note" style="margin-top:20px;">Live behind auth at jobs.jtplatt.com. Happy to walk through it on request.</p>
+        </div>
+      </div>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
-    <section class="section" id="experience">
-      <p class="kicker">experience</p>
-      <h2>Where I've built things</h2>
+    <div class="wrap">
+      <section class="section" id="experience">
+        <p class="kicker">experience</p>
+        <h2>The full record</h2>
 
-      <div class="track">
-        <p class="track-label">technology &amp; it</p>
-
-        <div class="role">
-          <div class="role-head">
-            <h3>Information Technology Specialist I</h3>
-            <span class="role-meta">State of California (FI$CAL) &middot; 2023–now</span>
-          </div>
-          <p>RPA automations in BluePrism, ServiceNow workflows and custom forms, SharePoint and external web publishing via Azure, security audits, and ADA / accessibility compliance.</p>
+        <div class="track">
+          <p class="track-label">technology &amp; it</p>
+          <ul class="timeline">
+            <li><span class="tl-role">Information Technology Specialist I</span> <span class="tl-sep">/</span> <span class="tl-emp">State of California (FI$CAL)</span> <span class="tl-yr">2023–now</span></li>
+            <li><span class="tl-role">Front-End Developer</span> <span class="tl-sep">/</span> <span class="tl-emp">Thismoment → CodeKings → RewardStyle</span> <span class="tl-yr">2013–2016</span></li>
+            <li><span class="tl-role">IT &amp; Accounting Consultant</span> <span class="tl-sep">/</span> <span class="tl-emp">Tahoe Restaurant Collection</span> <span class="tl-yr">2011–2013</span></li>
+          </ul>
         </div>
 
-        <div class="role">
-          <div class="role-head">
-            <h3>Project Manager &amp; Front-End Developer</h3>
-            <span class="role-meta">CodeKings, acquired by RewardStyle &middot; 2015–2017</span>
-          </div>
-          <p>Helped scale the team from 4 to 20+ in under a year, managing ad-server systems and project delivery through the acquisition.</p>
+        <div class="track">
+          <p class="track-label">finance &amp; analysis</p>
+          <ul class="timeline">
+            <li><span class="tl-role">Quality Assurance Analyst</span> <span class="tl-sep">/</span> <span class="tl-emp">Intuit</span> <span class="tl-yr">2010–2011</span></li>
+            <li><span class="tl-role">Business Analyst, Middle Office</span> <span class="tl-sep">/</span> <span class="tl-emp">GFI Group</span> <span class="tl-yr">2008–2010</span></li>
+            <li><span class="tl-role">Senior Accountant &amp; Financial Analyst</span> <span class="tl-sep">/</span> <span class="tl-emp">GFI Group</span> <span class="tl-yr">2006–2008</span></li>
+            <li><span class="tl-role">Commodities AR Analyst</span> <span class="tl-sep">/</span> <span class="tl-emp">Bear Stearns</span> <span class="tl-yr">2006</span></li>
+            <li><span class="tl-role">Junior Accountant</span> <span class="tl-sep">/</span> <span class="tl-emp">GFI Group</span> <span class="tl-yr">2004–2006</span></li>
+            <li><span class="tl-role">Foreign Bureau Accountant</span> <span class="tl-sep">/</span> <span class="tl-emp">Associated Press</span> <span class="tl-yr">2003–2004</span></li>
+          </ul>
         </div>
 
-        <div class="role">
-          <div class="role-head">
-            <h3>Front-End Web Developer</h3>
-            <span class="role-meta">Thismoment &middot; 2013–2014</span>
-          </div>
-          <p>Built marketing sites for Fortune 500 clients, led a team of 8 to ship 85 client sites in one week, and built the Bud Light Super Bowl 2014 campaign site.</p>
+        <div class="track">
+          <p class="track-label">teaching &amp; cte</p>
+          <ul class="timeline">
+            <li><span class="tl-role">Mathematics &amp; Computer Science Teacher</span> <span class="tl-sep">/</span> <span class="tl-emp">ARISE High School</span> <span class="tl-yr">2018–2020</span></li>
+            <li><span class="tl-role">Teacher &amp; Web Development Instructor</span> <span class="tl-sep">/</span> <span class="tl-emp">Oakland Charter Academy (Amethod)</span> <span class="tl-yr">2017–2018</span></li>
+          </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="track">
-        <p class="track-label">finance &amp; analysis</p>
+      <!-- ============ EDUCATION & CREDENTIALS ============ -->
+      <section class="section" id="education">
+        <p class="kicker">education &amp; credentials</p>
+        <h2>Credentials</h2>
+        <ul class="creds">
+          <li>BA, Business Management Economics <span class="where">&middot; UC Santa Cruz</span></li>
+          <li>CA Career Technical Education Credential <span class="where">&middot; Business &amp; Information Systems</span></li>
+          <li>Web Developer Certificate <span class="where">&middot; Coding Dojo</span></li>
+        </ul>
+      </section>
 
-        <div class="role">
-          <div class="role-head">
-            <h3>Business Analyst &amp; Senior Accountant</h3>
-            <span class="role-meta">GFI Group &middot; 2004–2010</span>
-          </div>
-          <p>Designed a trade-capture system that cut new-product onboarding from months to days. Ran P&amp;L and budgeting across FX, commodities, and energy desks, and supported the 2006 IPO.</p>
-        </div>
-
-        <div class="role">
-          <div class="role-head">
-            <h3>Commodities AR Analyst</h3>
-            <span class="role-meta">Bear Stearns &middot; 2006</span>
-          </div>
-          <p>Replaced a 1,000-page dot-matrix report with streamlined Excel-based reporting for the COMEX trading desk.</p>
-        </div>
-
-        <div class="role">
-          <div class="role-head">
-            <h3>Quality Assurance Analyst</h3>
-            <span class="role-meta">Intuit &middot; 2010–2011</span>
-          </div>
-          <p>Functional and regression testing for QuickBooks platform updates in an Agile shop.</p>
-        </div>
-      </div>
-
-      <div class="track">
-        <p class="track-label">teaching &amp; cte</p>
-
-        <div class="role">
-          <div class="role-head">
-            <h3>Mathematics &amp; Computer Science Teacher</h3>
-            <span class="role-meta">ARISE High School &middot; 2018–2020</span>
-          </div>
-          <p>Built a Geometry curriculum to California standards, taught Computer Science with code.org, and earned a CA Career Technical Education credential.</p>
-        </div>
-
-        <div class="role">
-          <div class="role-head">
-            <h3>Teacher &amp; Web Development Instructor</h3>
-            <span class="role-meta">Oakland Charter Academy (Amethod) &middot; 2017–2018</span>
-          </div>
-          <p>Ran an after-school web development course and served as de facto IT support for staff and students.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SELECTED VENTURE: Sneaker Savant ============ -->
-    <section class="section" id="venture">
-      <p class="kicker">selected venture</p>
-      <h2>The Sneaker Savant</h2>
-      <p>Founder and operator since 2013. I built a sneaker authentication brand from nothing: a proprietary Shoemetrics grading methodology, a community of 16,000+ on Instagram reaching 1.5M accounts a month at its peak, five trading-card sets, and an advisory role with StockX. Proof I can take a product from idea to audience on my own.</p>
-      <ul class="tags">
-        <li><a href="https://www.thesneakersavant.com" target="_blank" rel="noopener">thesneakersavant.com</a></li>
-        <li><a href="https://www.instagram.com/thesneakersavant/" target="_blank" rel="noopener">@thesneakersavant</a></li>
-      </ul>
-    </section>
-
-    <!-- ============ EDUCATION & CREDENTIALS ============ -->
-    <section class="section" id="education">
-      <p class="kicker">education &amp; credentials</p>
-      <h2>Credentials</h2>
-      <ul class="creds">
-        <li>BA, Business Management Economics <span class="where">&middot; UC Santa Cruz</span></li>
-        <li>CA Career Technical Education Credential <span class="where">&middot; Business &amp; Information Systems</span></li>
-        <li>Web Developer Certificate <span class="where">&middot; Coding Dojo</span></li>
-      </ul>
-    </section>
-
-    <!-- ============ RESUME (placeholder, no dead link) ============ -->
-    <section class="section" id="resume">
-      <p class="kicker">resume</p>
-      <h2>The full history</h2>
-      <p>A current resume is in the works. Until it lands, the complete history lives on <a href="https://www.linkedin.com/in/jtplatt/" target="_blank" rel="noopener">LinkedIn</a>, or just reach out by email.</p>
-      <!-- TODO: when the new PDF is ready, drop it in downloads/ and link it here:
-           <p><a href="downloads/JPlattResume.pdf">Download resume (PDF)</a></p> -->
-    </section>
+      <!-- ============ RESUME (placeholder, no dead link) ============ -->
+      <section class="section" id="resume">
+        <p class="kicker">resume</p>
+        <h2>The full history</h2>
+        <p>A current resume is in the works. Until it lands, the complete history lives on <a href="https://www.linkedin.com/in/jtplatt/" target="_blank" rel="noopener">LinkedIn</a>, or just reach out by email.</p>
+        <!-- TODO: when the new PDF is ready, drop it in downloads/ and link it here:
+             <p><a href="downloads/JPlattResume.pdf">Download resume (PDF)</a></p> -->
+      </section>
+    </div>
 
   </main>
 
