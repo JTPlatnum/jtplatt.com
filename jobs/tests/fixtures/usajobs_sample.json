@@ -1,0 +1,2417 @@
+{
+  "LanguageCode": "EN",
+  "SearchParameters": {},
+  "SearchResult": {
+    "SearchResultCount": 5,
+    "SearchResultCountAll": 12,
+    "SearchResultItems": [
+      {
+        "MatchedObjectId": "870502400",
+        "MatchedObjectDescriptor": {
+          "PositionID": "260004MP-12951788-CS",
+          "PositionTitle": "Azure Architect",
+          "PositionURI": "https://www.usajobs.gov:443/job/870502400",
+          "ApplyURI": [
+            "https://www.usajobs.gov:443/job/870502400"
+          ],
+          "PositionLocationDisplay": "Multiple Locations",
+          "PositionLocation": [
+            {
+              "LocationName": "Birmingham, Alabama",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Alabama",
+              "CityName": "Birmingham, Alabama",
+              "Longitude": -86.8115,
+              "Latitude": 33.5203
+            },
+            {
+              "LocationName": "Little Rock, Arkansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arkansas",
+              "CityName": "Little Rock, Arkansas",
+              "Longitude": -92.2745,
+              "Latitude": 34.7487
+            },
+            {
+              "LocationName": "Mesa, Arizona",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arizona",
+              "CityName": "Mesa, Arizona",
+              "Longitude": -111.83146,
+              "Latitude": 33.417046
+            },
+            {
+              "LocationName": "Covina, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Covina, California",
+              "Longitude": -117.88902,
+              "Latitude": 34.087425
+            },
+            {
+              "LocationName": "Oakland, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Oakland, California",
+              "Longitude": -122.273026,
+              "Latitude": 37.805065
+            },
+            {
+              "LocationName": "Roseville, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Roseville, California",
+              "Longitude": -121.28456,
+              "Latitude": 38.748528
+            },
+            {
+              "LocationName": "Denver, Colorado",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Colorado",
+              "CityName": "Denver, Colorado",
+              "Longitude": -104.992256,
+              "Latitude": 39.74001
+            },
+            {
+              "LocationName": "Washington, District of Columbia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "District of Columbia",
+              "CityName": "Washington, District of Columbia",
+              "Longitude": -77.032,
+              "Latitude": 38.8904
+            },
+            {
+              "LocationName": "Jacksonville, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Jacksonville, Florida",
+              "Longitude": -81.6558,
+              "Latitude": 30.33138
+            },
+            {
+              "LocationName": "Tampa, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Tampa, Florida",
+              "Longitude": -82.45927,
+              "Latitude": 27.94653
+            },
+            {
+              "LocationName": "Atlanta, Georgia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Georgia",
+              "CityName": "Atlanta, Georgia",
+              "Longitude": -84.39111,
+              "Latitude": 33.748314
+            },
+            {
+              "LocationName": "Des Moines, Iowa",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Iowa",
+              "CityName": "Des Moines, Iowa",
+              "Longitude": -93.61568,
+              "Latitude": 41.589787
+            },
+            {
+              "LocationName": "Chicago, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Chicago, Illinois",
+              "Longitude": -87.63241,
+              "Latitude": 41.88415
+            },
+            {
+              "LocationName": "Decatur, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Decatur, Illinois",
+              "Longitude": -88.95246,
+              "Latitude": 39.845844
+            },
+            {
+              "LocationName": "Joliet, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Joliet, Illinois",
+              "Longitude": -88.084595,
+              "Latitude": 41.524933
+            },
+            {
+              "LocationName": "Indianapolis, Indiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Indiana",
+              "CityName": "Indianapolis, Indiana",
+              "Longitude": -86.14996,
+              "Latitude": 39.76691
+            },
+            {
+              "LocationName": "Kansas City, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Kansas City, Kansas",
+              "Longitude": -94.62682,
+              "Latitude": 39.11338
+            },
+            {
+              "LocationName": "Wichita, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Wichita, Kansas",
+              "Longitude": -97.33558,
+              "Latitude": 37.68698
+            },
+            {
+              "LocationName": "Louisville, Kentucky",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kentucky",
+              "CityName": "Louisville, Kentucky",
+              "Longitude": -85.7664,
+              "Latitude": 38.25486
+            },
+            {
+              "LocationName": "New Orleans, Louisiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Louisiana",
+              "CityName": "New Orleans, Louisiana",
+              "Longitude": -90.07771,
+              "Latitude": 29.95369
+            },
+            {
+              "LocationName": "Boston, Massachusetts",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Massachusetts",
+              "CityName": "Boston, Massachusetts",
+              "Longitude": -71.0567,
+              "Latitude": 42.358635
+            },
+            {
+              "LocationName": "Baltimore, Maryland",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Maryland",
+              "CityName": "Baltimore, Maryland",
+              "Longitude": -76.609604,
+              "Latitude": 39.290554
+            },
+            {
+              "LocationName": "Detroit, Michigan",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Michigan",
+              "CityName": "Detroit, Michigan",
+              "Longitude": -83.0479,
+              "Latitude": 42.3317
+            },
+            {
+              "LocationName": "Duluth, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Duluth, Minnesota",
+              "Longitude": -92.09985,
+              "Latitude": 46.787964
+            },
+            {
+              "LocationName": "Saint Paul, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Saint Paul, Minnesota",
+              "Longitude": -93.09333,
+              "Latitude": 44.94383
+            },
+            {
+              "LocationName": "Saint Louis, Missouri",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Missouri",
+              "CityName": "Saint Louis, Missouri",
+              "Longitude": -90.19952,
+              "Latitude": 38.62774
+            },
+            {
+              "LocationName": "Billings, Montana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Montana",
+              "CityName": "Billings, Montana",
+              "Longitude": -108.50558,
+              "Latitude": 45.783752
+            },
+            {
+              "LocationName": "Charlotte, North Carolina",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Carolina",
+              "CityName": "Charlotte, North Carolina",
+              "Longitude": -80.83754,
+              "Latitude": 35.2225
+            },
+            {
+              "LocationName": "Fargo, North Dakota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Dakota",
+              "CityName": "Fargo, North Dakota",
+              "Longitude": -96.78177,
+              "Latitude": 46.87591
+            },
+            {
+              "LocationName": "Omaha, Nebraska",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Nebraska",
+              "CityName": "Omaha, Nebraska",
+              "Longitude": -95.94007,
+              "Latitude": 41.26067
+            },
+            {
+              "LocationName": "Newark, New Jersey",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Jersey",
+              "CityName": "Newark, New Jersey",
+              "Longitude": -74.17419,
+              "Latitude": 40.73197
+            },
+            {
+              "LocationName": "Albuquerque, New Mexico",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Mexico",
+              "CityName": "Albuquerque, New Mexico",
+              "Longitude": -106.649,
+              "Latitude": 35.0842
+            },
+            {
+              "LocationName": "Albany, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Albany, New York",
+              "Longitude": -73.75527,
+              "Latitude": 42.651455
+            },
+            {
+              "LocationName": "Buffalo, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Buffalo, New York",
+              "Longitude": -78.87846,
+              "Latitude": 42.88544
+            },
+            {
+              "LocationName": "Central Islip, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Central Islip, New York",
+              "Longitude": -73.21191,
+              "Latitude": 40.80207
+            },
+            {
+              "LocationName": "New York, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "New York, New York",
+              "Longitude": -74.0071,
+              "Latitude": 40.7146
+            },
+            {
+              "LocationName": "Cincinnati, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cincinnati, Ohio",
+              "Longitude": -84.5041,
+              "Latitude": 39.1071
+            },
+            {
+              "LocationName": "Cleveland, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cleveland, Ohio",
+              "Longitude": -81.690575,
+              "Latitude": 41.504494
+            },
+            {
+              "LocationName": "Portland, Oregon",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Oregon",
+              "CityName": "Portland, Oregon",
+              "Longitude": -122.67563,
+              "Latitude": 45.511795
+            },
+            {
+              "LocationName": "Altoona, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Altoona, Pennsylvania",
+              "Longitude": -78.3989,
+              "Latitude": 40.5072
+            },
+            {
+              "LocationName": "Harrisburg, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Harrisburg, Pennsylvania",
+              "Longitude": -76.882225,
+              "Latitude": 40.259876
+            },
+            {
+              "LocationName": "Philadelphia, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Philadelphia, Pennsylvania",
+              "Longitude": -75.16237,
+              "Latitude": 39.95227
+            },
+            {
+              "LocationName": "Pittsburgh, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Pittsburgh, Pennsylvania",
+              "Longitude": -79.99746,
+              "Latitude": 40.43831
+            },
+            {
+              "LocationName": "Scranton, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Scranton, Pennsylvania",
+              "Longitude": -75.6608,
+              "Latitude": 41.410133
+            },
+            {
+              "LocationName": "Nashville, Tennessee",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Tennessee",
+              "CityName": "Nashville, Tennessee",
+              "Longitude": -86.778366,
+              "Latitude": 36.16778
+            },
+            {
+              "LocationName": "Fort Worth, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Fort Worth, Texas",
+              "Longitude": -97.32925,
+              "Latitude": 32.74863
+            },
+            {
+              "LocationName": "Houston, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Houston, Texas",
+              "Longitude": -95.36978,
+              "Latitude": 29.76045
+            },
+            {
+              "LocationName": "Salt Lake City, Utah",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Utah",
+              "CityName": "Salt Lake City, Utah",
+              "Longitude": -111.88823,
+              "Latitude": 40.75952
+            },
+            {
+              "LocationName": "Richmond, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Richmond, Virginia",
+              "Longitude": -77.433655,
+              "Latitude": 37.5407
+            },
+            {
+              "LocationName": "Roanoke, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Roanoke, Virginia",
+              "Longitude": -79.9405,
+              "Latitude": 37.2715
+            },
+            {
+              "LocationName": "Seattle, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Seattle, Washington",
+              "Longitude": -122.32945,
+              "Latitude": 47.60358
+            },
+            {
+              "LocationName": "Spokane, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Spokane, Washington",
+              "Longitude": -117.41228,
+              "Latitude": 47.65726
+            },
+            {
+              "LocationName": "Milwaukee, Wisconsin",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Wisconsin",
+              "CityName": "Milwaukee, Wisconsin",
+              "Longitude": -87.906845,
+              "Latitude": 43.04181
+            },
+            {
+              "LocationName": "Huntington, West Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "West Virginia",
+              "CityName": "Huntington, West Virginia",
+              "Longitude": -82.44537,
+              "Latitude": 38.419827
+            }
+          ],
+          "OrganizationName": "Railroad Retirement Board",
+          "DepartmentName": "Other Agencies and Independent Organizations",
+          "JobCategory": [
+            {
+              "Name": "Information Technology Management",
+              "Code": "2210"
+            }
+          ],
+          "JobGrade": [
+            {
+              "Code": "GS"
+            }
+          ],
+          "PositionSchedule": [
+            {
+              "Name": "Incumbent may be required to work outside of normal duty hours, such as nights, weekends, and holidays, due to operational needs.",
+              "Code": "1"
+            }
+          ],
+          "PositionOfferingType": [
+            {
+              "Name": "",
+              "Code": "15317"
+            }
+          ],
+          "QualificationSummary": "Minimum Qualifications for GS-13 level: One year of specialized experience equivalent to the GS-12 grade level in the Federal service. Specialized experience is: Experience designing, engineering, and implementing Azure cloud architectures for enterprise environments, including secure, scalable, and highly available solutions. Experience leading cloud migration and modernization efforts, including assessments, planning, and execution of transitioning systems to Microsoft Azure. Experience ensuring compliance with federal cybersecurity frameworks such as NIST and FISMA in cloud and hybrid environments. Time-in grade-restrictions: Applicants who are current or former Federal employees and have held a GS grade any time in the past 52 weeks must also meet time-in-grade requirements (52 weeks at the next lower grade level). Experience refers to paid and unpaid experience, including volunteer work done through National Service programs (e.g., Peace Corps, AmeriCorps) and other organizations (e.g., professional, philanthropic, religious, spiritual; community, student, social). Volunteer work helps build critical competencies, knowledge, and skills and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience. Only experience and/or education obtained by the closing date of this announcement will be considered.",
+          "PositionRemuneration": [
+            {
+              "MinimumRange": "90925",
+              "MaximumRange": "118204",
+              "RateIntervalCode": "PA",
+              "Description": "Per Year"
+            }
+          ],
+          "PositionStartDate": "2026-05-26T07:11:05.6100",
+          "PositionEndDate": "2026-06-09T23:59:59.9970",
+          "PublicationStartDate": "2026-05-26T07:11:05.6100",
+          "ApplicationCloseDate": "2026-06-09T23:59:59.9970",
+          "PositionFormattedDescription": [
+            {
+              "Label": "Dynamic Teaser",
+              "LabelDescription": "Hit highlighting for keyword searches."
+            }
+          ],
+          "UserArea": {
+            "Details": {
+              "JobSummary": "This position is located in the Railroad Retirement Board's Bureau of Information Services. The incumbent will be responsible for the design, development, implementation, and optimization of cloud-based solutions within Microsoft Azure. This job announcement may be used to fill one or more vacancies. This is a bargaining unit position. This position is represented by the Council of AFGE Locals in the Board.",
+              "WhoMayApply": {
+                "Name": "",
+                "Code": ""
+              },
+              "LowGrade": "13",
+              "HighGrade": "13",
+              "PromotionPotential": "13",
+              "OrganizationCodes": "OT/RR00",
+              "Relocation": "False",
+              "HiringPath": [
+                "fed-transition",
+                "overseas",
+                "fed-competitive",
+                "land",
+                "mspouse",
+                "peace",
+                "vet"
+              ],
+              "MCOTags": [
+                "07",
+                "Semester of Service"
+              ],
+              "TotalOpenings": "1",
+              "AgencyMarketingStatement": "The Railroad Retirement Board (RRB) is an independent Federal agency established nearly 90 years ago under President Roosevelt's New Deal legislation. Created separate from (but similar to) the social security program for America's workforce, the RRB administers retirement, survivor, unemployment, and sickness benefits for railroad retirees, workers, and their families. We are the only Federal agency headquartered in downtown Chicago, with 53 field offices nationwide. Our dedicated staff works across a variety of career fields, including information technology, benefit program operations, accounting, finance, and law. Whatever the job title, every position within the RRB contributes to our proud tradition of excellent customer service -- a hallmark of the RRB since its inception in 1935. Whether you are just starting out or are an experienced professional seeking a career change, consider joining the RRB for challenging work that is truly meaningful.",
+              "TravelCode": "2",
+              "ApplyOnlineUrl": "https://apply.usastaffing.gov/Application/Apply",
+              "DetailStatusUrl": "https://apply.usastaffing.gov/Application/ApplicationStatus",
+              "MajorDuties": [
+                "As an Azure Architect, you will: Serve as the organization's senior Azure Architect and recognized subject matter expert (SME) for cloud systems engineering, providing authoritative guidance on the design, development, implementation, and governance of Microsoft Azure solutions. Advise senior leadership on cloud strategy, investment planning, and long-term modernization initiatives, influencing the agency's overall IT direction. Design and engineer enterprise-level cloud architectures that are secure, scalable, highly available, and resilient, ensuring alignment with mission requirements and seamless integration with on-premises systems in hybrid environments. Lead evaluations of existing and proposed IT systems, applications, and services to determine optimal hosting environments, conducting detailed analyses of architectural feasibility, system performance, cybersecurity requirements, and total cost of ownership. Perform comprehensive cost-benefit and lifecycle cost analyses comparing Azure-based solutions with traditional on-premises infrastructure, providing data-driven recommendations to leadership to support strategic and investment decisions."
+              ],
+              "Education": "There is no education substitution for this position.",
+              "Requirements": "",
+              "Evaluations": "You will be evaluated based on how well you meet the qualifications listed in this vacancy announcement. Your qualifications will be evaluated based on your application materials (e.g., resume, supporting documents), your responses on the application questionnaire, and your responses to all assessments required for this position. You will be assessed on the following competencies (knowledge, skills, abilities, and other characteristics): Accountability Attention to Detail Customer Service Flexibility Influencing/ Negotiating Integrity/ Honesty Interpersonal Skills Learning Self-Management Stress Tolerance Teamwork Decision Making Reading Comprehension Reasoning Overstating your qualifications and/or experience in your application materials or application questionnaire may result in your removal from consideration. Cheating on the online assessment may also result in your removal from consideration.",
+              "HowToApply": "In accordance with the Merit Hiring Plan, only resumes up to a total of two pages will be accepted. Applicants with resumes exceeding two pages will be removed from consideration. Resumes must be legible so they can be reviewed for eligibility, minimum qualifications and other position requirements listed in the job announcement. We recommend using a sans-serif font size like Lato, if available. Other widely available options are Calibri, Helvetica, Arial, Verdana, Open Sans, Source Sans Pro, Roboto or Noro Sans. Make your page margins 0.5 inches. Consider using 14-point size font for titles and 10-point for the main text in your resume. For additional guidance on what to include in your resume, please see USAJOBS Help. Please read the entire announcement and all the instructions before you begin an application. To apply and be considered for this position, you must complete all required questionnaires, assessments and submit all required documentation as specified in the How to Apply and Required Documents section. The complete application package must be submitted by 11:59 PM (ET) on the closing date of the announcement to receive consideration. The application process is as follows: Click the Apply Online button. Answer the questions presented in the application and attach all necessary supporting documentation. Click the Submit Application button prior to 11:59 PM (ET) on the announcement closing date. If you are required to complete any USA Hire Assessments, you will be notified after submitting your application. The notification will be provided in your application submission screen and via email. The notification will include your unique assessment access link to the USA Hire system and the completion deadline. Additionally, in USAJOBS you can click \"Track this application\" to return to your assessment completion notice. Access USA Hire using your unique assessment link. Access is granted through your USAJOBS login credentials. Review all instructions prior to beginning your assessments. You will have the opportunity to request a testing accommodation before beginning the assessments should you have a disability covered under the Rehabilitation Act of 1973 as amended. Set aside about two (2) hours to take the USA Hire Assessments; however, most applicants complete the assessments in less time. If you need to stop the assessments and continue later, you can re-use your unique assessment link. Your responses to the USA Hire Assessments will be reused for one year (in most cases) from the date you complete an assessment. If future applications you submit require completion of the same assessments, your responses will be automatically reused. Visit the USA Hire Applicant Resource Center for practice assessments and assessment preparation resources at https://support-usahire.opm.gov/hc/en-us. To update your application, including supporting documentation: During the announcement open period, return to your USAJOBS account, find your application record, and click Edit my application. This option will no longer be available once the announcement has closed. To view the announcement status or your application status: Click on this: https://www.usajobs.gov/Help/how-to/application/status/. Your application status page is where you can view your application status, USA Hire assessment completion status, and review your notifications sent by the hiring agency regarding your application.",
+              "WhatToExpectNext": "Once your online application is submitted you will receive a confirmation notification by email. After a review of your complete application is made, you will be notified of your rating and possible referral to the hiring official. If further evaluation or interviews are required you will be contacted.",
+              "RequiredDocuments": "To apply for this position, you must provide a complete Application Package which includes: Resume showing work schedule, hours worked per week, dates of employment and duties performed. Resume must not exceed 2 pages. Applicants will be removed from consideration if their resume is longer than 2 pages. Please see \"How to Apply\" for additional information regarding the limit. SF-50: If you are a current or former Federal employee, you must submit a copy of a recent Notification of Personnel Action, SF-50, showing competitive status. (Blocks #24 and #34 must be completed.) Performance Appraisal: If you are a current or former Federal employee, you are encouraged to submit a complete copy of a current or last performance appraisal. The performance appraisal may be used as part of the ranking process and/or to verify your responses to the questionnaire. Veterans' Documentation: If you are a veteran, you must provide a copy of your Record of Military Service (DD-214), and proof of your veterans' preference, if applicable. Veterans with a service connected disability must also submit a completed claim form SF-15 (click here for form) along with the required proofs. Go to FedsHireVets-Veterans Preference for more information. Interagency Career Transition Assistance Plan (ICTAP) documentation: If you are eligible under ICTAP, you must submit all required materials verifying your eligibility as listed in \"Additional Information.\" These materials include: Proof of eligibility: You must submit documentation such as a separation notice or other required material; and SF-50: You must submit a copy of a recent Notification of Personnel Action, SF-50 that shows career or career-conditional competitive service status (Blocks #24 and #34 must be completed); and Performance Appraisal: You must submit your most recent performance appraisal, which must be rated at least fully successful or equivalent. (This is not required if you are eligible for ICTAP due to compensable injury or disability retirement.) The performance appraisal may also be used as part of the ranking process and/or to verify your responses to the questionnaire.",
+              "Benefits": "",
+              "BenefitsDisplayDefaultText": true,
+              "OtherInformation": "Reasonable Accommodation (RA) Requests: If you believe you have a disability (i.e., physical or mental), covered by the Rehabilitation Act of 1973 as amended that would interfere with completing the USA Hire Competency Based Assessments, you will be granted the opportunity to request a RA in your online application. Requests for RA for the USA Hire Competency Based Assessments and appropriate supporting documentation for RA must be received prior to starting the USA Hire Competency Based Assessments. Decisions on requests for RA are made on a case-by-case basis. If you meet the minimum qualifications of the position, after notification of the adjudication of your request, you will receive an email invitation to complete the USA Hire Competency Based Assessments, based on your adjudication decision. You must complete all assessments within 48 hours of receiving the URL to access the USA Hire Competency Based Assessments if you received the link after the close of the announcement. To determine if you need a RA, please review the Procedures for Requesting a Reasonable Accommodation for Online Assessments. (https://appsupport-usastaffing.opm.gov/hc/en-us/sections/45063131363475-Reasonable-Accommodation-Information) Veterans Employment Opportunity Act (VEOA): To be eligible for a VEOA appointment under Merit Promotion procedures, the veteran must be a preference eligible or a veteran separated after 3 years or more of continuous active service performed under honorable conditions. INTERAGENCY CAREER TRANSITION ASSISTANCE PLAN (ICTAP): ICTAP provides eligible displaced Federal competitive service employees with selection priority for competitive service vacancies. You must be determined to be well-qualified for the vacancy to be eligible for special selection priority. After submission of an acceptable application which meets ICTAP eligibility, you will be determined to be well-qualified for a vacancy if your rating places you in the 85th percentile or higher in total possible points. ICTAP eligibles must submit proof of eligibility for special selection priority. Please see the Required Documents section below for more information. Click here for more information on ICTAP. Noncompetitive Appointment Authorities: For more information on noncompetitive appointment authority eligibility requirements: Special Hiring Authorities for Veterans Special Hiring Authorities for Certain Military Spouses Other Special Appointment Authorities If you are a male applicant who was born after 12/31/59 you are required to register under the Military Selective Service Act; the Defense Authorization Act of 1986 requires that you be registered or you are not eligible for appointment in this agency.",
+              "KeyRequirements": [],
+              "WithinArea": "False",
+              "CommuteDistance": "0",
+              "ServiceType": "01",
+              "AnnouncementClosingType": "01",
+              "AgencyContactEmail": "recruit@rrb.gov",
+              "AgencyContactPhone": "(312) 751-4580",
+              "SecurityClearance": "Not Required",
+              "DrugTestRequired": "False",
+              "PositionSensitivitiy": "Noncritical-Sensitive (NCS)/Moderate Risk",
+              "AdjudicationType": [
+                "Suitability/Fitness"
+              ],
+              "TeleworkEligible": true,
+              "RemoteIndicator": false,
+              "FinancialDisclosure": false,
+              "BargainingUnitStatus": true
+            },
+            "IsRadialSearch": false
+          }
+        },
+        "RelevanceRank": 0
+      },
+      {
+        "MatchedObjectId": "870502200",
+        "MatchedObjectDescriptor": {
+          "PositionID": "260004DE-12951787-CS",
+          "PositionTitle": "Azure Architect",
+          "PositionURI": "https://www.usajobs.gov:443/job/870502200",
+          "ApplyURI": [
+            "https://www.usajobs.gov:443/job/870502200"
+          ],
+          "PositionLocationDisplay": "Multiple Locations",
+          "PositionLocation": [
+            {
+              "LocationName": "Birmingham, Alabama",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Alabama",
+              "CityName": "Birmingham, Alabama",
+              "Longitude": -86.8115,
+              "Latitude": 33.5203
+            },
+            {
+              "LocationName": "Little Rock, Arkansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arkansas",
+              "CityName": "Little Rock, Arkansas",
+              "Longitude": -92.2745,
+              "Latitude": 34.7487
+            },
+            {
+              "LocationName": "Mesa, Arizona",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arizona",
+              "CityName": "Mesa, Arizona",
+              "Longitude": -111.83146,
+              "Latitude": 33.417046
+            },
+            {
+              "LocationName": "Covina, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Covina, California",
+              "Longitude": -117.88902,
+              "Latitude": 34.087425
+            },
+            {
+              "LocationName": "Oakland, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Oakland, California",
+              "Longitude": -122.273026,
+              "Latitude": 37.805065
+            },
+            {
+              "LocationName": "Roseville, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Roseville, California",
+              "Longitude": -121.28456,
+              "Latitude": 38.748528
+            },
+            {
+              "LocationName": "Denver, Colorado",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Colorado",
+              "CityName": "Denver, Colorado",
+              "Longitude": -104.992256,
+              "Latitude": 39.74001
+            },
+            {
+              "LocationName": "Washington, District of Columbia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "District of Columbia",
+              "CityName": "Washington, District of Columbia",
+              "Longitude": -77.032,
+              "Latitude": 38.8904
+            },
+            {
+              "LocationName": "Jacksonville, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Jacksonville, Florida",
+              "Longitude": -81.6558,
+              "Latitude": 30.33138
+            },
+            {
+              "LocationName": "Tampa, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Tampa, Florida",
+              "Longitude": -82.45927,
+              "Latitude": 27.94653
+            },
+            {
+              "LocationName": "Atlanta, Georgia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Georgia",
+              "CityName": "Atlanta, Georgia",
+              "Longitude": -84.39111,
+              "Latitude": 33.748314
+            },
+            {
+              "LocationName": "Des Moines, Iowa",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Iowa",
+              "CityName": "Des Moines, Iowa",
+              "Longitude": -93.61568,
+              "Latitude": 41.589787
+            },
+            {
+              "LocationName": "Chicago, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Chicago, Illinois",
+              "Longitude": -87.63241,
+              "Latitude": 41.88415
+            },
+            {
+              "LocationName": "Decatur, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Decatur, Illinois",
+              "Longitude": -88.95246,
+              "Latitude": 39.845844
+            },
+            {
+              "LocationName": "Joliet, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Joliet, Illinois",
+              "Longitude": -88.084595,
+              "Latitude": 41.524933
+            },
+            {
+              "LocationName": "Indianapolis, Indiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Indiana",
+              "CityName": "Indianapolis, Indiana",
+              "Longitude": -86.14996,
+              "Latitude": 39.76691
+            },
+            {
+              "LocationName": "Kansas City, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Kansas City, Kansas",
+              "Longitude": -94.62682,
+              "Latitude": 39.11338
+            },
+            {
+              "LocationName": "Wichita, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Wichita, Kansas",
+              "Longitude": -97.33558,
+              "Latitude": 37.68698
+            },
+            {
+              "LocationName": "Louisville, Kentucky",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kentucky",
+              "CityName": "Louisville, Kentucky",
+              "Longitude": -85.7664,
+              "Latitude": 38.25486
+            },
+            {
+              "LocationName": "New Orleans, Louisiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Louisiana",
+              "CityName": "New Orleans, Louisiana",
+              "Longitude": -90.07771,
+              "Latitude": 29.95369
+            },
+            {
+              "LocationName": "Boston, Massachusetts",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Massachusetts",
+              "CityName": "Boston, Massachusetts",
+              "Longitude": -71.0567,
+              "Latitude": 42.358635
+            },
+            {
+              "LocationName": "Baltimore, Maryland",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Maryland",
+              "CityName": "Baltimore, Maryland",
+              "Longitude": -76.609604,
+              "Latitude": 39.290554
+            },
+            {
+              "LocationName": "Detroit, Michigan",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Michigan",
+              "CityName": "Detroit, Michigan",
+              "Longitude": -83.0479,
+              "Latitude": 42.3317
+            },
+            {
+              "LocationName": "Duluth, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Duluth, Minnesota",
+              "Longitude": -92.09985,
+              "Latitude": 46.787964
+            },
+            {
+              "LocationName": "Saint Paul, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Saint Paul, Minnesota",
+              "Longitude": -93.09333,
+              "Latitude": 44.94383
+            },
+            {
+              "LocationName": "Saint Louis, Missouri",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Missouri",
+              "CityName": "Saint Louis, Missouri",
+              "Longitude": -90.19952,
+              "Latitude": 38.62774
+            },
+            {
+              "LocationName": "Billings, Montana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Montana",
+              "CityName": "Billings, Montana",
+              "Longitude": -108.50558,
+              "Latitude": 45.783752
+            },
+            {
+              "LocationName": "Charlotte, North Carolina",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Carolina",
+              "CityName": "Charlotte, North Carolina",
+              "Longitude": -80.83754,
+              "Latitude": 35.2225
+            },
+            {
+              "LocationName": "Fargo, North Dakota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Dakota",
+              "CityName": "Fargo, North Dakota",
+              "Longitude": -96.78177,
+              "Latitude": 46.87591
+            },
+            {
+              "LocationName": "Omaha, Nebraska",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Nebraska",
+              "CityName": "Omaha, Nebraska",
+              "Longitude": -95.94007,
+              "Latitude": 41.26067
+            },
+            {
+              "LocationName": "Newark, New Jersey",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Jersey",
+              "CityName": "Newark, New Jersey",
+              "Longitude": -74.17419,
+              "Latitude": 40.73197
+            },
+            {
+              "LocationName": "Albuquerque, New Mexico",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Mexico",
+              "CityName": "Albuquerque, New Mexico",
+              "Longitude": -106.649,
+              "Latitude": 35.0842
+            },
+            {
+              "LocationName": "Albany, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Albany, New York",
+              "Longitude": -73.75527,
+              "Latitude": 42.651455
+            },
+            {
+              "LocationName": "Buffalo, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Buffalo, New York",
+              "Longitude": -78.87846,
+              "Latitude": 42.88544
+            },
+            {
+              "LocationName": "Central Islip, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Central Islip, New York",
+              "Longitude": -73.21191,
+              "Latitude": 40.80207
+            },
+            {
+              "LocationName": "New York, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "New York, New York",
+              "Longitude": -74.0071,
+              "Latitude": 40.7146
+            },
+            {
+              "LocationName": "Cincinnati, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cincinnati, Ohio",
+              "Longitude": -84.5041,
+              "Latitude": 39.1071
+            },
+            {
+              "LocationName": "Cleveland, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cleveland, Ohio",
+              "Longitude": -81.690575,
+              "Latitude": 41.504494
+            },
+            {
+              "LocationName": "Portland, Oregon",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Oregon",
+              "CityName": "Portland, Oregon",
+              "Longitude": -122.67563,
+              "Latitude": 45.511795
+            },
+            {
+              "LocationName": "Altoona, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Altoona, Pennsylvania",
+              "Longitude": -78.3989,
+              "Latitude": 40.5072
+            },
+            {
+              "LocationName": "Harrisburg, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Harrisburg, Pennsylvania",
+              "Longitude": -76.882225,
+              "Latitude": 40.259876
+            },
+            {
+              "LocationName": "Philadelphia, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Philadelphia, Pennsylvania",
+              "Longitude": -75.16237,
+              "Latitude": 39.95227
+            },
+            {
+              "LocationName": "Pittsburgh, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Pittsburgh, Pennsylvania",
+              "Longitude": -79.99746,
+              "Latitude": 40.43831
+            },
+            {
+              "LocationName": "Scranton, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Scranton, Pennsylvania",
+              "Longitude": -75.6608,
+              "Latitude": 41.410133
+            },
+            {
+              "LocationName": "Nashville, Tennessee",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Tennessee",
+              "CityName": "Nashville, Tennessee",
+              "Longitude": -86.778366,
+              "Latitude": 36.16778
+            },
+            {
+              "LocationName": "Fort Worth, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Fort Worth, Texas",
+              "Longitude": -97.32925,
+              "Latitude": 32.74863
+            },
+            {
+              "LocationName": "Houston, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Houston, Texas",
+              "Longitude": -95.36978,
+              "Latitude": 29.76045
+            },
+            {
+              "LocationName": "Salt Lake City, Utah",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Utah",
+              "CityName": "Salt Lake City, Utah",
+              "Longitude": -111.88823,
+              "Latitude": 40.75952
+            },
+            {
+              "LocationName": "Richmond, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Richmond, Virginia",
+              "Longitude": -77.433655,
+              "Latitude": 37.5407
+            },
+            {
+              "LocationName": "Roanoke, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Roanoke, Virginia",
+              "Longitude": -79.9405,
+              "Latitude": 37.2715
+            },
+            {
+              "LocationName": "Seattle, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Seattle, Washington",
+              "Longitude": -122.32945,
+              "Latitude": 47.60358
+            },
+            {
+              "LocationName": "Spokane, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Spokane, Washington",
+              "Longitude": -117.41228,
+              "Latitude": 47.65726
+            },
+            {
+              "LocationName": "Milwaukee, Wisconsin",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Wisconsin",
+              "CityName": "Milwaukee, Wisconsin",
+              "Longitude": -87.906845,
+              "Latitude": 43.04181
+            },
+            {
+              "LocationName": "Huntington, West Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "West Virginia",
+              "CityName": "Huntington, West Virginia",
+              "Longitude": -82.44537,
+              "Latitude": 38.419827
+            }
+          ],
+          "OrganizationName": "Railroad Retirement Board",
+          "DepartmentName": "Other Agencies and Independent Organizations",
+          "JobCategory": [
+            {
+              "Name": "Information Technology Management",
+              "Code": "2210"
+            }
+          ],
+          "JobGrade": [
+            {
+              "Code": "GS"
+            }
+          ],
+          "PositionSchedule": [
+            {
+              "Name": "Incumbent may be required to work outside of normal duty hours, such as nights, weekends, and holidays, due to operational needs.",
+              "Code": "1"
+            }
+          ],
+          "PositionOfferingType": [
+            {
+              "Name": "",
+              "Code": "15317"
+            }
+          ],
+          "QualificationSummary": "Minimum Qualifications for GS-13 level: One year of specialized experience equivalent to the GS-12 grade level in the Federal service. Specialized experience is: Experience designing, engineering, and implementing Azure cloud architectures for enterprise environments, including secure, scalable, and highly available solutions. Experience leading cloud migration and modernization efforts, including assessments, planning, and execution of transitioning systems to Microsoft Azure. Experience ensuring compliance with federal cybersecurity frameworks such as NIST and FISMA in cloud and hybrid environments. Only experience obtained by the closing date of this announcement will be considered. Experience refers to paid and unpaid experience, including volunteer work done through National Service programs (e.g., Peace Corps, AmeriCorps) and other organizations (e.g., professional, philanthropic, religious, spiritual, community, student, social). Volunteer work helps build critical competencies, knowledge, and skills and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience.",
+          "PositionRemuneration": [
+            {
+              "MinimumRange": "90925",
+              "MaximumRange": "118204",
+              "RateIntervalCode": "PA",
+              "Description": "Per Year"
+            }
+          ],
+          "PositionStartDate": "2026-05-26T07:10:42.0630",
+          "PositionEndDate": "2026-06-09T23:59:59.9970",
+          "PublicationStartDate": "2026-05-26T07:10:42.0630",
+          "ApplicationCloseDate": "2026-06-09T23:59:59.9970",
+          "PositionFormattedDescription": [
+            {
+              "Label": "Dynamic Teaser",
+              "LabelDescription": "Hit highlighting for keyword searches."
+            }
+          ],
+          "UserArea": {
+            "Details": {
+              "JobSummary": "This position is located in the Railroad Retirement Board's Bureau of Information Services. The incumbent will be responsible for the design, development, implementation, and optimization of cloud-based solutions within Microsoft Azure. This job announcement may be used to fill one or more vacancies. This is a bargaining unit position. This position is represented by the Council of AFGE Locals in the Board.",
+              "WhoMayApply": {
+                "Name": "",
+                "Code": ""
+              },
+              "LowGrade": "13",
+              "HighGrade": "13",
+              "PromotionPotential": "13",
+              "OrganizationCodes": "OT/RR00",
+              "Relocation": "False",
+              "HiringPath": [
+                "fed-transition",
+                "public"
+              ],
+              "MCOTags": [
+                "07",
+                "TechToGov"
+              ],
+              "TotalOpenings": "1",
+              "AgencyMarketingStatement": "The Railroad Retirement Board (RRB) is an independent Federal agency established nearly 90 years ago under President Roosevelt's New Deal legislation. Created separate from (but similar to) the social security program for America's workforce, the RRB administers retirement, survivor, unemployment, and sickness benefits for railroad retirees, workers, and their families. We are the only Federal agency headquartered in downtown Chicago, with 53 field offices nationwide. Our dedicated staff works across a variety of career fields, including information technology, benefit program operations, accounting, finance, and law. Whatever the job title, every position within the RRB contributes to our proud tradition of excellent customer service -- a hallmark of the RRB since its inception in 1935. Whether you are just starting out or are an experienced professional seeking a career change, consider joining the RRB for challenging work that is truly meaningful.",
+              "TravelCode": "2",
+              "ApplyOnlineUrl": "https://apply.usastaffing.gov/Application/Apply",
+              "DetailStatusUrl": "https://apply.usastaffing.gov/Application/ApplicationStatus",
+              "MajorDuties": [
+                "As an Azure Architect, you will: Serve as the organization's senior Azure Architect and recognized subject matter expert (SME) for cloud systems engineering, providing authoritative guidance on the design, development, implementation, and governance of Microsoft Azure solutions. Advise senior leadership on cloud strategy, investment planning, and long-term modernization initiatives, influencing the agency's overall IT direction. Design and engineer enterprise-level cloud architectures that are secure, scalable, highly available, and resilient, ensuring alignment with mission requirements and seamless integration with on-premises systems in hybrid environments. Lead evaluations of existing and proposed IT systems, applications, and services to determine optimal hosting environments, conducting detailed analyses of architectural feasibility, system performance, cybersecurity requirements, and total cost of ownership. Perform comprehensive cost-benefit and lifecycle cost analyses comparing Azure-based solutions with traditional on-premises infrastructure, providing data-driven recommendations to leadership to support strategic and investment decisions."
+              ],
+              "Education": "There is no education substitution for this position.",
+              "Requirements": "",
+              "Evaluations": "You will be evaluated based on how well you meet the qualifications listed in this vacancy announcement. Your qualifications will be evaluated based on your application materials (e.g., resume, supporting documents), your responses on the application questionnaire, and your responses to all assessments required for this position. You will be assessed on the following competencies (knowledge, skills, abilities, and other characteristics): Accountability Attention to Detail Customer Service Flexibility Influencing/ Negotiating Integrity/ Honesty Interpersonal Skills Learning Self-Management Stress Tolderance Teamwork Decision Making Reading Comprehension Reasoning The USA Hire Assessments includes a cut score based on the minimum level of required proficiency in these critical general competencies. You must meet or exceed the cut score to be considered. You will not be considered for the position if you score below the cut score or fail to complete the assessment. Overstating your qualifications and/or experience in your application materials or application questionnaire may result in your removal from consideration. Cheating on an assessment may also result in your removal from consideration. Category rating procedures will be used to rank eligible candidates. Qualified candidates will be assigned to the following categories: Best Qualified, Qualified, and Minimally Qualified. Within each quality category, veterans' preference eligibles will receive selection priority over non-veterans. The Category Rating Process does not add veterans' preference points or apply the \"rule of three\" but protects the rights of Veterans by placing them ahead of non-preference eligibles within each quality category. Veterans' preference eligibles who meet the minimum qualification requirements and who have a compensable service-connected disability of at least 10 percent will be listed in the highest quality category (except in the case of scientific or professional positions at the GS-09 level or higher).",
+              "HowToApply": "In accordance with the Merit Hiring Plan, only resumes up to a total of two pages will be accepted. Applicants with resumes exceeding two pages will be removed from consideration. Resumes must be legible so they can be reviewed for eligibility, minimum qualifications and other position requirements listed in the job announcement. We recommend using a sans-serif font size like Lato, if available. Other widely available options are Calibri, Helvetica, Arial, Verdana, Open Sans, Source Sans Pro, Roboto or Noro Sans. Make your page margins 0.5 inches. Consider using 14-point size font for titles and 10-point for the main text in your resume. For additional guidance on what to include in your resume, please see USAJOBS Help. Please read the entire announcement and all the instructions before you begin an application. To apply and be considered for this position, you must complete all required questionnaires, assessments and submit all required documentation as specified in the How to Apply and Required Documents section. The complete application package must be submitted by 11:59 PM (ET) on the closing date of the announcement to receive consideration. The application process is as follows: Click the Apply Online button. Answer the questions presented in the application and attach all necessary supporting documentation. Click the Submit Application button prior to 11:59 PM (ET) on the announcement closing date. If you are required to complete any USA Hire Assessments, you will be notified after submitting your application. The notification will be provided in your application submission screen and via email. The notification will include your unique assessment access link to the USA Hire system and the completion deadline. Additionally, in USAJOBS you can click \"Track this application\" to return to your assessment completion notice. Access USA Hire using your unique assessment link. Access is granted through your USAJOBS login credentials. Review all instructions prior to beginning your assessments. You will have the opportunity to request a testing accommodation before beginning the assessments should you have a disability covered under the Rehabilitation Act of 1973 as amended. Set aside about two (2) hours to take the USA Hire Assessments; however, most applicants complete the assessments in less time. If you need to stop the assessments and continue later, you can re-use your unique assessment link. Your responses to the USA Hire Assessments will be reused for one year (in most cases) from the date you complete an assessment. If future applications you submit require completion of the same assessments, your responses will be automatically reused. Visit the USA Hire Applicant Resource Center for practice assessments and assessment preparation resources at https://support-usahire.opm.gov/hc/en-us. To update your application, including supporting documentation: During the announcement open period, return to your USAJOBS account, find your application record, and click Edit my application. This option will no longer be available once the announcement has closed. To view the announcement status or your application status: Click on this: https://www.usajobs.gov/Help/how-to/application/status/. Your application status page is where you can view your application status, USA Hire assessment completion status, and review your notifications sent by the hiring agency regarding your application.",
+              "WhatToExpectNext": "Once your online application is submitted you will receive a confirmation notification by email. After a review of your complete application is made, you will be notified of your rating and possible referral to the hiring official. If further evaluation or interviews are required you will be contacted.",
+              "RequiredDocuments": "To apply for this position, you must provide a complete Application Package which includes: Resume showing work schedule, hours worked per week, dates of employment and duties performed. Resume must not exceed 2 pages. Applicants will be removed from consideration if their resume is longer than 2 pages. Please see \"How to Apply\" for additional information regarding the limit. Veterans' Documentation: If you are a veteran, you must provide a copy of your Record of Military Service (DD-214), and proof of your veterans' preference, if applicable. Veterans with a service connected disability must also submit a completed claim form SF-15 (click here for form) along with the required proofs. Go to FedsHireVets-Veterans Preference for more information. Interagency Career Transition Assistance Plan (ICTAP) documentation: If you are eligible under ICTAP, you must submit all required materials verifying your eligibility as listed in \"Additional Information.\" These materials include: Proof of eligibility: You must submit documentation such as a separation notice or other required material; and SF-50: You must submit a copy of a recent Notification of Personnel Action, SF-50 that shows career or career-conditional competitive service status (Blocks #24 and #34 must be completed); and Performance Appraisal: You must submit your most recent performance appraisal, which must be rated at least fully successful or equivalent. (This is not required if you are eligible for ICTAP due to compensable injury or disability retirement.) The performance appraisal may also be used as part of the ranking process and/or to verify your responses to the questionnaire.",
+              "Benefits": "",
+              "BenefitsDisplayDefaultText": true,
+              "OtherInformation": "Reasonable Accommodation (RA) Requests: If you believe you have a disability (i.e., physical or mental), covered by the Rehabilitation Act of 1973 as amended that would interfere with completing the USA Hire Competency Based Assessments, you will be granted the opportunity to request a RA in your online application. Requests for RA for the USA Hire Competency Based Assessments and appropriate supporting documentation for RA must be received prior to starting the USA Hire Competency Based Assessments. Decisions on requests for RA are made on a case-by-case basis. If you meet the minimum qualifications of the position, after notification of the adjudication of your request, you will receive an email invitation to complete the USA Hire Competency Based Assessments, based on your adjudication decision. You must complete all assessments within 48 hours of receiving the URL to access the USA Hire Competency Based Assessments if you received the link after the close of the announcement. To determine if you need a RA, please review the Procedures for Requesting a Reasonable Accommodation for Online Assessments here. INTERAGENCY CAREER TRANSITION ASSISTANCE PLAN (ICTAP): ICTAP provides eligible displaced Federal competitive service employees with selection priority for competitive service vacancies. You must be determined to be well-qualified for the vacancy to be eligible for special selection priority. After submission of an acceptable application which meets ICTAP eligibility, you will be determined to be well-qualified for a vacancy if your rating places you in the 85th percentile or higher in total possible points. ICTAP eligibles must submit proof of eligibility for special selection priority. Please see the Required Documents section below for more information. Click here for more information on ICTAP. If you are a male applicant who was born after 12/31/59 you are required to register under the Military Selective Service Act; the Defense Authorization Act of 1986 requires that you be registered, or you are not eligible for appointment in this agency.",
+              "KeyRequirements": [],
+              "WithinArea": "False",
+              "CommuteDistance": "0",
+              "ServiceType": "01",
+              "AnnouncementClosingType": "01",
+              "AgencyContactEmail": "recruit@rrb.gov",
+              "AgencyContactPhone": "(312) 751-4580",
+              "SecurityClearance": "Not Required",
+              "DrugTestRequired": "False",
+              "PositionSensitivitiy": "Noncritical-Sensitive (NCS)/Moderate Risk",
+              "AdjudicationType": [
+                "Suitability/Fitness"
+              ],
+              "TeleworkEligible": true,
+              "RemoteIndicator": false,
+              "FinancialDisclosure": false,
+              "BargainingUnitStatus": true
+            },
+            "IsRadialSearch": false
+          }
+        },
+        "RelevanceRank": 0
+      },
+      {
+        "MatchedObjectId": "870177100",
+        "MatchedObjectDescriptor": {
+          "PositionID": "260003-12958719-YA",
+          "PositionTitle": "Team Lead/Senior Network Engineer",
+          "PositionURI": "https://www.usajobs.gov:443/job/870177100",
+          "ApplyURI": [
+            "https://www.usajobs.gov:443/job/870177100"
+          ],
+          "PositionLocationDisplay": "Multiple Locations",
+          "PositionLocation": [
+            {
+              "LocationName": "Birmingham, Alabama",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Alabama",
+              "CityName": "Birmingham, Alabama",
+              "Longitude": -86.8115,
+              "Latitude": 33.5203
+            },
+            {
+              "LocationName": "Little Rock, Arkansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arkansas",
+              "CityName": "Little Rock, Arkansas",
+              "Longitude": -92.2745,
+              "Latitude": 34.7487
+            },
+            {
+              "LocationName": "Mesa, Arizona",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arizona",
+              "CityName": "Mesa, Arizona",
+              "Longitude": -111.83146,
+              "Latitude": 33.417046
+            },
+            {
+              "LocationName": "Covina, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Covina, California",
+              "Longitude": -117.88902,
+              "Latitude": 34.087425
+            },
+            {
+              "LocationName": "Oakland, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Oakland, California",
+              "Longitude": -122.273026,
+              "Latitude": 37.805065
+            },
+            {
+              "LocationName": "Roseville, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Roseville, California",
+              "Longitude": -121.28456,
+              "Latitude": 38.748528
+            },
+            {
+              "LocationName": "Denver, Colorado",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Colorado",
+              "CityName": "Denver, Colorado",
+              "Longitude": -104.992256,
+              "Latitude": 39.74001
+            },
+            {
+              "LocationName": "Washington, District of Columbia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "District of Columbia",
+              "CityName": "Washington, District of Columbia",
+              "Longitude": -77.032,
+              "Latitude": 38.8904
+            },
+            {
+              "LocationName": "Jacksonville, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Jacksonville, Florida",
+              "Longitude": -81.6558,
+              "Latitude": 30.33138
+            },
+            {
+              "LocationName": "Tampa, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Tampa, Florida",
+              "Longitude": -82.45927,
+              "Latitude": 27.94653
+            },
+            {
+              "LocationName": "Atlanta, Georgia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Georgia",
+              "CityName": "Atlanta, Georgia",
+              "Longitude": -84.39111,
+              "Latitude": 33.748314
+            },
+            {
+              "LocationName": "Des Moines, Iowa",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Iowa",
+              "CityName": "Des Moines, Iowa",
+              "Longitude": -93.61568,
+              "Latitude": 41.589787
+            },
+            {
+              "LocationName": "Chicago, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Chicago, Illinois",
+              "Longitude": -87.63241,
+              "Latitude": 41.88415
+            },
+            {
+              "LocationName": "Decatur, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Decatur, Illinois",
+              "Longitude": -88.95246,
+              "Latitude": 39.845844
+            },
+            {
+              "LocationName": "Joliet, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Joliet, Illinois",
+              "Longitude": -88.084595,
+              "Latitude": 41.524933
+            },
+            {
+              "LocationName": "Indianapolis, Indiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Indiana",
+              "CityName": "Indianapolis, Indiana",
+              "Longitude": -86.14996,
+              "Latitude": 39.76691
+            },
+            {
+              "LocationName": "Kansas City, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Kansas City, Kansas",
+              "Longitude": -94.62682,
+              "Latitude": 39.11338
+            },
+            {
+              "LocationName": "Wichita, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Wichita, Kansas",
+              "Longitude": -97.33558,
+              "Latitude": 37.68698
+            },
+            {
+              "LocationName": "Louisville, Kentucky",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kentucky",
+              "CityName": "Louisville, Kentucky",
+              "Longitude": -85.7664,
+              "Latitude": 38.25486
+            },
+            {
+              "LocationName": "New Orleans, Louisiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Louisiana",
+              "CityName": "New Orleans, Louisiana",
+              "Longitude": -90.07771,
+              "Latitude": 29.95369
+            },
+            {
+              "LocationName": "Boston, Massachusetts",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Massachusetts",
+              "CityName": "Boston, Massachusetts",
+              "Longitude": -71.0567,
+              "Latitude": 42.358635
+            },
+            {
+              "LocationName": "Baltimore, Maryland",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Maryland",
+              "CityName": "Baltimore, Maryland",
+              "Longitude": -76.609604,
+              "Latitude": 39.290554
+            },
+            {
+              "LocationName": "Detroit, Michigan",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Michigan",
+              "CityName": "Detroit, Michigan",
+              "Longitude": -83.0479,
+              "Latitude": 42.3317
+            },
+            {
+              "LocationName": "Duluth, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Duluth, Minnesota",
+              "Longitude": -92.09985,
+              "Latitude": 46.787964
+            },
+            {
+              "LocationName": "Saint Paul, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Saint Paul, Minnesota",
+              "Longitude": -93.09333,
+              "Latitude": 44.94383
+            },
+            {
+              "LocationName": "Saint Louis, Missouri",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Missouri",
+              "CityName": "Saint Louis, Missouri",
+              "Longitude": -90.19952,
+              "Latitude": 38.62774
+            },
+            {
+              "LocationName": "Billings, Montana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Montana",
+              "CityName": "Billings, Montana",
+              "Longitude": -108.50558,
+              "Latitude": 45.783752
+            },
+            {
+              "LocationName": "Charlotte, North Carolina",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Carolina",
+              "CityName": "Charlotte, North Carolina",
+              "Longitude": -80.83754,
+              "Latitude": 35.2225
+            },
+            {
+              "LocationName": "Fargo, North Dakota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Dakota",
+              "CityName": "Fargo, North Dakota",
+              "Longitude": -96.78177,
+              "Latitude": 46.87591
+            },
+            {
+              "LocationName": "Omaha, Nebraska",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Nebraska",
+              "CityName": "Omaha, Nebraska",
+              "Longitude": -95.94007,
+              "Latitude": 41.26067
+            },
+            {
+              "LocationName": "Newark, New Jersey",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Jersey",
+              "CityName": "Newark, New Jersey",
+              "Longitude": -74.17419,
+              "Latitude": 40.73197
+            },
+            {
+              "LocationName": "Albuquerque, New Mexico",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Mexico",
+              "CityName": "Albuquerque, New Mexico",
+              "Longitude": -106.649,
+              "Latitude": 35.0842
+            },
+            {
+              "LocationName": "Albany, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Albany, New York",
+              "Longitude": -73.75527,
+              "Latitude": 42.651455
+            },
+            {
+              "LocationName": "Buffalo, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Buffalo, New York",
+              "Longitude": -78.87846,
+              "Latitude": 42.88544
+            },
+            {
+              "LocationName": "Central Islip, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Central Islip, New York",
+              "Longitude": -73.21191,
+              "Latitude": 40.80207
+            },
+            {
+              "LocationName": "New York, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "New York, New York",
+              "Longitude": -74.0071,
+              "Latitude": 40.7146
+            },
+            {
+              "LocationName": "Cincinnati, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cincinnati, Ohio",
+              "Longitude": -84.5041,
+              "Latitude": 39.1071
+            },
+            {
+              "LocationName": "Cleveland, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cleveland, Ohio",
+              "Longitude": -81.690575,
+              "Latitude": 41.504494
+            },
+            {
+              "LocationName": "Portland, Oregon",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Oregon",
+              "CityName": "Portland, Oregon",
+              "Longitude": -122.67563,
+              "Latitude": 45.511795
+            },
+            {
+              "LocationName": "Altoona, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Altoona, Pennsylvania",
+              "Longitude": -78.3989,
+              "Latitude": 40.5072
+            },
+            {
+              "LocationName": "Harrisburg, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Harrisburg, Pennsylvania",
+              "Longitude": -76.882225,
+              "Latitude": 40.259876
+            },
+            {
+              "LocationName": "Philadelphia, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Philadelphia, Pennsylvania",
+              "Longitude": -75.16237,
+              "Latitude": 39.95227
+            },
+            {
+              "LocationName": "Pittsburgh, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Pittsburgh, Pennsylvania",
+              "Longitude": -79.99746,
+              "Latitude": 40.43831
+            },
+            {
+              "LocationName": "Scranton, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Scranton, Pennsylvania",
+              "Longitude": -75.6608,
+              "Latitude": 41.410133
+            },
+            {
+              "LocationName": "Nashville, Tennessee",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Tennessee",
+              "CityName": "Nashville, Tennessee",
+              "Longitude": -86.778366,
+              "Latitude": 36.16778
+            },
+            {
+              "LocationName": "Fort Worth, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Fort Worth, Texas",
+              "Longitude": -97.32925,
+              "Latitude": 32.74863
+            },
+            {
+              "LocationName": "Houston, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Houston, Texas",
+              "Longitude": -95.36978,
+              "Latitude": 29.76045
+            },
+            {
+              "LocationName": "Salt Lake City, Utah",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Utah",
+              "CityName": "Salt Lake City, Utah",
+              "Longitude": -111.88823,
+              "Latitude": 40.75952
+            },
+            {
+              "LocationName": "Richmond, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Richmond, Virginia",
+              "Longitude": -77.433655,
+              "Latitude": 37.5407
+            },
+            {
+              "LocationName": "Roanoke, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Roanoke, Virginia",
+              "Longitude": -79.9405,
+              "Latitude": 37.2715
+            },
+            {
+              "LocationName": "Seattle, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Seattle, Washington",
+              "Longitude": -122.32945,
+              "Latitude": 47.60358
+            },
+            {
+              "LocationName": "Spokane, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Spokane, Washington",
+              "Longitude": -117.41228,
+              "Latitude": 47.65726
+            },
+            {
+              "LocationName": "Milwaukee, Wisconsin",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Wisconsin",
+              "CityName": "Milwaukee, Wisconsin",
+              "Longitude": -87.906845,
+              "Latitude": 43.04181
+            },
+            {
+              "LocationName": "Huntington, West Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "West Virginia",
+              "CityName": "Huntington, West Virginia",
+              "Longitude": -82.44537,
+              "Latitude": 38.419827
+            }
+          ],
+          "OrganizationName": "Railroad Retirement Board",
+          "DepartmentName": "Other Agencies and Independent Organizations",
+          "JobCategory": [
+            {
+              "Name": "Information Technology Management",
+              "Code": "2210"
+            }
+          ],
+          "JobGrade": [
+            {
+              "Code": "GS"
+            }
+          ],
+          "PositionSchedule": [
+            {
+              "Name": "Incumbent may be required to work outside of normal duty hours, such as nights, weekends, and holidays, due to operational needs.",
+              "Code": "1"
+            }
+          ],
+          "PositionOfferingType": [
+            {
+              "Name": "",
+              "Code": "15317"
+            }
+          ],
+          "QualificationSummary": "Applicants must have IT-related experience demonstrating each of the four competencies listed below. Applicants must demonstrate possession of these competencies within the body of the resume; no separate statements addressing them are required. Attention to Detail - Is thorough when performing work and conscientious about attending to detail. Customer Service - Works with clients and customers (that is, any individuals who use or receive the services or products that your work unit produces, including the general public, individuals who work in the agency, other agencies, or organizations outside the Government) to assess their needs, provide information or assistance, resolve their problems, or satisfy their expectations; knows about available products and services; is committed to providing quality products and services. Oral Communication - Expresses information (for example, ideas or facts) to individuals or groups effectively, taking into account the audience and nature of the information (for example, technical, sensitive, controversial); makes clear and convincing oral presentations; listens to others, attends to nonverbal cues, and responds appropriately. Problem Solving - Identifies problems; determines accuracy and relevance of information; uses sound judgment to generate and evaluate alternatives, and to make recommendations. -AND- One year of specialized experience equivalent to the GS-12 grade level in the Federal service. Specialized Experience is experience that has equipped the applicant with the particular knowledge, skills, and abilities/competencies to perform successfully the duties of the position and is typically in or related to the work of the position to be filled. Specialized experience is defined as demonstrated experience: Serving as a \"hands-on\" technical lead supporting production IT systems by planning, installing, troubleshooting, and enhancing enterprise Local Area Network (LAN), Wide Area Network (WAN), Wireless Local Area Network (WLAN), and data and telecommunications networks to maintain reliable and efficient operations. Planning, configuring, and troubleshooting Cisco-based network solutions by supporting core and distribution switches, routers, and firewalls/Firepower and assisting with Internet Protocol Security (IPSec) for Virtual Private Network (VPN), Multiprotocol Label Switching (MPLS), Virtual LANs (VLANs), Software-Defined Wide Area Network (SD-WAN), and routing protocols such as Border Gateway Protocol (BGP) and Enhanced Interior Gateway Routing Protocol (EIGRP) to ensure secure, stable, and efficient enterprise connectivity. Resolving issues across Unified Communications, Voice over Internet Protocol (VoIP) technologies, and wireless systems by troubleshooting performance problems, supporting diagnostics, and helping sustain secure and stable communication services. Supporting daily network and telecommunications operations by diagnosing and resolving service disruptions involving firewalls, VPNs, switches, routers, MPLS, VLANs, SD-WAN, VoIP, Unified Communications, and wireless infrastructure to maintain consistent availability of enterprise network and telecommunications services. Resolving hardware and software failures or network outages, analyzing network disruptions using monitoring and packet-level diagnostic tools, and restoring services within Service Level Agreement response and resolution requirements. Providing technical guidance on projects by supporting connectivity planning, documenting network requirements, coordinating with vendors, and ensuring network enhancements incorporate required security and privacy measures. Note: Possession of Cisco Certifications in one or more of the following is preferred but not required. If you possess any of the certifications, please attach a copy with your resume and/or supporting documents. Cisco Certified Network Associate (CCNA) Cisco Certified Network Professional (CCNP) Enterprise Only experience obtained by the closing date of this announcement will be considered. Experience refers to paid and unpaid experience, including volunteer work done through National Service programs (e.g., Peace Corps, AmeriCorps) and other organizations (e.g., professional, philanthropic, religious, spiritual, community, student, social). Volunteer work helps build critical competencies, knowledge, and skills and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience.",
+          "PositionRemuneration": [
+            {
+              "MinimumRange": "90925",
+              "MaximumRange": "118204",
+              "RateIntervalCode": "PA",
+              "Description": "Per Year"
+            }
+          ],
+          "PositionStartDate": "2026-05-21T00:00:00.0000",
+          "PositionEndDate": "2026-06-04T23:59:59.9970",
+          "PublicationStartDate": "2026-05-21T00:00:00.0000",
+          "ApplicationCloseDate": "2026-06-04T23:59:59.9970",
+          "PositionFormattedDescription": [
+            {
+              "Label": "Dynamic Teaser",
+              "LabelDescription": "Hit highlighting for keyword searches."
+            }
+          ],
+          "UserArea": {
+            "Details": {
+              "JobSummary": "This position is located in the Bureau of Information Services, Infrastructure Services, Network Engineering section. The incumbent will serve as Team Lead for a team of data communication engineers that are directly responsible for the day-to-day operation of the RRB's network and telecommunication systems. This job announcement may be used to fill one or more vacancies. This is a bargaining unit position. This position is represented by the Council of AFGE Locals in the Board.",
+              "WhoMayApply": {
+                "Name": "",
+                "Code": ""
+              },
+              "LowGrade": "13",
+              "HighGrade": "13",
+              "PromotionPotential": "13",
+              "OrganizationCodes": "OT/RR00",
+              "Relocation": "False",
+              "HiringPath": [
+                "fed-transition",
+                "public"
+              ],
+              "MCOTags": [
+                "07",
+                "TechToGov"
+              ],
+              "TotalOpenings": "1",
+              "AgencyMarketingStatement": "The Railroad Retirement Board (RRB) is an independent Federal agency established nearly 90 years ago under President Roosevelt's New Deal legislation. Created separate from (but similar to) the social security program for America's workforce, the RRB administers retirement, survivor, unemployment, and sickness benefits for railroad retirees, workers, and their families. We are the only Federal agency headquartered in downtown Chicago, with 53 field offices nationwide. Our dedicated staff works across a variety of career fields, including information technology, benefit program operations, accounting, finance, and law. Whatever the job title, every position within the RRB contributes to our proud tradition of excellent customer service -- a hallmark of the RRB since its inception in 1935. Whether you are just starting out or are an experienced professional seeking a career change, consider joining the RRB for challenging work that is truly meaningful.",
+              "TravelCode": "2",
+              "ApplyOnlineUrl": "https://apply.usastaffing.gov/Application/Apply",
+              "DetailStatusUrl": "https://apply.usastaffing.gov/Application/ApplicationStatus",
+              "MajorDuties": [
+                "As a Team Lead/Senior Network Engineer, you will: As the Team Lead, and at the discretion of the supervisor, direct the workload of the team. Report team accomplishments, issues or concerns to the supervisor, and assist in the direction or redirection of team workload priorities. Serve as the senior network engineer and lead the team in directing the planning, development, and implementation of projects and for liaison with outside organizations. Serve as subject matter expert (SME) for the design, installation, and enhancement of agencywide data and telecommunication networks. Develop comprehensive requirements for hardware, software, and contractor services needed to carry out agency data and telecommunication functions. Provide technical advice to other information technology (IT) personnel and users within the agency regarding data and telecommunication networks. Be responsible for monitoring, evaluating, and reporting the performance of the communication networks in terms of utilization, resources used, response time, users serviced, and reliability. Be responsible for associated communication aspects of the agency's contingency planning for disaster recovery. Work closely with security specialists to develop and document security procedures and implement security controls for the RRB's communication networks."
+              ],
+              "Education": "*There is no education substitution for this position.*",
+              "Requirements": "",
+              "Evaluations": "You will be evaluated based on how well you meet the qualifications listed in this vacancy announcement. Your qualifications will be evaluated based on your application materials (e.g., resume, supporting documents), your responses on the application questionnaire, and your responses to all assessments required for this position. You will be assessed on the following competencies (knowledge, skills, abilities, and other characteristics): Accountability Attention to Detail Customer Service Flexibility Influencing/Negotiating Integrity/Honesty Interpersonal Skills Learning Self-Management Stress Tolerance Teamwork Decision Making Reading Comprehension Reasoning The USA Hire Assessments includes a cut score based on the minimum level of required proficiency in these critical general competencies. You must meet or exceed the cut score to be considered. You will not be considered for the position if you score below the cut score or fail to complete the assessment. Overstating your qualifications and/or experience in your application materials or application questionnaire may result in your removal from consideration. Cheating on an assessment may also result in your removal from consideration. Category rating procedures will be used to rank eligible candidates. Qualified candidates will be assigned to the following categories: Best Qualified, Qualified, and Minimally Qualified. Within each quality category, veterans' preference eligibles will receive selection priority over non-veterans. The Category Rating Process does not add veterans' preference points or apply the \"rule of three\" but protects the rights of Veterans by placing them ahead of non-preference eligibles within each quality category. Veterans' preference eligibles who meet the minimum qualification requirements and who have a compensable service-connected disability of at least 10 percent will be listed in the highest quality category (except in the case of scientific or professional positions at the GS-09 level or higher).",
+              "HowToApply": "In accordance with the Merit Hiring Plan, only resumes up to a total of two pages will be accepted. Applicants with resumes exceeding two pages will be removed from consideration. Resumes must be legible so they can be reviewed for eligibility, minimum qualifications and other position requirements listed in the job announcement. We recommend using a sans-serif font size like Lato, if available. Other widely available options are Calibri, Helvetica, Arial, Verdana, Open Sans, Source Sans Pro, Roboto or Noro Sans. Make your page margins 0.5 inches. Consider using 14-point size font for titles and 10-point for the main text in your resume. For additional guidance on what to include in your resume, please see USAJOBS Help. Please read the entire announcement and all the instructions before you begin an application. To apply and be considered for this position, you must complete all required questionnaires, assessments and submit all required documentation as specified in the How to Apply and Required Documents section. The complete application package must be submitted by 11:59 PM (ET) on the closing date of the announcement to receive consideration. The application process is as follows: Click the Apply Online button. Answer the questions presented in the application and attach all necessary supporting documentation. Click the Submit Application button prior to 11:59 PM (ET) on the announcement closing date. If you are required to complete any USA Hire Assessments, you will be notified after submitting your application. The notification will be provided in your application submission screen and via email. The notification will include your unique assessment access link to the USA Hire system and the completion deadline. Additionally, in USAJOBS you can click \"Track this application\" to return to your assessment completion notice. Access USA Hire using your unique assessment link. Access is granted through your USAJOBS login credentials. Review all instructions prior to beginning your assessments. You will have the opportunity to request a testing accommodation before beginning the assessments should you have a disability covered under the Rehabilitation Act of 1973 as amended. Set aside about two (2) hours to take the USA Hire Assessments; however, most applicants complete the assessments in less time. If you need to stop the assessments and continue later, you can re-use your unique assessment link. Your responses to the USA Hire Assessments will be reused for one year (in most cases) from the date you complete an assessment. If future applications you submit require completion of the same assessments, your responses will be automatically reused. Visit the USA Hire Applicant Resource Center for practice assessments and assessment preparation resources at https://support-usahire.opm.gov/hc/en-us. To update your application, including supporting documentation: During the announcement open period, return to your USAJOBS account, find your application record, and click Edit my application. This option will no longer be available once the announcement has closed. To view the announcement status or your application status: Click on this: https://www.usajobs.gov/Help/how-to/application/status/. Your application status page is where you can view your application status, USA Hire assessment completion status, and review your notifications sent by the hiring agency regarding your application.",
+              "WhatToExpectNext": "Once your online application is submitted you will receive a confirmation notification by email. After a review of your complete application is made, you will be notified of your rating and possible referral to the hiring official. If further evaluation or interviews are required you will be contacted.",
+              "RequiredDocuments": "To apply for this position, you must provide a complete Application Package which includes: Resume showing work schedule, hours worked per week, dates of employment, and duties performed. Resume must not exceed 2 pages. Applicants will be removed from consideration if their resume is longer than 2 pages. Please see \"How to Apply\" for additional information regarding the limit. Veterans' Documentation: If you are a veteran, you must provide a copy of your Record of Military Service (DD-214), and proof of your veterans' preference, if applicable. Veterans with a service connected disability must also submit a completed claim form SF-15 (click here for form) along with the required proofs. Go to FedsHireVets-Veterans Preference for more information. Interagency Career Transition Assistance Plan (ICTAP) documentation: If you are eligible under ICTAP, you must submit all required materials verifying your eligibility as listed in \"Additional Information.\" These materials include: Proof of eligibility: You must submit documentation such as a separation notice or other required material; and SF-50: You must submit a copy of a recent Notification of Personnel Action, SF-50 that shows career or career-conditional competitive service status (Blocks #24 and #34 must be completed); and Performance Appraisal: You must submit your most recent performance appraisal, which must be rated at least fully successful or equivalent. (This is not required if you are eligible for ICTAP due to compensable injury or disability retirement.) The performance appraisal may also be used as part of the ranking process and/or to verify your responses to the questionnaire.",
+              "Benefits": "",
+              "BenefitsDisplayDefaultText": true,
+              "OtherInformation": "Reasonable Accommodation (RA) Requests: If you believe you have a disability (i.e., physical or mental), covered by the Rehabilitation Act of 1973 as amended that would interfere with completing the USA Hire Competency Based Assessments, you will be granted the opportunity to request a RA in your online application. Requests for RA for the USA Hire Competency Based Assessments and appropriate supporting documentation for RA must be received prior to starting the USA Hire Competency Based Assessments. Decisions on requests for RA are made on a case-by-case basis. If you meet the minimum qualifications of the position, after notification of the adjudication of your request, you will receive an email invitation to complete the USA Hire Competency Based Assessments, based on your adjudication decision. You must complete all assessments within 48 hours of receiving the URL to access the USA Hire Competency Based Assessments if you received the link after the close of the announcement. To determine if you need a RA, please review the Procedures for Requesting a Reasonable Accommodation for Online Assessments here. INTERAGENCY CAREER TRANSITION ASSISTANCE PLAN (ICTAP): ICTAP provides eligible displaced Federal competitive service employees with selection priority for competitive service vacancies. You must be determined to be well-qualified for the vacancy to be eligible for special selection priority. After submission of an acceptable application which meets ICTAP eligibility, you will be determined to be well-qualified for a vacancy if your rating places you in the 85th percentile or higher in total possible points. ICTAP eligibles must submit proof of eligibility for special selection priority. Please see the Required Documents section below for more information. Click here for more information on ICTAP. If you are a male applicant who was born after 12/31/59 you are required to register under the Military Selective Service Act; the Defense Authorization Act of 1986 requires that you be registered, or you are not eligible for appointment in this agency.",
+              "KeyRequirements": [],
+              "WithinArea": "False",
+              "CommuteDistance": "0",
+              "ServiceType": "01",
+              "AnnouncementClosingType": "01",
+              "AgencyContactEmail": "recruit@rrb.gov",
+              "AgencyContactPhone": "(312) 751-4580",
+              "SecurityClearance": "Not Required",
+              "DrugTestRequired": "False",
+              "PositionSensitivitiy": "Moderate Risk (MR)",
+              "AdjudicationType": [
+                "Credentialing",
+                "Suitability/Fitness"
+              ],
+              "TeleworkEligible": true,
+              "RemoteIndicator": false,
+              "FinancialDisclosure": false,
+              "BargainingUnitStatus": true
+            },
+            "IsRadialSearch": false
+          }
+        },
+        "RelevanceRank": 0
+      },
+      {
+        "MatchedObjectId": "870177200",
+        "MatchedObjectDescriptor": {
+          "PositionID": "260003BP-12958720-YA",
+          "PositionTitle": "Team Lead/Senior Network Engineer",
+          "PositionURI": "https://www.usajobs.gov:443/job/870177200",
+          "ApplyURI": [
+            "https://www.usajobs.gov:443/job/870177200"
+          ],
+          "PositionLocationDisplay": "Multiple Locations",
+          "PositionLocation": [
+            {
+              "LocationName": "Birmingham, Alabama",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Alabama",
+              "CityName": "Birmingham, Alabama",
+              "Longitude": -86.8115,
+              "Latitude": 33.5203
+            },
+            {
+              "LocationName": "Little Rock, Arkansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arkansas",
+              "CityName": "Little Rock, Arkansas",
+              "Longitude": -92.2745,
+              "Latitude": 34.7487
+            },
+            {
+              "LocationName": "Mesa, Arizona",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Arizona",
+              "CityName": "Mesa, Arizona",
+              "Longitude": -111.83146,
+              "Latitude": 33.417046
+            },
+            {
+              "LocationName": "Covina, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Covina, California",
+              "Longitude": -117.88902,
+              "Latitude": 34.087425
+            },
+            {
+              "LocationName": "Oakland, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Oakland, California",
+              "Longitude": -122.273026,
+              "Latitude": 37.805065
+            },
+            {
+              "LocationName": "Roseville, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Roseville, California",
+              "Longitude": -121.28456,
+              "Latitude": 38.748528
+            },
+            {
+              "LocationName": "Denver, Colorado",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Colorado",
+              "CityName": "Denver, Colorado",
+              "Longitude": -104.992256,
+              "Latitude": 39.74001
+            },
+            {
+              "LocationName": "Washington, District of Columbia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "District of Columbia",
+              "CityName": "Washington, District of Columbia",
+              "Longitude": -77.032,
+              "Latitude": 38.8904
+            },
+            {
+              "LocationName": "Jacksonville, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Jacksonville, Florida",
+              "Longitude": -81.6558,
+              "Latitude": 30.33138
+            },
+            {
+              "LocationName": "Tampa, Florida",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Florida",
+              "CityName": "Tampa, Florida",
+              "Longitude": -82.45927,
+              "Latitude": 27.94653
+            },
+            {
+              "LocationName": "Atlanta, Georgia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Georgia",
+              "CityName": "Atlanta, Georgia",
+              "Longitude": -84.39111,
+              "Latitude": 33.748314
+            },
+            {
+              "LocationName": "Des Moines, Iowa",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Iowa",
+              "CityName": "Des Moines, Iowa",
+              "Longitude": -93.61568,
+              "Latitude": 41.589787
+            },
+            {
+              "LocationName": "Chicago, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Chicago, Illinois",
+              "Longitude": -87.63241,
+              "Latitude": 41.88415
+            },
+            {
+              "LocationName": "Decatur, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Decatur, Illinois",
+              "Longitude": -88.95246,
+              "Latitude": 39.845844
+            },
+            {
+              "LocationName": "Joliet, Illinois",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Illinois",
+              "CityName": "Joliet, Illinois",
+              "Longitude": -88.084595,
+              "Latitude": 41.524933
+            },
+            {
+              "LocationName": "Indianapolis, Indiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Indiana",
+              "CityName": "Indianapolis, Indiana",
+              "Longitude": -86.14996,
+              "Latitude": 39.76691
+            },
+            {
+              "LocationName": "Kansas City, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Kansas City, Kansas",
+              "Longitude": -94.62682,
+              "Latitude": 39.11338
+            },
+            {
+              "LocationName": "Wichita, Kansas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kansas",
+              "CityName": "Wichita, Kansas",
+              "Longitude": -97.33558,
+              "Latitude": 37.68698
+            },
+            {
+              "LocationName": "Louisville, Kentucky",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Kentucky",
+              "CityName": "Louisville, Kentucky",
+              "Longitude": -85.7664,
+              "Latitude": 38.25486
+            },
+            {
+              "LocationName": "New Orleans, Louisiana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Louisiana",
+              "CityName": "New Orleans, Louisiana",
+              "Longitude": -90.07771,
+              "Latitude": 29.95369
+            },
+            {
+              "LocationName": "Boston, Massachusetts",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Massachusetts",
+              "CityName": "Boston, Massachusetts",
+              "Longitude": -71.0567,
+              "Latitude": 42.358635
+            },
+            {
+              "LocationName": "Baltimore, Maryland",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Maryland",
+              "CityName": "Baltimore, Maryland",
+              "Longitude": -76.609604,
+              "Latitude": 39.290554
+            },
+            {
+              "LocationName": "Detroit, Michigan",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Michigan",
+              "CityName": "Detroit, Michigan",
+              "Longitude": -83.0479,
+              "Latitude": 42.3317
+            },
+            {
+              "LocationName": "Duluth, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Duluth, Minnesota",
+              "Longitude": -92.09985,
+              "Latitude": 46.787964
+            },
+            {
+              "LocationName": "Saint Paul, Minnesota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Minnesota",
+              "CityName": "Saint Paul, Minnesota",
+              "Longitude": -93.09333,
+              "Latitude": 44.94383
+            },
+            {
+              "LocationName": "Saint Louis, Missouri",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Missouri",
+              "CityName": "Saint Louis, Missouri",
+              "Longitude": -90.19952,
+              "Latitude": 38.62774
+            },
+            {
+              "LocationName": "Billings, Montana",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Montana",
+              "CityName": "Billings, Montana",
+              "Longitude": -108.50558,
+              "Latitude": 45.783752
+            },
+            {
+              "LocationName": "Charlotte, North Carolina",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Carolina",
+              "CityName": "Charlotte, North Carolina",
+              "Longitude": -80.83754,
+              "Latitude": 35.2225
+            },
+            {
+              "LocationName": "Fargo, North Dakota",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "North Dakota",
+              "CityName": "Fargo, North Dakota",
+              "Longitude": -96.78177,
+              "Latitude": 46.87591
+            },
+            {
+              "LocationName": "Omaha, Nebraska",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Nebraska",
+              "CityName": "Omaha, Nebraska",
+              "Longitude": -95.94007,
+              "Latitude": 41.26067
+            },
+            {
+              "LocationName": "Newark, New Jersey",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Jersey",
+              "CityName": "Newark, New Jersey",
+              "Longitude": -74.17419,
+              "Latitude": 40.73197
+            },
+            {
+              "LocationName": "Albuquerque, New Mexico",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New Mexico",
+              "CityName": "Albuquerque, New Mexico",
+              "Longitude": -106.649,
+              "Latitude": 35.0842
+            },
+            {
+              "LocationName": "Albany, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Albany, New York",
+              "Longitude": -73.75527,
+              "Latitude": 42.651455
+            },
+            {
+              "LocationName": "Buffalo, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Buffalo, New York",
+              "Longitude": -78.87846,
+              "Latitude": 42.88544
+            },
+            {
+              "LocationName": "Central Islip, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "Central Islip, New York",
+              "Longitude": -73.21191,
+              "Latitude": 40.80207
+            },
+            {
+              "LocationName": "New York, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "New York, New York",
+              "Longitude": -74.0071,
+              "Latitude": 40.7146
+            },
+            {
+              "LocationName": "Cincinnati, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cincinnati, Ohio",
+              "Longitude": -84.5041,
+              "Latitude": 39.1071
+            },
+            {
+              "LocationName": "Cleveland, Ohio",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Ohio",
+              "CityName": "Cleveland, Ohio",
+              "Longitude": -81.690575,
+              "Latitude": 41.504494
+            },
+            {
+              "LocationName": "Portland, Oregon",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Oregon",
+              "CityName": "Portland, Oregon",
+              "Longitude": -122.67563,
+              "Latitude": 45.511795
+            },
+            {
+              "LocationName": "Altoona, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Altoona, Pennsylvania",
+              "Longitude": -78.3989,
+              "Latitude": 40.5072
+            },
+            {
+              "LocationName": "Harrisburg, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Harrisburg, Pennsylvania",
+              "Longitude": -76.882225,
+              "Latitude": 40.259876
+            },
+            {
+              "LocationName": "Philadelphia, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Philadelphia, Pennsylvania",
+              "Longitude": -75.16237,
+              "Latitude": 39.95227
+            },
+            {
+              "LocationName": "Pittsburgh, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Pittsburgh, Pennsylvania",
+              "Longitude": -79.99746,
+              "Latitude": 40.43831
+            },
+            {
+              "LocationName": "Scranton, Pennsylvania",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Pennsylvania",
+              "CityName": "Scranton, Pennsylvania",
+              "Longitude": -75.6608,
+              "Latitude": 41.410133
+            },
+            {
+              "LocationName": "Nashville, Tennessee",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Tennessee",
+              "CityName": "Nashville, Tennessee",
+              "Longitude": -86.778366,
+              "Latitude": 36.16778
+            },
+            {
+              "LocationName": "Fort Worth, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Fort Worth, Texas",
+              "Longitude": -97.32925,
+              "Latitude": 32.74863
+            },
+            {
+              "LocationName": "Houston, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Houston, Texas",
+              "Longitude": -95.36978,
+              "Latitude": 29.76045
+            },
+            {
+              "LocationName": "Salt Lake City, Utah",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Utah",
+              "CityName": "Salt Lake City, Utah",
+              "Longitude": -111.88823,
+              "Latitude": 40.75952
+            },
+            {
+              "LocationName": "Richmond, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Richmond, Virginia",
+              "Longitude": -77.433655,
+              "Latitude": 37.5407
+            },
+            {
+              "LocationName": "Roanoke, Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Virginia",
+              "CityName": "Roanoke, Virginia",
+              "Longitude": -79.9405,
+              "Latitude": 37.2715
+            },
+            {
+              "LocationName": "Seattle, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Seattle, Washington",
+              "Longitude": -122.32945,
+              "Latitude": 47.60358
+            },
+            {
+              "LocationName": "Spokane, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Spokane, Washington",
+              "Longitude": -117.41228,
+              "Latitude": 47.65726
+            },
+            {
+              "LocationName": "Milwaukee, Wisconsin",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Wisconsin",
+              "CityName": "Milwaukee, Wisconsin",
+              "Longitude": -87.906845,
+              "Latitude": 43.04181
+            },
+            {
+              "LocationName": "Huntington, West Virginia",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "West Virginia",
+              "CityName": "Huntington, West Virginia",
+              "Longitude": -82.44537,
+              "Latitude": 38.419827
+            }
+          ],
+          "OrganizationName": "Railroad Retirement Board",
+          "DepartmentName": "Other Agencies and Independent Organizations",
+          "JobCategory": [
+            {
+              "Name": "Information Technology Management",
+              "Code": "2210"
+            }
+          ],
+          "JobGrade": [
+            {
+              "Code": "GS"
+            }
+          ],
+          "PositionSchedule": [
+            {
+              "Name": "Incumbent may be required to work outside of normal duty hours, such as nights, weekends, and holidays, due to operational needs.",
+              "Code": "1"
+            }
+          ],
+          "PositionOfferingType": [
+            {
+              "Name": "",
+              "Code": "15317"
+            }
+          ],
+          "QualificationSummary": "Applicants must have IT-related experience demonstrating each of the four competencies listed below. Applicants must demonstrate possession of these competencies within the body of the resume; no separate statements addressing them are required. Attention to Detail - Is thorough when performing work and conscientious about attending to detail. Customer Service - Works with clients and customers (that is, any individuals who use or receive the services or products that your work unit produces, including the general public, individuals who work in the agency, other agencies, or organizations outside the Government) to assess their needs, provide information or assistance, resolve their problems, or satisfy their expectations; knows about available products and services; is committed to providing quality products and services. Oral Communication - Expresses information (for example, ideas or facts) to individuals or groups effectively, taking into account the audience and nature of the information (for example, technical, sensitive, controversial); makes clear and convincing oral presentations; listens to others, attends to nonverbal cues, and responds appropriately. Problem Solving - Identifies problems; determines accuracy and relevance of information; uses sound judgment to generate and evaluate alternatives, and to make recommendations. -AND- One year of specialized experience equivalent to the GS-12 grade level in the Federal service. Specialized Experience is experience that has equipped the applicant with the particular knowledge, skills, and abilities/competencies to perform successfully the duties of the position and is typically in or related to the work of the position to be filled. Specialized experience is defined as demonstrated experience: Serving as a \"hands-on\" technical lead supporting production IT systems by planning, installing, troubleshooting, and enhancing enterprise Local Area Network (LAN), Wide Area Network (WAN), Wireless Local Area Network (WLAN), and data and telecommunications networks to maintain reliable and efficient operations. Planning, configuring, and troubleshooting Cisco-based network solutions by supporting core and distribution switches, routers, and firewalls/Firepower and assisting with Internet Protocol Security (IPSec) for Virtual Private Network (VPN), Multiprotocol Label Switching (MPLS), Virtual LANs (VLANs), Software-Defined Wide Area Network (SD-WAN), and routing protocols such as Border Gateway Protocol (BGP) and Enhanced Interior Gateway Routing Protocol (EIGRP) to ensure secure, stable, and efficient enterprise connectivity. Resolving issues across Unified Communications, Voice over Internet Protocol (VoIP) technologies, and wireless systems by troubleshooting performance problems, supporting diagnostics, and helping sustain secure and stable communication services. Supporting daily network and telecommunications operations by diagnosing and resolving service disruptions involving firewalls, VPNs, switches, routers, MPLS, VLANs, SD-WAN, VoIP, Unified Communications, and wireless infrastructure to maintain consistent availability of enterprise network and telecommunications services. Resolving hardware and software failures or network outages, analyzing network disruptions using monitoring and packet-level diagnostic tools, and restoring services within Service Level Agreement response and resolution requirements. Providing technical guidance on projects by supporting connectivity planning, documenting network requirements, coordinating with vendors, and ensuring network enhancements incorporate required security and privacy measures. Note: Possession of Cisco Certifications in one or more of the following is preferred but not required. If you possess any of the certifications, please attach a copy with your resume and/or supporting documents. Cisco Certified Network Associate (CCNA) Cisco Certified Network Professional (CCNP) Enterprise Time-in-grade restrictions: Applicants who are current or former Federal employees and have held a GS grade any time in the past 52 weeks must also meet time-in-grade requirements (52 weeks at the next lower grade level). Experience refers to paid and unpaid experience, including volunteer work done through National Service programs (e.g., Peace Corps, AmeriCorps) and other organizations (e.g., professional, philanthropic, religious, spiritual; community, student, social). Volunteer work helps build critical competencies, knowledge, and skills and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience. Only experience and/or education obtained by the closing date of this announcement will be considered.",
+          "PositionRemuneration": [
+            {
+              "MinimumRange": "90925",
+              "MaximumRange": "118204",
+              "RateIntervalCode": "PA",
+              "Description": "Per Year"
+            }
+          ],
+          "PositionStartDate": "2026-05-21T00:00:00.0000",
+          "PositionEndDate": "2026-06-04T23:59:59.9970",
+          "PublicationStartDate": "2026-05-21T00:00:00.0000",
+          "ApplicationCloseDate": "2026-06-04T23:59:59.9970",
+          "PositionFormattedDescription": [
+            {
+              "Label": "Dynamic Teaser",
+              "LabelDescription": "Hit highlighting for keyword searches."
+            }
+          ],
+          "UserArea": {
+            "Details": {
+              "JobSummary": "This position is located in the Bureau of Information Services, Infrastructure Services, Network Engineering section. The incumbent will serve as Team Lead for a team of data communication engineers that are directly responsible for the day-to-day operation of the RRB's network and telecommunication systems. This job announcement may be used to fill one or more vacancies. This is a bargaining unit position. This position is represented by the Council of AFGE Locals in the Board.",
+              "WhoMayApply": {
+                "Name": "",
+                "Code": ""
+              },
+              "LowGrade": "13",
+              "HighGrade": "13",
+              "PromotionPotential": "13",
+              "OrganizationCodes": "OT/RR00",
+              "Relocation": "False",
+              "HiringPath": [
+                "fed-transition",
+                "overseas",
+                "fed-competitive",
+                "land",
+                "mspouse",
+                "peace",
+                "vet"
+              ],
+              "MCOTags": [
+                "07",
+                "TechToGov"
+              ],
+              "TotalOpenings": "1",
+              "AgencyMarketingStatement": "The Railroad Retirement Board (RRB) is an independent Federal agency established nearly 90 years ago under President Roosevelt's New Deal legislation. Created separate from (but similar to) the social security program for America's workforce, the RRB administers retirement, survivor, unemployment, and sickness benefits for railroad retirees, workers, and their families. We are the only Federal agency headquartered in downtown Chicago, with 53 field offices nationwide. Our dedicated staff works across a variety of career fields, including information technology, benefit program operations, accounting, finance, and law. Whatever the job title, every position within the RRB contributes to our proud tradition of excellent customer service -- a hallmark of the RRB since its inception in 1935. Whether you are just starting out or are an experienced professional seeking a career change, consider joining the RRB for challenging work that is truly meaningful.",
+              "TravelCode": "2",
+              "ApplyOnlineUrl": "https://apply.usastaffing.gov/Application/Apply",
+              "DetailStatusUrl": "https://apply.usastaffing.gov/Application/ApplicationStatus",
+              "MajorDuties": [
+                "As a Team Lead/Senior Network Engineer, you will: As the Team Lead, and at the discretion of the supervisor, direct the workload of the team. Report team accomplishments, issues or concerns to the supervisor, and assist in the direction or redirection of team workload priorities. Serve as the senior network engineer and lead the team in directing the planning, development, and implementation of projects and for liaison with outside organizations. Serve as subject matter expert (SME) for the design, installation, and enhancement of agencywide data and telecommunication networks. Develop comprehensive requirements for hardware, software, and contractor services needed to carry out agency data and telecommunication functions. Provide technical advice to other information technology (IT) personnel and users within the agency regarding data and telecommunication networks. Be responsible for monitoring, evaluating, and reporting the performance of the communication networks in terms of utilization, resources used, response time, users serviced, and reliability. Be responsible for associated communication aspects of the agency's contingency planning for disaster recovery. Work closely with security specialists to develop and document security procedures and implement security controls for the RRB's communication networks."
+              ],
+              "Education": "*There is no education substitution for this position.*",
+              "Requirements": "",
+              "Evaluations": "You will be evaluated based on how well you meet the qualifications listed in this vacancy announcement. Your qualifications will be evaluated based on your application materials (e.g., resume, supporting documents), your responses on the application questionnaire, and your responses to all assessments required for this position. You will be assessed on the following competencies (knowledge, skills, abilities, and other characteristics): Accountability Attention to Detail Customer Service Flexibility Influencing/Negotiating Integrity/Honesty Interpersonal Skills Learning Self-Management Stress Tolerance Teamwork Decision Making Reading Comprehension Reasoning In order to be considered for this position, you must complete all required steps in the process. In addition to the application and application questionnaire, this position requires an online assessment. The online assessment measures critical general competencies required to perform the job. Overstating your qualifications and/or experience in your application materials or application questionnaire may result in your removal from consideration. Cheating on the online assessment may also result in your removal from consideration.",
+              "HowToApply": "In accordance with the Merit Hiring Plan, only resumes up to a total of two pages will be accepted. Applicants with resumes exceeding two pages will be removed from consideration. Resumes must be legible so they can be reviewed for eligibility, minimum qualifications and other position requirements listed in the job announcement. We recommend using a sans-serif font size like Lato, if available. Other widely available options are Calibri, Helvetica, Arial, Verdana, Open Sans, Source Sans Pro, Roboto or Noro Sans. Make your page margins 0.5 inches. Consider using 14-point size font for titles and 10-point for the main text in your resume. For additional guidance on what to include in your resume, please see USAJOBS Help. Please read the entire announcement and all the instructions before you begin an application. To apply and be considered for this position, you must complete all required questionnaires, assessments and submit all required documentation as specified in the How to Apply and Required Documents section. The complete application package must be submitted by 11:59 PM (ET) on the closing date of the announcement to receive consideration. The application process is as follows: Click the Apply Online button. Answer the questions presented in the application and attach all necessary supporting documentation. Click the Submit Application button prior to 11:59 PM (ET) on the announcement closing date. If you are required to complete any USA Hire Assessments, you will be notified after submitting your application. The notification will be provided in your application submission screen and via email. The notification will include your unique assessment access link to the USA Hire system and the completion deadline. Additionally, in USAJOBS you can click \"Track this application\" to return to your assessment completion notice. Access USA Hire using your unique assessment link. Access is granted through your USAJOBS login credentials. Review all instructions prior to beginning your assessments. You will have the opportunity to request a testing accommodation before beginning the assessments should you have a disability covered under the Rehabilitation Act of 1973 as amended. Set aside about two (2) hours to take the USA Hire Assessments; however, most applicants complete the assessments in less time. If you need to stop the assessments and continue later, you can re-use your unique assessment link. Your responses to the USA Hire Assessments will be reused for one year (in most cases) from the date you complete an assessment. If future applications you submit require completion of the same assessments, your responses will be automatically reused. Visit the USA Hire Applicant Resource Center for practice assessments and assessment preparation resources at https://support-usahire.opm.gov/hc/en-us. To update your application, including supporting documentation: During the announcement open period, return to your USAJOBS account, find your application record, and click Edit my application. This option will no longer be available once the announcement has closed. To view the announcement status or your application status: Click on this: https://www.usajobs.gov/Help/how-to/application/status/. Your application status page is where you can view your application status, USA Hire assessment completion status, and review your notifications sent by the hiring agency regarding your application.",
+              "WhatToExpectNext": "Once your online application is submitted you will receive a confirmation notification by email. After a review of your complete application is made, you will be notified of your rating and possible referral to the hiring official. If further evaluation or interviews are required you will be contacted.",
+              "RequiredDocuments": "To apply for this position, you must provide a complete Application Package which includes: Resume showing work schedule, hours worked per week, dates of employment, and duties performed. Resume must not exceed 2 pages. Applicants will be removed from consideration if their resume is longer than 2 pages. Please see \"How to Apply\" for additional information regarding the limit. SF-50: If you are a current or former Federal employee, you must submit a copy of a recent Notification of Personnel Action, SF-50, showing competitive status. (Blocks #24 and #34 must be completed.) Performance Appraisal: If you are a current or former Federal employee, you are encouraged to submit a complete copy of a current or last performance appraisal. The performance appraisal may be used as part of the ranking process and/or to verify your responses to the questionnaire. Veterans' Documentation: If you are a veteran, you must provide a copy of your Record of Military Service (DD-214), and proof of your veterans' preference, if applicable. Veterans with a service connected disability must also submit a completed claim form SF-15 (click here for form) along with the required proofs. Go to FedsHireVets-Veterans Preference for more information. Interagency Career Transition Assistance Plan (ICTAP) documentation: If you are eligible under ICTAP, you must submit all required materials verifying your eligibility as listed in \"Additional Information.\" These materials include: Proof of eligibility: You must submit documentation such as a separation notice or other required material; and SF-50: You must submit a copy of a recent Notification of Personnel Action, SF-50 that shows career or career-conditional competitive service status (Blocks #24 and #34 must be completed); and Performance Appraisal: You must submit your most recent performance appraisal, which must be rated at least fully successful or equivalent. (This is not required if you are eligible for ICTAP due to compensable injury or disability retirement.) The performance appraisal may also be used as part of the ranking process and/or to verify your responses to the questionnaire.",
+              "Benefits": "",
+              "BenefitsDisplayDefaultText": true,
+              "OtherInformation": "Reasonable Accommodation (RA) Requests: If you believe you have a disability (i.e., physical or mental), covered by the Rehabilitation Act of 1973 as amended that would interfere with completing the USA Hire Competency Based Assessments, you will be granted the opportunity to request a RA in your online application. Requests for RA for the USA Hire Competency Based Assessments and appropriate supporting documentation for RA must be received prior to starting the USA Hire Competency Based Assessments. Decisions on requests for RA are made on a case-by-case basis. If you meet the minimum qualifications of the position, after notification of the adjudication of your request, you will receive an email invitation to complete the USA Hire Competency Based Assessments, based on your adjudication decision. You must complete all assessments within 48 hours of receiving the URL to access the USA Hire Competency Based Assessments if you received the link after the close of the announcement. To determine if you need a RA, please review the Procedures for Requesting a Reasonable Accommodation for Online Assessments. (https://appsupport-usastaffing.opm.gov/hc/en-us/sections/45063131363475-Reasonable-Accommodation-Information) Veterans Employment Opportunity Act (VEOA): To be eligible for a VEOA appointment under Merit Promotion procedures, the veteran must be a preference eligible or a veteran separated after 3 years or more of continuous active service performed under honorable conditions. INTERAGENCY CAREER TRANSITION ASSISTANCE PLAN (ICTAP): ICTAP provides eligible displaced Federal competitive service employees with selection priority for competitive service vacancies. You must be determined to be well-qualified for the vacancy to be eligible for special selection priority. After submission of an acceptable application which meets ICTAP eligibility, you will be determined to be well-qualified for a vacancy if your rating places you in the 85th percentile or higher in total possible points. ICTAP eligibles must submit proof of eligibility for special selection priority. Please see the Required Documents section below for more information. Click here for more information on ICTAP. Noncompetitive Appointment Authorities: For more information on noncompetitive appointment authority eligibility requirements: Special Hiring Authorities for Veterans Special Hiring Authorities for Certain Military Spouses Other Special Appointment Authorities If you are a male applicant who was born after 12/31/59 you are required to register under the Military Selective Service Act; the Defense Authorization Act of 1986 requires that you be registered or you are not eligible for appointment in this agency.",
+              "KeyRequirements": [],
+              "WithinArea": "False",
+              "CommuteDistance": "0",
+              "ServiceType": "01",
+              "AnnouncementClosingType": "01",
+              "AgencyContactEmail": "recruit@rrb.gov",
+              "AgencyContactPhone": "(312) 751-4580",
+              "SecurityClearance": "Not Required",
+              "DrugTestRequired": "False",
+              "PositionSensitivitiy": "Moderate Risk (MR)",
+              "AdjudicationType": [
+                "Credentialing",
+                "Suitability/Fitness"
+              ],
+              "TeleworkEligible": true,
+              "RemoteIndicator": false,
+              "FinancialDisclosure": false,
+              "BargainingUnitStatus": true
+            },
+            "IsRadialSearch": false
+          }
+        },
+        "RelevanceRank": 0
+      },
+      {
+        "MatchedObjectId": "870041400",
+        "MatchedObjectDescriptor": {
+          "PositionID": "DESTIMP-12965212-26-VL",
+          "PositionTitle": "Digital Forensic Examiner",
+          "PositionURI": "https://www.usajobs.gov:443/job/870041400",
+          "ApplyURI": [
+            "https://www.usajobs.gov:443/job/870041400"
+          ],
+          "PositionLocationDisplay": "Multiple Locations",
+          "PositionLocation": [
+            {
+              "LocationName": "Sacramento, California",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "California",
+              "CityName": "Sacramento, California",
+              "Longitude": -121.491,
+              "Latitude": 38.57906
+            },
+            {
+              "LocationName": "New Haven, Connecticut",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Connecticut",
+              "CityName": "New Haven, Connecticut",
+              "Longitude": -72.92496,
+              "Latitude": 41.307114
+            },
+            {
+              "LocationName": "Boston, Massachusetts",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Massachusetts",
+              "CityName": "Boston, Massachusetts",
+              "Longitude": -71.0567,
+              "Latitude": 42.358635
+            },
+            {
+              "LocationName": "Baltimore, Maryland",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Maryland",
+              "CityName": "Baltimore, Maryland",
+              "Longitude": -76.609604,
+              "Latitude": 39.290554
+            },
+            {
+              "LocationName": "New York, New York",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "New York",
+              "CityName": "New York, New York",
+              "Longitude": -74.0071,
+              "Latitude": 40.7146
+            },
+            {
+              "LocationName": "Dallas, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Dallas, Texas",
+              "Longitude": -96.7954,
+              "Latitude": 32.778156
+            },
+            {
+              "LocationName": "El Paso, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "El Paso, Texas",
+              "Longitude": -106.4874,
+              "Latitude": 31.7591
+            },
+            {
+              "LocationName": "Houston, Texas",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Texas",
+              "CityName": "Houston, Texas",
+              "Longitude": -95.36978,
+              "Latitude": 29.76045
+            },
+            {
+              "LocationName": "Salt Lake City, Utah",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Utah",
+              "CityName": "Salt Lake City, Utah",
+              "Longitude": -111.88823,
+              "Latitude": 40.75952
+            },
+            {
+              "LocationName": "Seattle, Washington",
+              "CountryCode": "United States",
+              "CountrySubDivisionCode": "Washington",
+              "CityName": "Seattle, Washington",
+              "Longitude": -122.32945,
+              "Latitude": 47.60358
+            }
+          ],
+          "OrganizationName": "Federal Bureau of Investigation",
+          "DepartmentName": "Department of Justice",
+          "JobCategory": [
+            {
+              "Name": "Information Technology Management",
+              "Code": "2210"
+            }
+          ],
+          "JobGrade": [
+            {
+              "Code": "GS"
+            }
+          ],
+          "PositionSchedule": [
+            {
+              "Name": "",
+              "Code": "1"
+            }
+          ],
+          "PositionOfferingType": [
+            {
+              "Name": "",
+              "Code": "15317"
+            }
+          ],
+          "QualificationSummary": "GS-9: Applicant must possess at least one (1) year of SE equivalent to the GS-7 grade level. SE is defined as follows: Planned and completed assignments while adhering to established instructions, policies, practices, and procedures. Established and maintained working relationships with internal and external stakeholders to exchange information, assisting in research while providing recommendations to methods and techniques to evaluate data, digital evidence, a variety of technologies and/or analytical support. Utilized computer related hardware and software to preserve, extract and analyze data and/or digital evidence. GS-11: Applicant must possess at least one (1) year of SE equivalent to the GS-9 grade level. SE is defined as follows: Conducted routine examinations of data and/or digital evidence, using established policies, procedures and precedent techniques. Utilized computer related hardware and software to identify, collect, examine, preserve, and duplicate data and/or digital evidence. Communicated orally and in writing to prepare and present reports, briefings, of information and findings obtained during investigations. Provided guidance to a variety of internal and external stakeholders in the examination and retrieval of data and/or digital evidence, ensuring proper established practices and protocols are followed.",
+          "PositionRemuneration": [
+            {
+              "MinimumRange": "52727",
+              "MaximumRange": "82938",
+              "RateIntervalCode": "PA",
+              "Description": "Per Year"
+            }
+          ],
+          "PositionStartDate": "2026-05-20T00:00:00.0000",
+          "PositionEndDate": "2026-06-04T23:59:59.9970",
+          "PublicationStartDate": "2026-05-20T00:00:00.0000",
+          "ApplicationCloseDate": "2026-06-04T23:59:59.9970",
+          "PositionFormattedDescription": [
+            {
+              "Label": "Dynamic Teaser",
+              "LabelDescription": "Hit highlighting for keyword searches."
+            }
+          ],
+          "UserArea": {
+            "Details": {
+              "JobSummary": "Are you interested in a career with the FBI as a Digital Forensic Examiner (DFE)? At the Federal Bureau of Investigation (FBI), Digital Forensic Examiners apply their technical skills and experience to preserve and analyze digital evidence related to FBI investigations. As key members of the Computer Analysis and Response Team (CART), Digital Forensic Examiners work with advanced technologies, forensic concepts, software, and tools to solve the Bureau's most challenging cases.",
+              "WhoMayApply": {
+                "Name": "",
+                "Code": ""
+              },
+              "LowGrade": "9",
+              "HighGrade": "11",
+              "PromotionPotential": "13",
+              "OrganizationCodes": "DJ/DJ02",
+              "Relocation": "False",
+              "HiringPath": [
+                "fed-transition",
+                "fed-competitive",
+                "fed-excepted",
+                "disability",
+                "fed-internal-search",
+                "mspouse",
+                "public",
+                "vet"
+              ],
+              "MCOTags": [
+                "07"
+              ],
+              "TotalOpenings": "Many",
+              "AgencyMarketingStatement": "The FBI's mission is to protect the American people and uphold the Constitution of the United States. We employ 38,000 people at locations around the globe. In addition to our Headquarters in Washington, D.C., we have 56 Field Offices in major U.S. cities, plus more than 350 satellite offices, called resident agencies, in cities and towns across the nation. In addition, we have more than 60 international offices, called legal attaches (legats), in U.S. embassies worldwide.",
+              "TravelCode": "1",
+              "MajorDuties": [
+                "Plans, coordinates, and directs forensic science activities to include expert examinations, reporting of results, training, and research that involve all aspects of digital evidence. Inventories, examines, retrieves, and performs comprehensive technical analyses of digital evidence without altering original. Prepares evidence for examination from crime scene. Serves as technical consultant by providing up-to-date training in computer examinations detailing the latest technology, supporting information, and reviews of new products to agents, federal, state, and local law enforcement agencies. May be required to testify in court as to the procedures and methods used to obtain data. Prepares and furnishes authoritative oral and written reports on opinions and findings to stakeholders with the law enforcement community."
+              ],
+              "Education": "BASIC REQUIREMENT All personnel must have at least 24 college level semester hours from an accredited college or university in one or more of the following disciplines: Computer Science Engineering Information Science Information Systems Management Mathematics Operations Research Statistics Technology Management Information Systems Analysis Computer/Digital/Electronic Forensics Science/Technology (other than physical sciences) Acceptable: Physics/Astrophysics Chemistry/Organic Chemistry Unacceptable: Astronomy Geology Biology Management Information Systems Information Technology Systems Data Structure and Design AND A Baccalaureate degree from an accredited college or university; OR Technical Experience: Four (4) years of full-time experience working as either a technician or forensic examiner (consistent with FBI digital evidence program definitions) within a digital evidence facility that supports criminal investigations and has an external accreditation or internal quality assurance framework. Hybrid: Consideration for admission under the Hybrid path is a combination of education and work experience equal or greater than four (4) years. The Digital Evidence Staffing Education & Development Unit (DESED) will combine the full-time work experience, time given for Work Time Experience (WTE) based on certificates/certifications, and time given for academic credit hours to calculate the required four (4) years: Full-time experience working as either a technician or forensic examiner (consistent with FBI digital evidence program definitions) within a digital evidence facility that supports criminal investigations, and has an external accreditation or internal quality assurance framework. Technical and computer forensic industry accepted professional certificates/certifications will be reviewed and assign equivalent WTE based on difficulty of the certificate/certification received, DESED will document and maintain a list of accepted and denied certificates/certifications and their assigned WTE. Two (2) weeks per credit hours will be given for any course over 200 level or equivalent in the following disciplines: Computer Science Engineering Information Science Information Systems Management Mathematics Operations Research Statistics Technology Management Information Systems Analysis Computer/Digital/Electronic Forensics Science/Technology (other than physical sciences) Management Information Systems Information Technology Systems Data Structure and Design Personnel who hold a current FBI Digital Forensic Examiner certification, are up to date with all requirements for a current FBI Digital Forensic Examiner, and have been continuously certified as an FBI Digital Forensic Examiner for more than one (1) year. All degrees must be from an accredited college or university. Education may be substituted for specialized experience as follows: GS-9: Applicant must have a master's or equivalent graduate degree or 2 full years of progressively higher-level graduate education leading to such a degree or LL.B. or J.D., if related. GS-11: Applicant must have a Ph.D. OR equivalent doctoral degree OR 3 full years of progressively higher-level graduate education leading to such a degree OR LL.M., if related. Education completed in foreign colleges or universities may be used to meet the above requirements provided you can show foreign education is comparable to that received in an accredited educational institution in the United States.",
+              "Requirements": "Must be a U.S. citizen. Must have (or be able to obtain) a valid driver's license. Must be able to obtain a Top Secret-SCI clearance. Some travel may be required. All new Digital Forensic Examiners must attend the in-residence Digital Forensic Examiner Certification course at the FBI Redstone Arsenal Campus. ALL applicants must verify completion of the basic education requirement by submitting a copy of college transcripts by the closing date of the vacancy announcement. PHYSICAL DEMANDS The work requires manual dexterity, flexibility and some assignments which require considerable, strenuous physical exertion, which may require lifting of objects of up-to-fifty (50) pounds or more. Much of the time is spent inventorying and processing evidence which requires walking, bending, stretching, crawling and lifting. WORK ENVIRONMENT The work may involve regular, recurring exposure to hazardous materials, toxic substances, and bloodborne pathogens. Incumbents are expected to follow safe laboratory practices and wear protective clothing, including facial masks, safety glasses, gloves, and other protective equipment as necessary. The position of Digital Forensic Examiner may require incumbents to view pictures, video, or review graphic text which is Child Exploitative in nature.",
+              "Evaluations": "Your application will be evaluated using the FBI's Candidate Rating Procedures. Your resume and supporting documents will be reviewed to verify that you meet the job qualifications listed in this announcement. Applicants must meet the qualification requirements by the closing date of this announcement. If you are found minimally qualified, your application will move forward to additional phases of the review process. The competencies will be used in a Structured Resume Review to objectively evaluate applicant resumes. Do not provide a separate narrative written statement. Rather you must describe in your resume how your past work experience demonstrates that you possess the competencies identified below. Your resume should demonstrate that you possess the following competencies. Competencies: Analytic Thinking Collaboration Customer Service Problem Solving/Judgment Technology Awareness Positive Education Requirement This position has a specific education requirement; all applicants must verify completion of this basic education requirement by submitting a copy of their college transcripts by the closing date of the vacancy announcement. Education completed in foreign colleges or universities may be used to meet the above requirements provided you can show foreign education is comparable to that received in an accredited educational institution in the United States. If an applicant is a current FBI IT Specialist - Digital Forensic Examiner, please upload a copy of your CART training Record. Applicants currently in this position are not required to attach their transcripts since they are already associated with the CART Program.",
+              "HowToApply": "To apply for the Digital Forensic Examiner position, please click here.",
+              "WhatToExpectNext": "Once your complete application is received, we will conduct an evaluation of your qualifications and determine your ranking. The Most Competitive candidates will be referred to the hiring manager for further consideration and possible interview. You will be notified of your status throughout the process.",
+              "RequiredDocuments": "Utilizing the Resume Builder, outline your relevant work experience and associated start and end dates. Uploaded resumes will not be reviewed or used for qualification purposes. Other supporting documents (if applicable): College transcripts, if qualifying based on education or if there is a positive education requirement. Former civilian Federal employees must submit a copy of your MOST RECENT SF-50 (Notification of Personnel Action) showing your tenure, grade and step, salary, and type of position occupied (i.e., Excepted or Competitive); or similar Notification of Personnel Action documentation, i.e., Transcript of Service, Form 1150, etc. This is a requirement to verify your Time in Grade (TIG). Actions such as promotion, within grade increase, or reassignment actions must be submitted as your most recent SF 50. Most recent Performance Appraisal; not applicable to current FBI employees Veterans: DD 214; Disabled Veterans: DD 214, SF-15, and VA letter dated 1991 or later. Memorandum for Record (MFR): Work performed outside assigned duties (that would not normally be documented on an SF-50, i. e., back-up duties), has to be documented in detail by an immediate supervisor in order to receive full credit for amount of time worked in that position. If no documentation is furnished no credit will be given for time worked in that position. The following notations must be specified in the documentation: Percent of time worked in the particular position (cannot conflict with main duties. The month/year work began. Frequency worked (i.e., daily, monthly, etc.) Specific duties performed.",
+              "Benefits": "",
+              "BenefitsUrl": "https://fbijobs.gov/benefits",
+              "BenefitsDisplayDefaultText": false,
+              "OtherInformation": "**NOTE: The salaries listed above are the base rate of pay for federal employees on the General Schedule (GS) pay scale. Current locality pay tables are available on OPM.gov. Please be advised that in some locations the IT Specialist - Digital Forensic Examiner position may fall under a Special Rate Table. Special Rate Tables 999B, 999C, 999D, 999F, 99AA, 99AH, and 99AP may be used based on location and/or grade. To attract and retain highly qualified candidates, selectees may be eligible for a recruitment incentive of up to 25% or, for eligible current federal employees, a relocation incentive of up to 15%. Eligibility for a relocation incentive requires proof of a change in residence and an assignment at a worksite in a different geographic area greater than or equal to 50 miles from the prior worksite. Employees must sign a written service agreement completing a specified period of employment with the FBI at the new duty station. Recruitment and relocation incentives cannot be combined.",
+              "KeyRequirements": [],
+              "WithinArea": "False",
+              "CommuteDistance": "0",
+              "ServiceType": "02",
+              "AnnouncementClosingType": "01",
+              "AgencyContactEmail": "kdemicco@fbi.gov",
+              "SecurityClearance": "Sensitive Compartmented Information",
+              "DrugTestRequired": "True",
+              "AdjudicationType": [],
+              "TeleworkEligible": false,
+              "RemoteIndicator": false,
+              "FinancialDisclosure": true,
+              "BargainingUnitStatus": false
+            },
+            "IsRadialSearch": false
+          }
+        },
+        "RelevanceRank": 0
+      }
+    ],
+    "UserArea": {
+      "NumberOfPages": "3",
+      "IsRadialSearch": true,
+      "ResolvedLocation": [
+        "Sacramento, California"
+      ]
+    }
+  }
+}
