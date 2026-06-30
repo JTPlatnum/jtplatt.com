@@ -4,40 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>James T. Platt</title>
-  <meta name="description" content="JT Platt. From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, sneakers in Oregon, and state IT in Sacramento.">
+  <meta name="description" content="From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, the sneaker industry, and state IT in Sacramento.">
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+  <!-- ============ HERO ============ -->
   <header class="hero">
-    <div class="wrap wrap--wide">
+    <div class="wrap">
       <p class="eyebrow">james t. platt — jt</p>
-      <div class="hero-head">
-        <div class="hero-text">
-          <h1 class="hero-arc">From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, sneakers in Oregon, and state IT in Sacramento.</h1>
-          <p class="lede">I build systems that handle the work people shouldn't have to.</p>
-        </div>
+      <div class="hero-row">
         <img class="headshot" src="img/headshot.png" alt="JT Platt">
+        <div class="hero-text">
+          <h1 class="arc">From Wall Street finance and Silicon Valley startups to classrooms in East Oakland, the sneaker industry, and state IT in Sacramento.</h1>
+          <p class="subline">Five different worlds, same move: learn how the room works, then build the thing it's missing.</p>
+        </div>
       </div>
     </div>
   </header>
+
+  <!-- ============ FIVE WORLDS ============ -->
+  <section class="worlds-section">
+    <div class="wrap">
+      <div class="worlds">
+
+        <article class="world">
+          <div class="world-img">
+            <img src="img/world-finance.jpg" alt="On the corner of Platt Street in NYC's financial district">
+            <span class="world-num">01</span>
+            <span class="stamp">JT</span>
+          </div>
+          <h2 class="world-title">Wall Street</h2>
+          <p class="world-meta">Finance · 2003–2010</p>
+          <p class="world-cap">I kept the books for trading desks at Bear Stearns and GFI. Got a front-row seat to the financial crisis from the brokerage side.</p>
+        </article>
+
+        <article class="world">
+          <div class="world-img">
+            <img src="img/world-svalley.jpg" alt="In a San Francisco alley with my bike, startup years">
+            <span class="world-num">02</span>
+            <span class="stamp">JT</span>
+          </div>
+          <h2 class="world-title">Silicon Valley</h2>
+          <p class="world-meta">Web Dev · 2013–2016</p>
+          <p class="world-cap">Three startups that were quietly the same team chasing one product through two pivots and an acquisition. I built front ends, including a Budweiser Super Bowl microsite that reached 40 million people.</p>
+        </article>
+
+        <article class="world">
+          <div class="world-img">
+            <img src="img/world-oakland.jpg" alt="Teaching a geometry lesson in an East Oakland classroom">
+            <span class="world-num">03</span>
+            <span class="stamp">JT</span>
+          </div>
+          <h2 class="world-title">East Oakland</h2>
+          <p class="world-meta">Teaching · 2017–2020</p>
+          <p class="world-cap">Taught geometry and computer science to teenagers in East Oakland, and earned a CTE credential doing it. Hardest job on this page, and it isn't close.</p>
+        </article>
+
+        <article class="world">
+          <div class="world-img">
+            <img src="img/world-sneakers.jpg" alt="At my Sneaker Savant table at a sneaker convention">
+            <span class="world-num">04</span>
+            <span class="stamp">JT</span>
+          </div>
+          <h2 class="world-title">Sneakers</h2>
+          <p class="world-meta">Streetwear · 2013–present</p>
+          <p class="world-cap">I built The Sneaker Savant, a sneaker grading and consultancy practice. Grew a 17,000-person community, analyzed over 100,000 pairs, and figured out how to benchmark my hobby.</p>
+        </article>
+
+        <article class="world">
+          <div class="world-img">
+            <img src="img/world-capitol.jpg" alt="California State Capitol dome, Sacramento">
+            <span class="world-num">05</span>
+            <span class="stamp">JT</span>
+          </div>
+          <h2 class="world-title">California</h2>
+          <p class="world-meta">State IT · 2023–present</p>
+          <p class="world-cap">Now I'm in state IT in Sacramento, working up the classification ladder and automating the parts of government nobody enjoys. The other four panels are things I did; this one I'm still in.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
 
   <main>
 
     <!-- ============ SELECTED WORK ============ -->
     <section class="work">
-      <div class="wrap wrap--wide">
-        <p class="kicker">selected work</p>
+      <div class="wrap">
+        <p class="kicker">selected work · closer up</p>
 
-        <!-- Featured: jobs agent -->
         <article class="work-feature">
           <figure>
-            <img src="img/jobs-agent.png" alt="The agent's daily report: scanned and surfaced counts, scored postings, and a per-posting scoring breakdown. Employer and title fields blurred.">
-            <figcaption>A daily run. Employer and title fields blurred; the scoring breakdown is real.</figcaption>
+            <img src="img/jobs-agent.png" alt="The agent's daily report: scanned and surfaced counts, scored postings, and a per-posting scoring breakdown. Posting details blurred.">
+            <figcaption>A daily run. Posting details redacted; the scoring breakdown is real.</figcaption>
           </figure>
           <div>
             <h3>jobs.jtplatt.com</h3>
@@ -46,19 +110,18 @@
           </div>
         </article>
 
-        <!-- Grid: the rest -->
         <div class="work-grid">
 
           <article class="work-card">
-            <h3>The Sneaker Savant &amp; Shoemetrics</h3>
-            <p>Built a sneaker authentication brand from nothing, including Shoemetrics, a proprietary methodology for grading sneaker condition. Grew a community of 16,000+ reaching 1.5M accounts a month, and advised StockX.</p>
+            <h3>The Sneaker Savant</h3>
+            <p>Built The Sneaker Savant, a sneaker grading and consultancy practice, from nothing. Grew a 17,000-person community, analyzed over 100,000 pairs, and released several sneaker trading-card sets.</p>
             <p class="work-meta">Founder &middot; brand, product, methodology &middot; 2013–present</p>
           </article>
 
           <article class="work-card">
-            <h3>Budweiser "Puppy Love" microsite</h3>
-            <p>The microsite for Budweiser's "Puppy Love" campaign at Super Bowl XLVIII, which reached more than 40 million people. Built at Thismoment, a brand-experience platform whose curated, scrollable content streams predated the timeline interface Facebook later made the norm.</p>
-            <p class="work-meta">Front-end engineer &middot; HTML, CSS, JavaScript on a proprietary CMS &middot; Super Bowl XLVIII, 2014</p>
+            <h3>Budweiser "Heroes" microsite</h3>
+            <p>A community-engagement microsite for Budweiser's "Heroes" Salute at Super Bowl XLVIII, built with Folds of Honor and reaching more than 40 million people. It ran the campaign's voting and user-generated content: visitors nominated their own veterans and voted on the National Guard homecoming parade at its center. Real product behind the ad, not a static page. Built at Thismoment, whose curated content streams predated the timeline interface Facebook later made standard.</p>
+            <p class="work-meta">Front-end engineer &middot; voting + UGC, HTML/CSS/JS on a proprietary CMS &middot; Super Bowl XLVIII, 2014</p>
           </article>
 
           <article class="work-card">
@@ -77,11 +140,10 @@
       </div>
     </section>
 
-    <!-- ============ EXPERIENCE ============ -->
+    <!-- ============ THE FULL RECORD ============ -->
     <div class="wrap">
       <section class="section" id="experience">
-        <p class="kicker">experience</p>
-        <h2>The full record</h2>
+        <p class="kicker">the full record</p>
 
         <div class="track">
           <p class="track-label">technology &amp; it</p>
@@ -113,24 +175,13 @@
         </div>
       </section>
 
-      <!-- ============ EDUCATION & CREDENTIALS ============ -->
       <section class="section" id="education">
         <p class="kicker">education &amp; credentials</p>
-        <h2>Credentials</h2>
         <ul class="creds">
-          <li>BA, Business Management Economics <span class="where">&middot; UC Santa Cruz</span></li>
-          <li>CA Career Technical Education Credential <span class="where">&middot; Business &amp; Information Systems</span></li>
-          <li>Web Developer Certificate <span class="where">&middot; Coding Dojo</span></li>
+          <li><span class="cred">BA, Business Management Economics</span> <span class="where">&middot; UC Santa Cruz</span></li>
+          <li><span class="cred">CA Career Technical Education Credential</span> <span class="where">&middot; Business &amp; Information Systems</span></li>
+          <li><span class="cred">Web Developer Certificate</span> <span class="where">&middot; Coding Dojo</span></li>
         </ul>
-      </section>
-
-      <!-- ============ RESUME (placeholder, no dead link) ============ -->
-      <section class="section" id="resume">
-        <p class="kicker">resume</p>
-        <h2>The full history</h2>
-        <p>A current resume is in the works. Until it lands, the complete history lives on <a href="https://www.linkedin.com/in/jtplatt/" target="_blank" rel="noopener">LinkedIn</a>, or just reach out by email.</p>
-        <!-- TODO: when the new PDF is ready, drop it in downloads/ and link it here:
-             <p><a href="downloads/JPlattResume.pdf">Download resume (PDF)</a></p> -->
       </section>
     </div>
 
@@ -140,7 +191,7 @@
   <footer class="footer">
     <div class="wrap">
       <p class="kicker">contact</p>
-      <h2>Find me</h2>
+      <h2 class="footer-head">Find me</h2>
       <ul class="links">
         <li>
           <a href="mailto:James.T.Platt@gmail.com">
@@ -162,6 +213,7 @@
         </li>
       </ul>
       <p class="colophon">Hand-built. No framework, no tracker. Fair Oaks, California.</p>
+      <p class="credits">Panel photographs by the author, except the California State Capitol (DimiTalen, CC0). All treated grayscale.</p>
     </div>
   </footer>
 
