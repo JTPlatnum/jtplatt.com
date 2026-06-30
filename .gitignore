@@ -25,6 +25,9 @@ jobs/logs/
 # Rendered output (main.py writes ./jobs/output/index.html)
 jobs/output/
 
+# Portfolio: raw panel photo sources (treated -> img/world-*.jpg is what ships)
+img/*-jt-*.png
+
 # OS / editor
 .DS_Store
 Thumbs.db

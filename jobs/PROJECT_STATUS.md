@@ -1,21 +1,25 @@
 # PROJECT_STATUS.md
 
-**Last updated:** 2026-06-26
+**Last updated:** 2026-06-30
 
 ## Current State
 
-Pipeline runs end-to-end. `main.py` does upsert → hard-filter → Tier 1 score → render,
-with `--dry-run`. `server.py` is **deployed and live** at https://jobs.jtplatt.com,
-behind Flask HTTP basic auth (`/health` returns `ok`, `/` returns 401 unauthenticated).
-It serves the "Awaiting first run" placeholder until the Mac publishes real output.
-Four of five sources are live. Tier 2 (LLM), email, and the governmentjobs source are
-not built yet. Full test suite passes (221 tests).
+**v1 is live and running daily, fully automated.** The full pipeline runs end-to-end:
+a **Mac launchd job** (`~/Library/LaunchAgents/com.jtplatt.jobs.plist`, lives outside the
+repo) fires daily at **06:00 PT**, runs `main.py` (upsert → hard-filter → Tier 1 score →
+render), then `publish.sh` rsyncs `output/index.html` + `data/jobs.db` to the server.
+`server.py` is **deployed and live** at https://jobs.jtplatt.com behind Flask HTTP basic
+auth (`/health` returns `ok`, `/` returns 401 unauthenticated), on Opalstack (host
+`vps233`, app `jt_jobs`, port 18675, Python 3.12.13). The page serves real daily output.
+Four of five sources are live — **EdJoin currently returns 0 records** (filter-param
+regression, see Known Regressions). Tier 2 (LLM), email, and the governmentjobs source
+remain unbuilt by design. Full test suite passes (221 tests).
 
 **Architecture (locked):** the box is CentOS 7 (glibc 2.17) and cannot run
 Playwright/Chromium, which the CalCareers + CSU sources need. So the crawl runs on the
 **Mac** (where Playwright works) and publishes `output/index.html` + `data/jobs.db` to
 the server; the server only serves the page. `deploy.sh` ships code to the server;
-a separate `publish.sh` (next) does the Mac → server data sync.
+`publish.sh` does the Mac → server data sync (built; runs daily via launchd).
 
 ## What's Done
 
@@ -33,17 +37,16 @@ a separate `publish.sh` (next) does the Mac → server data sync.
 - [x] `main.py` — production entry point, upsert-then-filter pipeline, `--dry-run`
 - [x] `server.py` — Flask app, HTTP basic auth, serves HTML at `/`, `/health` probe
 - [x] `deploy.sh` — server-only Opalstack deploy, **verified live** (see notes below)
+- [x] **`publish.sh`** (repo root) — Mac → server rsync of `output/index.html` +
+  `data/jobs.db`, with an auth-gated `/health` probe. **Built and live.**
+- [x] **Mac launchd job** — `~/Library/LaunchAgents/com.jtplatt.jobs.plist` (outside repo),
+  daily **06:00 PT** local crawl + publish. **Installed; end-to-end run confirmed.**
 - [x] Test suite — 221 passing
 
 ## What's Not Built Yet
 
-Remaining v1 ops items (the Mac → server side of the architecture):
-
-- [ ] **`publish.sh`** (repo root) — Mac → server rsync of `output/index.html` +
-  `data/jobs.db`, then a `/health` auth probe. In progress.
-- [ ] **Mac launchd job** — schedules the daily local crawl (`main.py`) + `publish.sh`.
-
-These files exist as one-line stubs:
+The Mac → server ops loop is complete (deploy + publish + launchd all live). What remains
+is deferred-by-design feature work. These files exist as one-line stubs:
 
 - [ ] **`crawler/sources/governmentjobs.py`** — multi-tenant scraper (Sacramento County/City, etc.)
 - [ ] **`score_llm.py`** — Tier 2 LLM scoring (daily top 10, Anthropic API)
@@ -55,16 +58,19 @@ server stops compiling/installing Playwright (and greenlet) it never uses.
 
 ## What's Next (suggested order)
 
-1. **`publish.sh`** — Mac → server data sync (output/index.html + data/jobs.db). In progress.
-2. **Mac launchd job** — daily local crawl + publish, ~06:00 PT.
-3. **governmentjobs source** — optional, de-prioritized in original scoping. Build only
-   if the v1 surface feels thin after 2–4 weeks of real data.
-4. **Tier 2 LLM scoring (`score_llm.py`)** — deferred until real T1 >= 80 candidates
-   surface (current top T1 is 60, so the LLM has nothing to upgrade). Cost-conscious
-   decision.
-5. **Email notifications (`notify.py`)** — deferred with Tier 2, since the trigger is
-   specced as T1 >= 80 AND T2 >= 8. Can be unblocked earlier by changing the trigger to
-   T1-only if desired.
+The daily pipeline is built and running, so priorities shift to maintenance + deferred
+features:
+
+1. **Fix the EdJoin regression** — 0 records since 2026-06-26 (was 234 on 2026-06-03).
+   Highest-value fix: it's effectively a dead source right now. Triage path in Known
+   Regressions below.
+2. **Let data accumulate** — 2–4 weeks of daily runs before any threshold tuning.
+3. **Tier 2 LLM scoring (`score_llm.py`)** — still deferred until a real T1 >= 80 candidate
+   surfaces (current top T1 is 60, so the LLM has nothing to upgrade). Cost-conscious.
+4. **Email notifications (`notify.py`)** — deferred with Tier 2 (trigger T1 >= 80 AND
+   T2 >= 8); unblockable earlier by switching to a T1-only trigger if desired.
+5. **governmentjobs source** — optional v1.x; build only if the surface feels thin after
+   real data accumulates.
 6. **Threshold tuning** after 2–4 weeks of live data.
 
 ## Spec Deviations (intentional, noted)
@@ -130,3 +136,5 @@ server stops compiling/installing Playwright (and greenlet) it never uses.
 - **2026-06-26** — Mac-publish architecture locked: server hosts/serves only; Mac crawls. CentOS 7 glibc 2.17 cannot run Playwright Chromium. GitHub Actions evaluated and deferred as v2 (always-on alternative if Mac-dependency becomes friction).
 - **2026-06-26** — devtoolset-11 sourced before pip in deploy.sh for greenlet C++ compile.
 - **2026-06-26** — Two-phase deploy gate (review-only by default; DEPLOY_CONFIRM_RESTART=1 to actually cycle uWSGI).
+- **2026-06-30** — `publish.sh` built and live: Mac → server rsync of output/index.html + data/jobs.db with an auth-gated /health probe.
+- **2026-06-30** — Daily automation live: Mac launchd job (`~/Library/LaunchAgents/com.jtplatt.jobs.plist`, outside repo) runs the full crawl + publish at 06:00 PT; end-to-end pipeline confirmed working. v1 ops loop complete.
