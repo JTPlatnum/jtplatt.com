@@ -391,6 +391,60 @@ PREFERENCES = {
         "Async/admin work from home off-peak. Person-to-person, not screen-to-face. "
         "Light on formality. Not 4+ hours of classroom contact. Adult treated as adult."
     ),
+    # Forward-looking direction — what JT is steering toward, distinct from what
+    # he has done. The roles/experience section above is history and stays fixed;
+    # this captures intent. NOTE: score.py does not read this field today. It is
+    # documentation of direction until a separate score.py change wires it in.
+    "target_direction": {
+        "summary": (
+            "Roles that combine building technical systems with program or "
+            "education outcomes in a public-sector context. I want work that uses "
+            "my dev skills, my teaching background, and my ability to translate "
+            "between technical and non-technical stakeholders. Not pure IT ladder, "
+            "not pure management track: player-coach roles or IC roles with real "
+            "program impact."
+        ),
+        "priority_titles": [
+            "Education Programs Consultant",
+            "Education Programs Consultant I",
+            "Education Programs Consultant II",
+            "Education Programs Consultant III",
+            "Associate Governmental Program Analyst",
+            "Staff Services Manager I",
+            "Instructional Systems Designer",
+            "Instructional Designer",
+            "Instructional Technology Coordinator",
+            "Training Officer",
+            "Staff Development Specialist",
+            "Program Analyst",
+            "Business Analyst",
+            "IT Manager I",
+            "IT Supervisor II",
+            "Information Technology Manager I",
+            "Information Technology Specialist II",
+            "Information Technology Specialist III",
+        ],
+        "environment_preferences": [
+            "public-sector or public-mission organization",
+            "CalPERS or CalSTRS (with reciprocity considered)",
+            "remote or hybrid preferred, on-site acceptable if within target locations",
+            "small-to-medium team where I can be a player-coach, not pure management",
+            "meaningful autonomy: I lead through work, not through org chart authority",
+        ],
+        "work_i_gravitate_toward": [
+            "building tools or systems that don't yet exist",
+            "translating between technical and non-technical stakeholders",
+            "teaching, enabling, or training others",
+            "program design and evaluation",
+            "closing gaps I notice: I identify what's missing and build the thing",
+        ],
+        "work_i_avoid": [
+            "pure people-management with no IC component",
+            "narrow help-desk or tier-1 support roles",
+            "private-sector without CalPERS/CalSTRS continuity",
+            "roles where policy compliance is the primary output",
+        ],
+    },
     "target_titles_yes": [
         "Information Technology Specialist I",
         "Information Technology Specialist II",
@@ -425,6 +479,25 @@ PREFERENCES = {
         "CTE",
         "Career Technical Education",
         "Adult Education",
+        # Directional-shift titles merged from target_direction.priority_titles
+        # (2026-07-08). These reflect the forward-looking pivot toward
+        # education-program and program-analyst work. Titles already present
+        # above (Education Programs Consultant, Instructional Designer, Training
+        # Officer, Information Technology Specialist II) are not repeated.
+        "Education Programs Consultant I",
+        "Education Programs Consultant II",
+        "Education Programs Consultant III",
+        "Associate Governmental Program Analyst",
+        "Staff Services Manager I",
+        "Instructional Systems Designer",
+        "Instructional Technology Coordinator",
+        "Staff Development Specialist",
+        "Program Analyst",
+        "Business Analyst",
+        "IT Manager I",
+        "IT Supervisor II",
+        "Information Technology Manager I",
+        "Information Technology Specialist III",
     ],
     "target_titles_no": [
         "Senior Software Engineer",
