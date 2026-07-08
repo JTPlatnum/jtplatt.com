@@ -339,6 +339,22 @@ SKILLS = {
     "accessibility_compliance": [
         "ADA compliance", "accessibility for web/document publishing",
     ],
+    # Education-domain keywords added to widen scorer reach on ed-tech /
+    # higher-ed / instructional-design postings (Fix 1, 2026-07-08). These
+    # feed all_skill_keywords() and thus score.py's keyword-match component.
+    # CAUTION: some of these are DOMAIN-INTEREST terms, not tools JT has
+    # personally used (e.g. Canvas/Blackboard/Moodle/Camtasia/Articulate).
+    # Because the scorer treats every keyword as background, a match here
+    # surfaces in the page's "matched_from_background" list. Do not let a
+    # tool-name match here become a claim of experience in any application.
+    "education_domain": [
+        "LMS", "learning management system", "Canvas LMS", "Blackboard", "Moodle",
+        "instructional design", "curriculum design", "faculty development",
+        "e-learning", "online learning", "distance learning",
+        "Camtasia", "Articulate 360", "accessibility", "Section 508", "WCAG",
+        "adult learning", "andragogy", "higher education", "teaching",
+        "pedagogy", "curriculum",
+    ],
 }
 
 # --- Pension Status (CRITICAL for employer allow-list) ----------------------
