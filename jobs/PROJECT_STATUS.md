@@ -111,20 +111,19 @@ features:
 
 ### Known Regressions
 
-- **EdJoin returning 0 records (root cause found 2026-07-08): `/Home/LoadJobs` endpoint
-  decommissioned, replaced with `/Home/RegionSearch`** (a JS-driven page, not the old JSON
-  API). Was 234 records on 2026-06-03; 0 across all 5 locked queries since 2026-06-26.
-  Triage ruled out the original filter-param-drift hypothesis: the unfiltered baseline
-  probe (`jobTypes=0&regions=0`, no keywords) AND a bare `keywords=teacher` sweep both
-  return `totalRecords=0` — so no filter IDs are at fault; the endpoint itself no longer
-  serves the catalog (still 200 OK with well-formed empty JSON — a silent deprecation, not
-  a 404). The live `/Home/Jobs` page contains zero references to `LoadJobs` and 5 references
-  to `/Home/RegionSearch`. **Requires a source rebuild, not a config tweak:** capture the
-  new endpoint's request contract via Playwright (GET/POST, params, antiforgery token),
-  re-derive jobTypes/region option IDs from the new dropdowns, then rewrite `edjoin.py` +
-  `sources.yaml`. RegionSearch being JS-driven likely moves EdJoin onto the Mac+Playwright
-  path the CalCareers/CSU sources already use. **Deferred until after the SJSU application
-  deadline (2026-07-21).** Not blocking other sources.
+- **EdJoin deactivated 2026-07-08 — `/Home/LoadJobs` decommissioned in favor of
+  `/Home/RegionSearch` (JS-driven). Source rebuild required to reactivate. Held pending
+  decision.** Was 234 records on 2026-06-03; 0 across all 5 locked queries since 2026-06-26.
+  Triage ruled out filter-param drift: the unfiltered baseline probe (`jobTypes=0&regions=0`,
+  no keywords) AND a bare `keywords=teacher` sweep both return `totalRecords=0` — the endpoint
+  itself no longer serves the catalog (still 200 OK with well-formed empty JSON — a silent
+  deprecation, not a 404). The live `/Home/Jobs` page has zero `LoadJobs` references and 5 to
+  `/Home/RegionSearch`. Deactivated in the pipeline (commented out of `sources.yaml`, removed
+  from `filter.ALLOWED_SOURCES`, disabled in `main._build_sources`); parser code, tests,
+  fixtures, and `notes/edjoin-recon.md` retained intact. Reactivation = capture the
+  RegionSearch contract via Playwright, re-derive jobType/region IDs, rewrite `edjoin.py`
+  (likely moves EdJoin onto the Mac+Playwright path CalCareers/CSU already use). Deferred
+  until after the SJSU application deadline (2026-07-21). Not blocking other sources.
 
 ## Decisions Log
 

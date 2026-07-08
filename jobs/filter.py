@@ -51,7 +51,10 @@ SALARY_FLOOR = _salary_floor()
 # Sources whose postings are eligible for filtering. New scrapers land here as
 # they're implemented. Anything else is rejected — keeps stray test postings
 # or future-source bleed out of results.
-ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu", "edjoin"})
+# "edjoin" removed 2026-07-08: source DEACTIVATED (LoadJobs endpoint
+# decommissioned, needs rebuild). Dropping it here stops stale EdJoin rows
+# already in jobs.db from leaking into results while the source is inactive.
+ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu"})
 
 # Current employer JT is leaving — never surface a posting from FI$CAL.
 # Both spellings observed in the wild: "FI$CAL" (official) and "FISCal"

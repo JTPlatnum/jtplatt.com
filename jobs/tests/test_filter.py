@@ -106,10 +106,15 @@ def test_csu_source_passes(monkeypatch):
     assert ok is True
 
 
-def test_edjoin_source_passes(monkeypatch):
+def test_edjoin_source_deactivated_rejects(monkeypatch):
+    # EdJoin DEACTIVATED 2026-07-08 (LoadJobs endpoint decommissioned; source
+    # needs rebuild). Removed from ALLOWED_SOURCES so any stale edjoin rows in
+    # jobs.db are rejected rather than surfaced. Restore the "passes" assertion
+    # when the source is rebuilt and re-added to the allow-list.
     monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
-    ok, _ = filter_mod.should_keep(_posting(source="edjoin"))
-    assert ok is True
+    ok, reason = filter_mod.should_keep(_posting(source="edjoin"))
+    assert ok is False
+    assert reason.startswith("unknown source")
 
 
 # --- Rule 4: disqualifying requirements ------------------------------------
