@@ -35,6 +35,7 @@ PLACEHOLDER_HTML = """<!doctype html>
   <meta charset="utf-8">
   <title>jobs.jtplatt.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
