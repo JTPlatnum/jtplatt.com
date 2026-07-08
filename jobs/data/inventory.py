@@ -60,9 +60,10 @@ PRIOR_ROLES = [
         "end_year": None,
         "duties": [
             "Founded and operate a sneaker authentication and grading platform",
+            "Authenticated over 100,000 pairs",
             "Developed proprietary Shoemetrics grading methodology",
             "Created 5+ sneaker trading card sets via 1 to Stock brand",
-            "Built audience to 16,000+ Instagram followers; peak reach 1.5M/month",
+            "Built audience to 17,300 Instagram followers; peak reach 1.5M/month",
             "Partnerships with marketplaces and brands (StockX advisor among others)",
         ],
         "skills_used": [
