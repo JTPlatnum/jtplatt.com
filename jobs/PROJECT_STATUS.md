@@ -111,11 +111,20 @@ features:
 
 ### Known Regressions
 
-- **EdJoin returning 0 records as of 2026-06-26** across all 5 locked queries (was 234 on
-  2026-06-03). Endpoint healthy (200 OK, well-formed empty result set, same IIS/ASP.NET
-  stack). Suspected filter-param drift (jobTypes and/or region IDs renumbered). Triage
-  path: unfiltered baseline probe → bisect jobTypes vs regions to find the drifted IDs.
-  Not blocking other sources. Investigate before next inventory tuning pass.
+- **EdJoin returning 0 records (root cause found 2026-07-08): `/Home/LoadJobs` endpoint
+  decommissioned, replaced with `/Home/RegionSearch`** (a JS-driven page, not the old JSON
+  API). Was 234 records on 2026-06-03; 0 across all 5 locked queries since 2026-06-26.
+  Triage ruled out the original filter-param-drift hypothesis: the unfiltered baseline
+  probe (`jobTypes=0&regions=0`, no keywords) AND a bare `keywords=teacher` sweep both
+  return `totalRecords=0` — so no filter IDs are at fault; the endpoint itself no longer
+  serves the catalog (still 200 OK with well-formed empty JSON — a silent deprecation, not
+  a 404). The live `/Home/Jobs` page contains zero references to `LoadJobs` and 5 references
+  to `/Home/RegionSearch`. **Requires a source rebuild, not a config tweak:** capture the
+  new endpoint's request contract via Playwright (GET/POST, params, antiforgery token),
+  re-derive jobTypes/region option IDs from the new dropdowns, then rewrite `edjoin.py` +
+  `sources.yaml`. RegionSearch being JS-driven likely moves EdJoin onto the Mac+Playwright
+  path the CalCareers/CSU sources already use. **Deferred until after the SJSU application
+  deadline (2026-07-21).** Not blocking other sources.
 
 ## Decisions Log
 
