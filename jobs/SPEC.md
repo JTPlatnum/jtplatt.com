@@ -4,33 +4,51 @@ The contract. Do not deviate without asking JT.
 
 ## What This Is
 
-A standalone Python service that crawls a fixed set of public-sector job sources daily, filters against JT's hard criteria, scores against his career inventory (`data/inventory.py`), renders a results page at `jobs.jtplatt.com`, and emails him only when something scores as a near-perfect fit.
+A standalone Python service that crawls a fixed set of job sources daily, sorts each posting into one of five priority lanes, filters against JT's hard criteria, scores against his lane preferences and career inventory (`data/inventory.py`), renders a results page at `jobs.jtplatt.com`, and emails him only when something scores as a near-perfect fit.
 
 Lives at `jtplatt.com/jobs/` in the same repo as the portfolio site, but runs as its own Opalstack app at the `jobs.jtplatt.com` subdomain. Independent of QuickStrike, Morning Call, and Sneaker Savant — different stack (Python, not Node), different deploy, never imports from those projects.
 
 ---
 
+## Lanes (priority order)
+
+Every posting that clears the hard filters is assigned to its best-fit lane (`lanes.assign_lane`). The first lane whose rule fires wins. Output ranks by lane, then Tier 1 score. Lane keywords live in `inventory.LANE_PREFERENCES`, kept separate from `SKILLS` (lane keywords say where JT wants to go, never what he has done).
+
+1. **Sneakers / collectibles.** Sneaker/collectibles domain hit (title, employer, or text) AND a function keyword in the title (brand, product, merchandising, strategy, partnerships, consulting, category, sourcing, supply chain, production, manufacturing, operations, factory, plant, quality, floor supervisor, production manager). Hard pay floor $100k/yr.
+2. **Overseas.** Any non-US location. Southeast Asia and Europe are priority regions (scored higher). Overseas is also reported on every lane as `overseas_region`, so a sneaker job in Germany stays lane 1 and is flagged overseas.
+3. **Remote knowledge work.** Fully remote (not hybrid) AND an IT / analyst / consulting title.
+4. **Education.** Counseling, instructional design, edtech, training, curriculum titles.
+5. **Sacramento state IT (fallback).** Step-up title only (ITS II, ITS III, ITM I/II, IT Supervisor II) AND a Sacramento-ring location (Sacramento, Yolo, Placer, El Dorado). ITS I is lateral and never qualifies.
+
+Postings no lane rule fires on are "unlaned" and rank last.
+
+**Authentication / authenticator roles** (sneaker domain only) qualify only if (fully remote OR supervisory/lead/head/manager title) AND verified pay >= $100k/yr. Otherwise rejected. IT identity roles ("Authentication Engineer" at a bank) are out of scope for this rule.
+
+---
+
 ## Hard Filters (must pass ALL)
 
-A posting that fails any one of these is dropped. Not shown, not scored, not emailed.
+A posting that fails any one of these is dropped. Not shown, not scored, not emailed. Applied in this order (`filter.py`):
 
-1. **Salary floor.** Monthly minimum >= `SALARY_FLOOR` in `.env`. JT sets this to his current ITS I monthly rate.
-2. **Employer allow-list.** Posting employer matches an entry in `data/employers.yaml`. The list covers:
-   - CalPERS-continuing (CA state departments, CSU campuses, certain special districts)
-   - CalSTRS-continuing (CA K-12 districts, community college districts)
-   - SCERS / '37 Act counties with CalPERS reciprocity (Sacramento County in particular)
-   - Federal (FERS — separate system but acceptable per JT)
-   - Overseas teaching exceptions (DODEA, Peace Corps Response, accredited international schools)
-3. **Flexibility OR location OR overseas.** Posting must show one of:
-   - Telework/remote/hybrid keyword in the listing, OR
-   - Location within Sacramento metro (Sacramento, Yolo, Placer, El Dorado counties), OR
-   - Overseas teaching role
-4. **Explicit excludes.** Reject if employer matches anything in `data/employers.yaml` → `explicit_exclude`. FI$CAL is the only entry today.
-5. **Disqualifying requirements.** Reject if the posting requires any credential or qualification in `data/reject_requirements.yaml`. Initial list:
-   - PE license, CPA, JD, MD, RN, LCSW
-   - Active TS/SCI or other high clearances
-   - CCIE, CISSP, AWS Solutions Architect Professional, GCP Professional, Azure Expert
-   - "5+ years recent" requirements for languages/frameworks not in JT's inventory (e.g. recent React, recent Go, recent Kubernetes)
+1. **Pay floor.** Applies only to verified pay.
+   - Normal floor: monthly USD >= `SALARY_FLOOR` (JT's current state salary). Applies to every lane, including education (no pay cut).
+   - Sneaker lane: also >= $100k/yr.
+   - Pay is normalized to USD-monthly when a `Posting` is constructed (`pay.py`, rates in `data/currency.yaml`: USD, EUR, GBP, VND, IDR, THB, CNY, JPY, KRW). Sources set `currency` and `pay_period`; defaults are USD / monthly.
+   - Unknown currency or pay period: salary cleared, posting let through, marked **pay unverified**.
+   - No salary: let through, marked **pay unverified**.
+   - Outside the sneaker lane, $100k/yr is a strong scoring bonus, not a cutoff.
+2. **Current employer.** FI$CAL / FISCal rejected.
+3. **Source allow-list.** `filter.ALLOWED_SOURCES`.
+4. **Disqualifying requirements.** Reject if the posting requires any credential or qualification in `data/reject_requirements.yaml` (PE, CPA, JD, MD, RN, LCSW, high clearances, CCIE, CISSP, top-tier cloud certs, degree requirements JT lacks).
+5. **Authentication rule.** See Lanes.
+6. **Location.** Pass if ANY posting location is acceptable:
+   - Home region: `inventory.PREFERENCES["target_locations"]` (Sacramento, Yolo, Placer, El Dorado, Santa Cruz, Monterey, Hawaii, Truckee/Tahoe, Oceanside, San Marcos). On-site, hybrid, or remote.
+   - Fully remote (`lanes.remote_type == "full"`). Hybrid is NOT remote: a hybrid office must be in the home region.
+   - International, only with verified pay (it already cleared the floor after USD conversion; this is what keeps "100k dong" out).
+   - San Francisco / New York City, only with verified pay >= `SALARY_FLOOR_PREMIUM_METRO` (monthly USD). Unset env = SF/NYC rejected.
+   - Anything else rejected.
+
+**Remote vs hybrid** (`lanes.remote_type`): explicit `Posting.remote_type` wins; a location string that is itself remote ("Anywhere in the U.S. (remote job)") = full; the word "hybrid" = hybrid; a full-remote phrase ("fully remote", "100% remote", "work from anywhere") = full; `telework_flag` or a bare remote/telework mention = hybrid.
 
 If a posting requires something the inventory can't back, it gets rejected. We don't fudge.
 
@@ -42,21 +60,22 @@ Two tiers. Tier 1 runs on every posting that clears hard filters. Tier 2 runs on
 
 ### Tier 1 — Rule-based (0–100)
 
-Computed in `score.py`. Components:
+Computed in `score.py`. Ranks within a lane. Components:
 
 | Component | Weight | Source |
 |---|---|---|
-| Inventory keyword match | 40 | Keywords extracted from `data/inventory.py` |
-| Title pattern match | 25 | `data/title_patterns.yaml` (yes/no lists) |
-| Flexibility bonus | 10 | Posting mentions telework/remote/flexible/hybrid |
-| Person-facing bonus | 10 | Training/instruction/liaison/requirements/consulting keywords |
-| International bonus | 10 | Overseas/international/Foreign Service/DODEA |
-| Recency bonus | 5 | Posting < 7 days old |
+| Lane fit | 30 | 20 for having a lane + 2 per lane keyword hit (cap 10). `inventory.LANE_PREFERENCES` |
+| Background match | 20 | `inventory.SKILLS` + role `skills_used`, 2 per hit (cap 20). Honest record only |
+| Title pattern match | ±20 | `inventory.PREFERENCES` target_titles_yes / target_titles_no (NO wins) |
+| Pay | 15 | 15 verified >= $100k/yr; 5 verified below that; 0 unverified |
+| Location | 10 | 10 fully remote or SE Asia/Europe; 7 other overseas; 5 hybrid |
+| Recency | 5 | Posting <= 7 days old |
 
-Title patterns (initial — tune in repo):
+Score dict: `{"score", "lane", "components"}`. `lane` carries lane id/name, why it fired, `overseas_region`, `remote_type`.
 
-- **YES bias:** Information Technology Specialist I/II, Business Systems Analyst, Applications Analyst, Training Officer, Education Programs Consultant, Adult Education Instructor, IT Consultant (CSU), Instructional Designer, Staff Services Analyst (training focus)
-- **NO penalty:** Senior Software Engineer (recent-stack-heavy), Database Administrator, Network Architect, Cybersecurity Analyst requiring CISSP/CCIE, anything with "Senior Full-Stack" or "Lead DevOps"
+Title patterns: YES/NO lists live in `inventory.PREFERENCES`. ITS I and bare "IT Specialist" are NOT on the YES list (lateral moves).
+
+**Thresholds need retuning.** The email (T1 >= 80) and page bucket (80 / 40) thresholds were set against the old weights and have not been changed. Retune after the lane scoring has run on real data.
 
 ### Tier 2 — LLM scoring (0–10)
 
@@ -95,7 +114,9 @@ Flask app behind HTTP basic auth. Password in `.env`. No nginx config required �
 
 ### Per-row
 
-Title | Employer | Salary band | Location | Telework flag | Source | Posted date | Tier 1 score | Tier 2 score (if any) | Apply link | "Why" expand panel
+Title | Employer | Salary band | Location | Lane | Fully remote / hybrid flag | Overseas flag | Pay unverified flag | Source | Posted date | Tier 1 score | Tier 2 score (if any) | Apply link | "Why" expand panel
+
+Within each section, rows sort by lane (1 first, unlaned last), then Tier 1 score.
 
 Page rebuilds at the end of each cron run.
 
@@ -137,7 +158,7 @@ SQLite at `data/jobs.db`.
 
 Tables:
 
-- `jobs` — id, source, source_job_id, title, employer, url, salary_min, salary_max, location, telework_flag, raw_text, first_seen, last_seen, status (active/closed)
+- `jobs` — id, source, source_job_id, title, employer, url, salary_min, salary_max (USD-monthly, already normalized; NULL = pay unverified), location, telework_flag, raw_text, first_seen, last_seen, status (active/closed). `currency`, `pay_period`, `remote_type`, `pay_note` are Posting fields but NOT stored yet.
 - `scores` — job_id, tier1_score, tier1_components_json, tier2_score, tier2_rationale, tier2_gaps_json, scored_at
 - `emails` — job_id, sent_at, subject
 - `runs` — id, started_at, finished_at, source, postings_found, errors_json
@@ -192,8 +213,11 @@ jobs/
 │   ├── employers.yaml           # Allow-list and excludes
 │   ├── sources.yaml             # governmentjobs.com tenants etc.
 │   ├── title_patterns.yaml
+│   ├── currency.yaml            # USD-per-unit conversion table (pay.py)
 │   ├── reject_requirements.yaml
 │   └── jobs.db                  # SQLite (gitignored)
+├── pay.py                       # Salary -> USD-monthly normalization
+├── lanes.py                     # Lane assignment + location/remote classification
 ├── filter.py                    # Hard filters
 ├── score.py                     # Tier 1
 ├── score_llm.py                 # Tier 2
@@ -273,8 +297,9 @@ Do one source end-to-end before adding the next. Resist the urge to write all si
 ## Open Items JT Needs to Resolve
 
 1. Exact monthly salary floor (current ITS I rate) → goes in `.env`
+1a. SF/NYC premium floor → `SALARY_FLOOR_PREMIUM_METRO` in `.env` (monthly USD)
 2. City of Sacramento pension system — CalPERS or legacy SCERS for new hires? → drives `employers.yaml`
 3. Opalstack Python version available and gunicorn setup pattern → confirm during deploy
 4. Anthropic API key → goes in `.env` server-side only
 5. Mail-sending service — SMTP via Opalstack, Mailgun free tier, SendGrid free tier? → pick one before Tier 2 build
-6. Tier 1 / Tier 2 thresholds — start at 80 / 8 per this spec, tune after data accumulates
+6. Tier 1 / Tier 2 thresholds — start at 80 / 8 per this spec, tune after data accumulates. Needs retuning after the 2026-10-28 lane rewrite changed Tier 1 weights.

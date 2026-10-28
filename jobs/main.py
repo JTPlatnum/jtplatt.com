@@ -203,22 +203,24 @@ def _filter_and_score(
 def _posting_to_row(posting, result: Dict[str, Any]):
     """Convert a (Posting, score-result) pair to a render.RowView."""
     from render import RowView, WhyPanel  # noqa: PLC0415
-    from score import _has_overseas_location  # noqa: PLC0415
 
     score = result["score"]
+    lane = result["lane"]
     comps = result["components"]
     annual_min = posting.salary_min * 12 if posting.salary_min is not None else None
     annual_max = posting.salary_max * 12 if posting.salary_max is not None else None
 
+    lane_label = f"Lane {lane['lane']} ({lane['name']})" if lane["lane"] else "Unlaned"
     breakdown = (
-        f"T1 {score} = kw {comps['keyword_match']['points']}/40 + "
-        f"title {comps['title_match']['points']:+d}/±25 + "
-        f"flex {comps['flexibility']['points']}/10 + "
-        f"person {comps['person_facing']['points']}/10 + "
-        f"intl {comps['international']['points']}/10 + "
+        f"{lane_label}: {lane['reason']}. "
+        f"T1 {score} = lane {comps['lane_fit']['points']}/30 + "
+        f"bg {comps['background_match']['points']}/20 + "
+        f"title {comps['title_match']['points']:+d}/±20 + "
+        f"pay {comps['pay']['points']}/15 + "
+        f"loc {comps['location']['points']}/10 + "
         f"recent {comps['recency']['points']}/5"
     )
-    matched = comps["keyword_match"]["matched_keywords"]
+    matched = comps["background_match"]["matched_keywords"]
     title_match = comps["title_match"]
     title_phrase = (
         f"YES: {title_match['matched']}" if title_match["list"] == "yes"
@@ -247,12 +249,16 @@ def _posting_to_row(posting, result: Dict[str, Any]):
         location_display=posting.location or "—",
         all_locations=posting.all_locations,
         telework=bool(posting.telework_flag),
-        is_overseas=_has_overseas_location(posting.all_locations),
+        is_overseas=lane["overseas_region"] is not None,
         posted_date=posting.posted_date,
         tier1_score=score,
         tier2_score=None,
         emailed=False,
         why=why,
+        lane=lane["lane"],
+        lane_name=lane["name"],
+        remote_type=lane["remote_type"],
+        pay_unverified=not comps["pay"]["verified"],
     )
 
 

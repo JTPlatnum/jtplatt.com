@@ -34,12 +34,13 @@ ${{ "{:,.0f}".format(n) }}
         <span class="muted">({{ row.all_locations|length }} locations)</span>
       {% endif %}
     </li>
-    {% if row.telework or row.is_overseas %}
     <li class="flags">
-      {% if row.telework %}<span class="flag flag--telework">Telework</span>{% endif %}
+      <span class="flag">{% if row.lane %}Lane {{ row.lane }} &middot; {{ row.lane_name }}{% else %}Unlaned{% endif %}</span>
+      {% if row.remote_type == "full" %}<span class="flag flag--telework">Fully remote</span>
+      {% elif row.remote_type == "hybrid" or row.telework %}<span class="flag flag--telework">Hybrid / telework</span>{% endif %}
       {% if row.is_overseas %}<span class="flag flag--overseas">Overseas</span>{% endif %}
+      {% if row.pay_unverified %}<span class="flag">Pay unverified</span>{% endif %}
     </li>
-    {% endif %}
     <li class="posted">
       <span class="muted">posted</span>
       {% if row.posted_date %}{{ row.posted_date.isoformat() }}{% else %}&mdash;{% endif %}

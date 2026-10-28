@@ -29,6 +29,21 @@ class Posting:
     all_locations: Optional[List[str]] = None
     telework_flag: Optional[bool] = None
     posted_date: Optional[date] = None
+    # Pay as the SOURCE posted it. Sources that already emit USD-monthly (all
+    # current sources) leave the defaults. __post_init__ normalizes salary to
+    # USD-monthly via pay.py; after that, currency/pay_period read
+    # "USD"/"monthly", or keep the unknown values when pay is unverified.
+    currency: Optional[str] = "USD"
+    pay_period: Optional[str] = "monthly"
+    # "full" | "hybrid" | None. None = let lanes.remote_type() infer from
+    # telework_flag + text. Sources that know set it explicitly.
+    remote_type: Optional[str] = None
+    # Set by normalization: why pay is unverified, or None when it's verified.
+    pay_note: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        from pay import normalize_posting  # noqa: PLC0415
+        normalize_posting(self)
 
 
 class Source(ABC):

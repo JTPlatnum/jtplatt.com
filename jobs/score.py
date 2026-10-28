@@ -2,39 +2,41 @@
 
 Pure function: Posting in, score dict out. No I/O, no DB, no scraping.
 
-Weights (sum to 100 at the cap; title can subtract 25):
+Every posting is first assigned a lane (lanes.assign_lane). Output ranks by
+lane, then by this score; the score itself ranks WITHIN a lane.
 
-    inventory keyword match   40    distinct \\b-bounded matches of inventory
-                                    skill keywords, scaled min(40, n*4)
-    title pattern match       25    +25 if posting.title matches any YES title,
-                                    -25 if it matches any NO title (NO wins).
-                                    YES/NO come from inventory.PREFERENCES.
-    flexibility bonus         10    telework_flag OR raw_text mentions any of
-                                    {telework, remote, hybrid, flexible}
-    person-facing bonus       10    raw_text mentions any of {training,
-                                    instruction, teaching, liaison,
-                                    requirements, consulting, facilitation}
-    international bonus       10    all_locations has a non-US suffix OR
-                                    raw_text mentions {overseas, international,
-                                    Foreign Service, DODEA}
-    recency bonus              5    posted_date within 7 days
+Weights (sum to 100 at the cap; title can subtract 20):
+
+    lane fit                  30    20 for having a lane + 2 per distinct lane
+                                    keyword hit (cap 10). Unlaned = 0.
+                                    Keywords: inventory.LANE_PREFERENCES.
+    background match          20    distinct \\b-bounded matches of inventory
+                                    SKILLS keywords, min(20, n*2). Honest
+                                    record only — never lane keywords.
+    title pattern match       20    +20 YES title, -20 NO title (NO wins).
+                                    YES/NO from inventory.PREFERENCES.
+    pay                       15    15 verified >= $100k/yr; 5 verified
+                                    below that (it already cleared the floor);
+                                    0 unverified.
+    location                  10    10 fully remote or SE Asia/Europe;
+                                    7 other overseas; 5 hybrid; else 0.
+    recency                    5    posted_date within 7 days
 
 Final score is clamped to [0, 100].
 
 title_patterns.yaml is intentionally NOT loaded. inventory.PREFERENCES is the
 single source of truth for YES/NO titles; duplicating into a yaml would drift.
-The stub file remains in data/ for future granular patterns that don't fit
-inventory (regex bias tokens, etc.); none exist today.
 """
 from __future__ import annotations
 
 import re
-from dataclasses import asdict
-from datetime import date, timedelta
+from datetime import date
 from typing import Any, Dict, List, Optional, Tuple
 
+import lanes
 from crawler.base import Posting
 from data import inventory
+from pay import pay_verified
 
 # --- Keyword preprocessing --------------------------------------------------
 
@@ -82,106 +84,59 @@ _YES_TITLES = _build_title_patterns(inventory.PREFERENCES["target_titles_yes"])
 _NO_TITLES = _build_title_patterns(inventory.PREFERENCES["target_titles_no"])
 
 
-# --- Bonus keyword sets -----------------------------------------------------
-
-_FLEX_WORDS = ["telework", "remote", "hybrid", "flexible"]
-_PERSON_WORDS = [
-    "training", "instruction", "teaching", "liaison",
-    "requirements", "consulting", "facilitation",
-]
-_INTL_WORDS = ["overseas", "international", "foreign service", "dodea"]
-
-_FLEX_RE = re.compile(r"\b(" + "|".join(_FLEX_WORDS) + r")\b", re.IGNORECASE)
-_PERSON_RE = re.compile(r"\b(" + "|".join(_PERSON_WORDS) + r")\b", re.IGNORECASE)
-_INTL_RE = re.compile(
-    r"\b(" + "|".join(re.escape(w) for w in _INTL_WORDS) + r")\b",
-    re.IGNORECASE,
-)
-
-
-# --- US state/territory suffixes (for non-US location detection) ------------
-# Used to detect overseas locations from all_locations strings of the form
-# "City, <Suffix>". Anything NOT ending with one of these is treated as
-# overseas. Heuristic; the durable fix is an is_overseas field on Posting,
-# populated at the source-mapping layer where CountryCode is available.
-
-_US_SUFFIXES = frozenset(s.lower() for s in [
-    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
-    "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
-    "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
-    "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
-    "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-    "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
-    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
-    "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
-    "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
-    "Wisconsin", "Wyoming",
-    "Puerto Rico", "Guam", "American Samoa", "U.S. Virgin Islands",
-    "Northern Mariana Islands",
-])
-
-
-def _has_overseas_location(all_locations: Optional[List[str]]) -> bool:
-    if not all_locations:
-        return False
-    for loc in all_locations:
-        if "," not in loc:
-            continue
-        suffix = loc.rsplit(",", 1)[1].strip().lower()
-        if suffix and suffix not in _US_SUFFIXES:
-            return True
-    return False
-
-
 # --- Component scorers ------------------------------------------------------
 
-def _score_keywords(raw_text: str) -> Dict[str, Any]:
+def _score_lane_fit(posting: Posting, lane: Dict[str, Any]) -> Dict[str, Any]:
+    if lane["lane"] is None:
+        return {"points": 0, "matched_lane_keywords": []}
+    hits = lanes.lane_text_hits(posting, lane["lane"])
+    return {"points": 20 + min(10, len(hits) * 2), "matched_lane_keywords": hits}
+
+
+def _score_background(raw_text: str) -> Dict[str, Any]:
     text = raw_text or ""
     matched: List[str] = []
     for key, pat in _KEYWORD_PATTERNS:
         if pat.search(text):
             matched.append(key)
-    points = min(40, len(matched) * 4)
-    return {"points": points, "matched_keywords": matched}
+    return {"points": min(20, len(matched) * 2), "matched_keywords": matched}
 
 
 def _score_title(posting: Posting) -> Dict[str, Any]:
     """Title-pattern match against BOTH posting.title and posting.classification.
-    NO wins over YES. A YES that matches both fields counts once (single +25),
+    NO wins over YES. A YES that matches both fields counts once (single +20),
     not twice — the function returns on the first hit it finds."""
     candidates = [c for c in (posting.title, posting.classification) if c]
     for original, pat in _NO_TITLES:
         for cand in candidates:
             if pat.search(cand):
-                return {"points": -25, "matched": original, "list": "no"}
+                return {"points": -20, "matched": original, "list": "no"}
     for original, pat in _YES_TITLES:
         for cand in candidates:
             if pat.search(cand):
-                return {"points": 25, "matched": original, "list": "yes"}
+                return {"points": 20, "matched": original, "list": "yes"}
     return {"points": 0, "matched": None, "list": None}
 
 
-def _score_flexibility(posting: Posting) -> Dict[str, Any]:
-    if posting.telework_flag:
-        return {"points": 10, "fired_by": "telework_flag"}
-    hits = sorted({m.group(1).lower() for m in _FLEX_RE.finditer(posting.raw_text or "")})
-    if hits:
-        return {"points": 10, "fired_by": ",".join(hits)}
+def _score_pay(posting: Posting) -> Dict[str, Any]:
+    if not pay_verified(posting):
+        return {"points": 0, "verified": False, "note": posting.pay_note}
+    strong = posting.salary_min >= lanes.STRONG_MONTHLY_USD
+    return {"points": 15 if strong else 5, "verified": True, "strong": strong}
+
+
+def _score_location(lane: Dict[str, Any]) -> Dict[str, Any]:
+    region = lane["overseas_region"]
+    rtype = lane["remote_type"]
+    if rtype == "full":
+        return {"points": 10, "fired_by": "fully remote"}
+    if region in ("southeast_asia", "europe"):
+        return {"points": 10, "fired_by": region}
+    if region == "other":
+        return {"points": 7, "fired_by": "overseas (other)"}
+    if rtype == "hybrid":
+        return {"points": 5, "fired_by": "hybrid"}
     return {"points": 0, "fired_by": None}
-
-
-def _score_person_facing(raw_text: str) -> Dict[str, Any]:
-    hits = sorted({m.group(1).lower() for m in _PERSON_RE.finditer(raw_text or "")})
-    return {"points": 10 if hits else 0, "fired_by": hits}
-
-
-def _score_international(posting: Posting) -> Dict[str, Any]:
-    sources: List[str] = []
-    if _has_overseas_location(posting.all_locations):
-        sources.append("non-US location")
-    hits = sorted({m.group(1).lower() for m in _INTL_RE.finditer(posting.raw_text or "")})
-    sources.extend(hits)
-    return {"points": 10 if sources else 0, "fired_by": sources}
 
 
 def _score_recency(posted_date: Optional[date], now: date) -> Dict[str, Any]:
@@ -194,28 +149,30 @@ def _score_recency(posted_date: Optional[date], now: date) -> Dict[str, Any]:
 # --- Main entry -------------------------------------------------------------
 
 def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any]:
-    """Score a posting 0..100 with component breakdown.
+    """Score a posting 0..100 with lane + component breakdown.
 
     Args:
         posting: a crawler.base.Posting
         now: reference date for recency check; defaults to date.today()
 
     Returns:
-        {"score": int, "components": {...}}
+        {"score": int, "lane": {...}, "components": {...}}
 
-    The components dict keys: keyword_match, title_match, flexibility,
-    person_facing, international, recency. Each carries at minimum a
-    "points" int plus per-component fields describing what fired.
+    lane: lanes.assign_lane() output (lane id 1-5 or None, name, reason,
+    overseas_region, remote_type). components keys: lane_fit,
+    background_match, title_match, pay, location, recency. Each carries at
+    minimum a "points" int plus fields describing what fired.
     """
     now = now or date.today()
+    lane = lanes.assign_lane(posting)
     components = {
-        "keyword_match": _score_keywords(posting.raw_text),
+        "lane_fit": _score_lane_fit(posting, lane),
+        "background_match": _score_background(posting.raw_text),
         "title_match": _score_title(posting),
-        "flexibility": _score_flexibility(posting),
-        "person_facing": _score_person_facing(posting.raw_text),
-        "international": _score_international(posting),
+        "pay": _score_pay(posting),
+        "location": _score_location(lane),
         "recency": _score_recency(posting.posted_date, now),
     }
     total = sum(c["points"] for c in components.values())
     clamped = max(0, min(100, total))
-    return {"score": clamped, "components": components}
+    return {"score": clamped, "lane": lane, "components": components}

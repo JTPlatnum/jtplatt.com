@@ -462,10 +462,10 @@ PREFERENCES = {
             "roles where policy compliance is the primary output",
         ],
     },
+    # ITS I and bare "IT Specialist" removed 2026-10-28 (lane rewrite): ITS I
+    # is JT's current class, so it is a lateral move, not a step up.
     "target_titles_yes": [
-        "Information Technology Specialist I",
         "Information Technology Specialist II",
-        "IT Specialist",  # federal short form of "Information Technology Specialist"
         "Business Systems Analyst",
         "Applications Analyst",
         "Training Officer",
@@ -540,6 +540,9 @@ PREFERENCES = {
     # "West Sacramento" alike. Sacramento metro (home), Hawaii (Honolulu),
     # Monterey Bay (CSUMB), Santa Cruz (UCSC town), Oceanside (CSUSM
     # commute), and the Tahoe/Truckee corridor (childhood home).
+    # Any posting located here passes the location rule outright (on-site,
+    # hybrid, or remote). Remote, international, and premium metros are
+    # handled separately in lanes.py / filter.py.
     "target_locations": [
         "Sacramento",
         "Yolo",
@@ -554,6 +557,155 @@ PREFERENCES = {
         "Truckee",
         "Tahoe",
     ],
+    # SF and NYC are allowed only when verified pay clears the premium floor
+    # (SALARY_FLOOR_PREMIUM_METRO env). Matched against the city part of a
+    # location string ("New York, NY" yes; "Albany, New York" no).
+    "premium_metro_cities": [
+        "San Francisco",
+        "South San Francisco",
+        "New York",
+        "New York City",
+        "NYC",
+        "Manhattan",
+        "Brooklyn",
+    ],
+}
+
+# --- Lane Preferences -------------------------------------------------------
+#
+# Where JT wants to go, NOT what he has done. Kept separate from SKILLS on
+# purpose: these keywords decide which lane a posting belongs to and feed the
+# lane-fit score component. They are never a claim of experience. A match here
+# must never be surfaced as "matched from your background".
+#
+# Lanes are in priority order. lanes.assign_lane() walks them top to bottom
+# and the first lane whose rule fires wins. Output ranks by lane, then score.
+#
+# Keyword matching: case-insensitive, word-bounded. "title_keywords" are
+# matched against title + classification; "text_keywords" against the whole
+# posting text and only add score, never assign a lane.
+
+LANE_PREFERENCES = {
+    "pay": {
+        # $100k/yr: hard floor for the sneaker lane and authentication roles;
+        # a strong scoring bonus everywhere else.
+        "strong_annual_usd": 100_000,
+    },
+    "lanes": [
+        {
+            "id": 1,
+            "key": "sneakers",
+            "name": "Sneakers / collectibles",
+            # Assignment needs a domain hit (title, employer, or text) AND a
+            # function hit in the title. "operations" alone is every job.
+            "domain_keywords": [
+                "sneaker", "sneakers", "footwear", "streetwear",
+                "collectible", "collectibles", "trading card", "trading cards",
+                "sports cards", "memorabilia", "sneaker resale",
+                "Nike", "Jordan Brand", "Adidas", "New Balance", "Asics",
+                "Reebok", "Converse", "Puma", "StockX", "GOAT Group",
+                "Flight Club", "Stadium Goods", "Foot Locker", "Fanatics",
+                "Topps", "Panini America", "Upper Deck",
+            ],
+            "title_keywords": [
+                "brand", "product", "merchandising", "merchandiser",
+                "strategy", "partnerships", "partnership", "consulting",
+                "consultant", "category", "sourcing", "supply chain",
+                "production", "manufacturing", "operations", "factory",
+                "plant", "quality", "floor supervisor", "production manager",
+                "authentication", "authenticator",
+            ],
+            "text_keywords": [
+                "sneaker", "footwear", "collectibles", "trading cards",
+                "merchandising", "supply chain", "sourcing", "manufacturing",
+                "factory", "quality control", "product line", "partnerships",
+            ],
+            "pay_floor_annual_usd": 100_000,  # hard floor
+        },
+        {
+            "id": 2,
+            "key": "overseas",
+            "name": "Overseas",
+            # Assigned when any posting location is outside the US. Southeast
+            # Asia and Europe are the priority regions (scored higher).
+            "priority_regions": ["southeast_asia", "europe"],
+            "text_keywords": [
+                "relocation", "relocation assistance", "visa sponsorship",
+                "international", "overseas", "expatriate",
+            ],
+        },
+        {
+            "id": 3,
+            "key": "remote_knowledge",
+            "name": "Remote knowledge work",
+            "requires_fully_remote": True,
+            "title_keywords": [
+                "business systems analyst", "systems analyst",
+                "business analyst", "analyst", "consultant", "consulting",
+                "information technology", "IT", "program analyst",
+                "operations analyst", "solutions analyst",
+            ],
+            "text_keywords": [
+                "requirements gathering", "business analysis", "stakeholder",
+                "process improvement", "workflow", "automation", "ServiceNow",
+                "consulting", "systems analysis",
+            ],
+        },
+        {
+            "id": 4,
+            "key": "education",
+            "name": "Education",
+            "title_keywords": [
+                "counselor", "counseling", "instructional designer",
+                "instructional design", "instructional systems designer",
+                "instructional technologist", "instructional technology",
+                "edtech", "educational technology", "education programs",
+                "training", "trainer", "training officer", "curriculum",
+                "learning and development", "learning experience",
+                "e-learning", "staff development",
+            ],
+            "text_keywords": [
+                "instructional design", "curriculum", "learning management system",
+                "LMS", "training", "e-learning", "edtech", "counseling",
+                "adult learning", "student success",
+            ],
+        },
+        {
+            "id": 5,
+            "key": "sac_state_it",
+            "name": "Sacramento state IT (fallback)",
+            # Only a genuine step up from ITS I. Location must be in the
+            # Sacramento ring, not the wider target_locations list.
+            "title_keywords": [
+                "Information Technology Specialist II",
+                "Information Technology Specialist III",
+                "Information Technology Manager I",
+                "Information Technology Manager II",
+                "Information Technology Supervisor II",
+                "IT Specialist II",
+                "IT Specialist III",
+                "IT Manager I",
+                "IT Manager II",
+                "IT Supervisor II",
+            ],
+            "locations": ["Sacramento", "Yolo", "Placer", "El Dorado"],
+            "text_keywords": [
+                "ServiceNow", "SharePoint", "RPA", "BluePrism", "Azure",
+                "accessibility", "project management",
+            ],
+        },
+    ],
+    # Authentication / authenticator roles inside the sneaker domain only
+    # qualify if (fully remote OR supervisory) AND verified pay >= $100k/yr.
+    # Anything else is low-paid bench grading and gets rejected.
+    "authentication": {
+        "title_keywords": ["authentication", "authenticator", "authenticate"],
+        "supervisory_keywords": [
+            "supervisor", "supervisory", "lead", "head", "manager",
+            "director", "senior manager",
+        ],
+        "min_annual_usd": 100_000,
+    },
 }
 
 # --- Convenience: flattened skill keywords for scorer -----------------------

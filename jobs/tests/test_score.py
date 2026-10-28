@@ -1,7 +1,5 @@
-"""Tests for score.py — Tier 1 rule-based scoring."""
+"""Tests for score.py — Tier 1 rule-based scoring with lanes."""
 from datetime import date, timedelta
-
-import pytest
 
 from crawler.base import Posting
 from score import score_posting
@@ -20,210 +18,233 @@ def _make(**kw) -> Posting:
     return Posting(**defaults)
 
 
-# --- Title patterns ---------------------------------------------------------
+# --- Shape ------------------------------------------------------------------
 
-def test_yes_title_scores_high_and_clears_strong_bucket():
+def test_returns_score_lane_and_components_keys():
+    result = score_posting(_make(raw_text=""))
+    assert set(result.keys()) == {"score", "lane", "components"}
+    assert set(result["components"].keys()) == {
+        "lane_fit", "background_match", "title_match",
+        "pay", "location", "recency",
+    }
+    assert set(result["lane"].keys()) == {
+        "lane", "name", "reason", "overseas_region", "remote_type",
+    }
+
+
+# --- Lane assignment ----------------------------------------------------------
+
+def test_sneaker_lane_needs_domain_and_title_function():
+    p = _make(title="Senior Manager, Footwear Merchandising", employer="Nike")
+    assert score_posting(p)["lane"]["lane"] == 1
+
+
+def test_operations_title_without_sneaker_domain_is_not_lane_1():
+    p = _make(title="Operations Manager", employer="Dept of Water Resources",
+              location="Sacramento, California")
+    assert score_posting(p)["lane"]["lane"] != 1
+
+
+def test_overseas_location_is_lane_2_with_region():
+    p = _make(title="Program Analyst", all_locations=["Hanoi, Vietnam"])
+    lane = score_posting(p)["lane"]
+    assert lane["lane"] == 2
+    assert lane["overseas_region"] == "southeast_asia"
+
+
+def test_sneaker_overseas_stays_lane_1_but_flags_region():
+    """Overseas applies across lanes: lane 1 wins, region still reported."""
+    p = _make(title="Sourcing Manager", employer="Adidas",
+              all_locations=["Herzogenaurach, Germany"])
+    lane = score_posting(p)["lane"]
+    assert lane["lane"] == 1
+    assert lane["overseas_region"] == "europe"
+
+
+def test_fully_remote_analyst_is_lane_3():
+    p = _make(title="Business Systems Analyst", raw_text="This is a fully remote role.")
+    assert score_posting(p)["lane"]["lane"] == 3
+
+
+def test_hybrid_analyst_is_not_lane_3():
+    p = _make(title="Business Systems Analyst",
+              raw_text="Hybrid schedule, 2 days in office.",
+              location="Sacramento, California")
+    assert score_posting(p)["lane"]["lane"] != 3
+
+
+def test_instructional_designer_is_lane_4():
+    p = _make(title="Instructional Designer", location="Santa Cruz, California")
+    assert score_posting(p)["lane"]["lane"] == 4
+
+
+def test_its_ii_in_sacramento_is_lane_5():
+    p = _make(title=".Net Developer", classification="Information Technology Specialist II",
+              location="Sacramento, California")
+    assert score_posting(p)["lane"]["lane"] == 5
+
+
+def test_its_i_is_not_lane_5():
+    """ITS I is lateral, not a step up."""
+    p = _make(title=".Net Developer", classification="Information Technology Specialist I",
+              location="Sacramento, California")
+    assert score_posting(p)["lane"]["lane"] is None
+
+
+def test_its_ii_outside_sacramento_is_not_lane_5():
+    p = _make(classification="Information Technology Specialist II",
+              location="Monterey, California")
+    assert score_posting(p)["lane"]["lane"] is None
+
+
+# --- Lane fit vs background (kept separate) ------------------------------------
+
+def test_lane_keywords_do_not_count_as_background():
+    """'footwear', 'merchandising' are lane keywords, not JT's skills."""
+    p = _make(title="Footwear Merchandising Manager", employer="Nike",
+              raw_text="Own footwear merchandising and supply chain.")
+    comps = score_posting(p)["components"]
+    assert "footwear" in comps["lane_fit"]["matched_lane_keywords"]
+    assert "footwear" not in comps["background_match"]["matched_keywords"]
+    assert "merchandising" not in comps["background_match"]["matched_keywords"]
+
+
+def test_unlaned_gets_zero_lane_fit():
+    assert score_posting(_make(title="Receptionist"))["components"]["lane_fit"]["points"] == 0
+
+
+def test_lane_fit_caps_at_30():
     p = _make(
-        title="Information Technology Specialist I (Policy & Planning)",
-        raw_text=(
-            "Use BluePrism RPA. Manage ServiceNow workflows, SharePoint, "
-            "WordPress. Lead training. Telework eligible. Accessibility "
-            "and ADA compliance required. Excel automation experience a plus."
-        ),
-        telework_flag=True,
-        posted_date=date.today(),
+        title="Footwear Product Sourcing Manufacturing Quality Operations Manager",
+        employer="Nike",
+        raw_text="sneaker footwear collectibles trading cards merchandising "
+                 "supply chain sourcing manufacturing factory quality control",
     )
-    result = score_posting(p)
-    assert result["components"]["title_match"]["points"] == 25
-    assert result["components"]["title_match"]["list"] == "yes"
-    assert result["score"] >= 80
+    assert score_posting(p)["components"]["lane_fit"]["points"] == 30
 
 
-def test_no_title_penalizes():
-    p = _make(
-        title="Senior Software Engineer",
-        raw_text="Generic backend role. Some Python.",
-    )
-    result = score_posting(p)
-    assert result["components"]["title_match"]["points"] == -25
-    assert result["components"]["title_match"]["list"] == "no"
-    assert result["score"] < 40
-
-
-def test_no_title_wins_when_both_match():
-    p = _make(
-        title="Senior Software Engineer / IT Consultant (CSU)",
-        raw_text="",
-    )
-    result = score_posting(p)
-    assert result["components"]["title_match"]["points"] == -25
-
-
-def test_neutral_title_is_zero():
-    p = _make(title="Receptionist II", raw_text="")
-    result = score_posting(p)
-    assert result["components"]["title_match"]["points"] == 0
-
-
-def test_title_word_boundary_avoids_substring_collision():
-    """'Information Technology Specialist I' must not match 'Specialist III'."""
-    p = _make(title="Information Technology Specialist III", raw_text="")
-    result = score_posting(p)
-    matched = result["components"]["title_match"]["matched"]
-    # 'I' and 'II' patterns shouldn't grab 'III'; only an entry whose bare form
-    # is exactly the prefix would match. None of the YES titles fit 'III'.
-    assert matched != "Information Technology Specialist I"
-    assert matched != "Information Technology Specialist II"
-
-
-# --- Title-OR-classification (CalCareers pattern) ---------------------------
-
-def test_classification_matches_yes_when_title_does_not():
-    """CalCareers: title='.Net Developer' (non-matching display name),
-    classification='Information Technology Specialist I' (YES). Score the YES."""
-    p = _make(
-        title=".Net Developer",
-        classification="Information Technology Specialist I",
-        raw_text="",
-    )
-    comp = score_posting(p)["components"]["title_match"]
-    assert comp["points"] == 25
-    assert comp["list"] == "yes"
-    assert comp["matched"] == "Information Technology Specialist I"
-
-
-def test_both_fields_matching_yes_counts_once():
-    """When both title and classification match YES entries, score +25 (not +50)."""
-    p = _make(
-        title="IT Specialist",
-        classification="Information Technology Specialist I",
-        raw_text="",
-    )
-    comp = score_posting(p)["components"]["title_match"]
-    assert comp["points"] == 25
-    assert comp["list"] == "yes"
-
-
-def test_no_in_classification_beats_yes_in_title():
-    """NO penalty wins regardless of which field carries it."""
-    p = _make(
-        title="IT Specialist",  # YES
-        classification="Senior Software Engineer",  # NO
-        raw_text="",
-    )
-    comp = score_posting(p)["components"]["title_match"]
-    assert comp["points"] == -25
-    assert comp["list"] == "no"
-
-
-def test_classification_none_falls_back_to_title_only():
-    """USAJobs-shaped Posting (no classification) still scores from title."""
-    p = _make(
-        title="Senior Software Engineer",
-        classification=None,
-        raw_text="",
-    )
-    comp = score_posting(p)["components"]["title_match"]
-    assert comp["points"] == -25
-    assert comp["list"] == "no"
-
-
-# --- Keyword density --------------------------------------------------------
-
-def test_keyword_density_lifts_score():
-    base = dict(title="Generic Role", posted_date=None, telework_flag=None)
-    low = _make(**base, raw_text="A boring job description with no signal.")
-    high = _make(
-        **base,
-        raw_text=(
-            "Use BluePrism, ServiceNow, SharePoint, WordPress, Azure, "
-            "Excel automation, Oracle, Agile, RPA, QA, HTML, CSS."
-        ),
-    )
-    low_r = score_posting(low)
-    high_r = score_posting(high)
-    assert high_r["components"]["keyword_match"]["points"] > low_r["components"]["keyword_match"]["points"]
-    assert high_r["score"] > low_r["score"]
-
-
-def test_keyword_match_caps_at_40():
-    # Cram every distinct skill we can think of; cap should hold at 40.
+def test_background_match_caps_at_20():
     text = " ".join([
         "BluePrism", "ServiceNow", "SharePoint", "WordPress", "Azure",
-        "Oracle", "Excel", "Agile", "RPA", "QA", "HTML", "CSS", "JavaScript",
-        "Git", "Jira", "QuickBooks", "FI$CAL", "PowerSchool",
+        "Oracle", "Agile", "RPA", "QA", "HTML", "CSS", "JavaScript",
+        "Git", "Jira", "QuickBooks", "PowerSchool",
     ])
-    p = _make(raw_text=text)
-    assert score_posting(p)["components"]["keyword_match"]["points"] == 40
+    assert score_posting(_make(raw_text=text))["components"]["background_match"]["points"] == 20
 
 
-def test_keyword_word_boundary_prevents_false_positives():
-    # 'qa' must not match inside 'qualification' or 'quality assurance'.
-    # 'rpa' must not match inside arbitrary substrings.
+def test_background_word_boundary_prevents_false_positives():
     p = _make(raw_text="Strong qualifications required. Europa was a moon.")
-    matched = score_posting(p)["components"]["keyword_match"]["matched_keywords"]
+    matched = score_posting(p)["components"]["background_match"]["matched_keywords"]
     assert "qa" not in matched
     assert "rpa" not in matched
 
 
 def test_scoped_azure_matches_on_bare_token():
-    """'Azure (website publishing/deployment)' in inventory matches any 'azure'.
-    Per the deliberate-scoping commit: Tier 1 matches broadly, Tier 2 narrows.
-    """
     p = _make(raw_text="Azure architect needed.")
-    matched = score_posting(p)["components"]["keyword_match"]["matched_keywords"]
-    assert "azure" in matched
+    assert "azure" in score_posting(p)["components"]["background_match"]["matched_keywords"]
 
 
-# --- Bonus components -------------------------------------------------------
+# --- Title patterns -------------------------------------------------------------
 
-def test_flexibility_fires_on_telework_flag():
-    p = _make(raw_text="In-office position.", telework_flag=True)
-    assert score_posting(p)["components"]["flexibility"]["points"] == 10
-
-
-def test_flexibility_fires_on_raw_text_keyword():
-    p = _make(raw_text="This role is fully remote.")
-    assert score_posting(p)["components"]["flexibility"]["points"] == 10
+def test_yes_title_scores_plus_20():
+    comp = score_posting(_make(title="Instructional Designer"))["components"]["title_match"]
+    assert comp == {"points": 20, "matched": "Instructional Designer", "list": "yes"}
 
 
-def test_flexibility_does_not_fire_without_signal():
-    p = _make(raw_text="Standard schedule, on-site.")
-    assert score_posting(p)["components"]["flexibility"]["points"] == 0
+def test_its_i_no_longer_yes():
+    comp = score_posting(_make(classification="Information Technology Specialist I"))["components"]["title_match"]
+    assert comp["points"] == 0
 
 
-def test_person_facing_fires():
-    p = _make(raw_text="Lead training and instruction across business units.")
-    comp = score_posting(p)["components"]["person_facing"]
-    assert comp["points"] == 10
-    assert "training" in comp["fired_by"]
-    assert "instruction" in comp["fired_by"]
+def test_bare_it_specialist_no_longer_yes():
+    comp = score_posting(_make(title="IT Specialist"))["components"]["title_match"]
+    assert comp["points"] == 0
 
 
-def test_international_via_raw_text():
-    p = _make(raw_text="Position is overseas with the Foreign Service.")
-    comp = score_posting(p)["components"]["international"]
-    assert comp["points"] == 10
-    assert "overseas" in comp["fired_by"]
+def test_no_title_penalizes():
+    comp = score_posting(_make(title="Senior Software Engineer"))["components"]["title_match"]
+    assert comp["points"] == -20
+    assert comp["list"] == "no"
 
 
-def test_international_via_overseas_location():
-    p = _make(
-        raw_text="Standard duties.",
-        all_locations=["Wiesbaden, Germany"],
-    )
-    comp = score_posting(p)["components"]["international"]
-    assert comp["points"] == 10
-    assert "non-US location" in comp["fired_by"]
+def test_no_title_wins_when_both_match():
+    p = _make(title="Senior Software Engineer / IT Consultant (CSU)")
+    assert score_posting(p)["components"]["title_match"]["points"] == -20
 
 
-def test_international_does_not_fire_on_us_only_locations():
-    p = _make(
-        raw_text="Position duties here.",
-        all_locations=["Sacramento, California", "Washington, District of Columbia"],
-    )
-    assert score_posting(p)["components"]["international"]["points"] == 0
+def test_no_in_classification_beats_yes_in_title():
+    p = _make(title="Business Systems Analyst", classification="Senior Software Engineer")
+    assert score_posting(p)["components"]["title_match"]["list"] == "no"
 
+
+def test_classification_matches_yes_when_title_does_not():
+    p = _make(title=".Net Developer", classification="Information Technology Specialist II")
+    comp = score_posting(p)["components"]["title_match"]
+    assert comp["points"] == 20
+    assert comp["matched"] == "Information Technology Specialist II"
+
+
+def test_both_fields_matching_yes_counts_once():
+    p = _make(title="Business Systems Analyst",
+              classification="Information Technology Specialist II")
+    assert score_posting(p)["components"]["title_match"]["points"] == 20
+
+
+def test_title_word_boundary_avoids_substring_collision():
+    p = _make(title="Information Technology Specialist III")
+    assert score_posting(p)["components"]["title_match"]["matched"] != "Information Technology Specialist II"
+
+
+# --- Pay ------------------------------------------------------------------------
+
+def test_pay_strong_at_100k():
+    p = _make(salary_min=100_000 / 12)
+    comp = score_posting(p)["components"]["pay"]
+    assert comp["points"] == 15
+    assert comp["strong"] is True
+
+
+def test_pay_verified_below_100k_is_small_bonus():
+    assert score_posting(_make(salary_min=7000.0))["components"]["pay"]["points"] == 5
+
+
+def test_pay_unverified_scores_zero_and_carries_note():
+    comp = score_posting(_make())["components"]["pay"]
+    assert comp == {"points": 0, "verified": False, "note": "no salary listed"}
+
+
+def test_pay_converted_from_eur_annual():
+    p = _make(salary_min=120_000, currency="EUR", pay_period="annual")
+    assert score_posting(p)["components"]["pay"]["strong"] is True
+
+
+# --- Location -------------------------------------------------------------------
+
+def test_location_fully_remote_10():
+    assert score_posting(_make(raw_text="Fully remote."))["components"]["location"]["points"] == 10
+
+
+def test_location_europe_10():
+    p = _make(all_locations=["Lisbon, Portugal"])
+    assert score_posting(p)["components"]["location"]["points"] == 10
+
+
+def test_location_other_overseas_7():
+    p = _make(all_locations=["Seoul, South Korea"])
+    assert score_posting(p)["components"]["location"]["points"] == 7
+
+
+def test_location_hybrid_5():
+    p = _make(telework_flag=True, location="Sacramento, California")
+    assert score_posting(p)["components"]["location"]["points"] == 5
+
+
+def test_location_us_abbrev_not_overseas():
+    p = _make(location="Sacramento, CA")
+    assert score_posting(p)["lane"]["overseas_region"] is None
+
+
+# --- Recency + clamping ----------------------------------------------------------
 
 def test_recency_fires_within_seven_days():
     p = _make(posted_date=date.today() - timedelta(days=3))
@@ -236,39 +257,25 @@ def test_recency_does_not_fire_past_seven_days():
 
 
 def test_recency_handles_missing_date():
-    p = _make(posted_date=None)
-    comp = score_posting(p)["components"]["recency"]
-    assert comp["points"] == 0
-    assert comp["age_days"] is None
+    comp = score_posting(_make(posted_date=None))["components"]["recency"]
+    assert comp == {"points": 0, "age_days": None}
 
-
-# --- Aggregate clamping -----------------------------------------------------
 
 def test_total_clamps_to_zero_floor():
-    p = _make(title="Senior Software Engineer", raw_text="")
-    assert score_posting(p)["score"] >= 0
+    assert score_posting(_make(title="Senior Software Engineer"))["score"] == 0
 
 
-def test_total_clamps_to_one_hundred_ceiling():
-    # Construct a posting that would naturally score >100 if uncapped.
+def test_strong_lane_3_posting_clears_80():
     p = _make(
-        title="Information Technology Specialist I",
+        title="Business Systems Analyst",
         raw_text=(
-            "BluePrism ServiceNow SharePoint WordPress Azure Oracle Excel "
-            "Agile RPA HTML CSS JavaScript Git Jira QuickBooks PowerSchool. "
-            "Training and instruction. Overseas role. Telework available."
+            "Fully remote. Requirements gathering, business analysis, stakeholder "
+            "workflow automation in ServiceNow. SharePoint, BluePrism, RPA, Agile, "
+            "QA, project management, Azure, WordPress, HTML, CSS."
         ),
-        telework_flag=True,
+        salary_min=110_000 / 12,
         posted_date=date.today(),
-        all_locations=["Wiesbaden, Germany"],
     )
-    assert score_posting(p)["score"] == 100
-
-
-def test_returns_score_and_components_keys():
-    result = score_posting(_make(raw_text=""))
-    assert set(result.keys()) == {"score", "components"}
-    assert set(result["components"].keys()) == {
-        "keyword_match", "title_match", "flexibility",
-        "person_facing", "international", "recency",
-    }
+    result = score_posting(p)
+    assert result["lane"]["lane"] == 3
+    assert result["score"] >= 80

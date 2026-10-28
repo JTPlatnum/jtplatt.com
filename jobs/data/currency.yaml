@@ -1,0 +1,18 @@
+# Hardcoded currency conversion table, consumed by pay.py.
+#
+# Value = USD per 1 unit of the currency. Approximate; update by hand when a
+# rate drifts enough to matter for the salary floor. Not fetched live on
+# purpose: no external dependency at ingest, and floor decisions stay
+# reproducible run to run.
+#
+# A currency NOT listed here is "unknown": the posting is let through with
+# pay marked unverified (see SPEC.md "Hard Filters").
+USD: 1.0
+EUR: 1.08
+GBP: 1.27
+VND: 0.000039   # ~25,600 VND per USD
+IDR: 0.000062   # ~16,100 IDR per USD
+THB: 0.028      # ~35.7 THB per USD
+CNY: 0.138      # ~7.25 CNY per USD
+JPY: 0.0066     # ~151 JPY per USD
+KRW: 0.00072    # ~1,390 KRW per USD

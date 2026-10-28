@@ -51,6 +51,13 @@ class RowView:
 
     why: WhyPanel
 
+    # Lane 1-5 (priority order) or None for unlaned. Rows sort by lane first,
+    # then score, within each bucket.
+    lane: Optional[int] = None
+    lane_name: Optional[str] = None
+    remote_type: Optional[str] = None  # "full" | "hybrid" | None
+    pay_unverified: bool = False
+
 
 @dataclass
 class PageStats:
@@ -75,7 +82,8 @@ def _bucket(rows: List[RowView]) -> Tuple[List[RowView], List[RowView], List[Row
             strong.append(r)
         elif r.tier1_score >= 40:
             decent.append(r)
-    key = lambda r: (-r.tier1_score, r.title.lower())
+    # Lane first (unlaned last), then score, then title.
+    key = lambda r: (r.lane if r.lane is not None else 99, -r.tier1_score, r.title.lower())
     return sorted(perfect, key=key), sorted(strong, key=key), sorted(decent, key=key)
 
 

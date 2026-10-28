@@ -1,20 +1,27 @@
-"""Hard filters. See SPEC.md.
+"""Hard filters. See SPEC.md "Hard Filters".
 
 Drops postings that violate baseline rules BEFORE scoring. The scorer (and
 JT) only see what survives this stage. Pure function: Posting in,
 (passes, reason) out. Single short-circuit return on the first failing rule.
 
-Rules in order — cheap structural checks first, yaml-loaded pattern checks
-last:
+Rules in order — cheap structural checks first, pattern checks last:
 
-    1. salary floor       SALARY_FLOOR env (monthly USD)
+    1. salary floor       verified USD-monthly pay only. SALARY_FLOOR env
+                          (monthly USD) for every lane; sneaker lane also
+                          needs $100k/yr. Unverified pay passes (flagged).
     2. current employer   FI$CAL / FISCal — JT is leaving
     3. source allow-list  structural placeholder; widens as sources land
     4. disqualifying req  data/reject_requirements.yaml substrings
-    5. location           target_locations OR telework
+    5. authentication     sneaker-domain authenticator roles need (fully
+                          remote OR supervisory) AND verified $100k+/yr
+    6. location           home region | fully remote | international with
+                          verified pay | SF/NYC at SALARY_FLOOR_PREMIUM_METRO
 
-Read SALARY_FLOOR via env, not by importing dotenv here. Callers that need
-.env loaded should call load_dotenv() before importing this module.
+Salary is already USD-monthly (or None = unverified) by the time it gets
+here: crawler.base.Posting normalizes at construction via pay.py.
+
+Read env vars directly, not by importing dotenv here. Callers that need .env
+loaded should call load_dotenv() before importing this module.
 """
 from __future__ import annotations
 
@@ -22,12 +29,13 @@ import logging
 import os
 import re
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import yaml
 
+import lanes
 from crawler.base import Posting
-from data import inventory
+from pay import pay_verified
 
 log = logging.getLogger(__name__)
 
@@ -37,16 +45,24 @@ REJECT_REQUIREMENTS_PATH = REPO_ROOT / "data" / "reject_requirements.yaml"
 
 # --- Config -----------------------------------------------------------------
 
-def _salary_floor() -> float:
-    raw = os.getenv("SALARY_FLOOR", "0")
+def _env_float(name: str, default: Optional[str]) -> Optional[float]:
+    raw = os.getenv(name, default)
+    if raw is None or raw.strip() == "":
+        return None
     try:
         return float(raw)
     except ValueError:
-        log.warning("filter: SALARY_FLOOR=%r not parseable; defaulting to 0", raw)
-        return 0.0
+        log.warning("filter: %s=%r not parseable; treating as unset", name, raw)
+        return None
 
 
-SALARY_FLOOR = _salary_floor()
+SALARY_FLOOR = _env_float("SALARY_FLOOR", "0") or 0.0
+
+# SF / NYC premium floor, monthly USD. Unset -> SF/NYC postings are rejected
+# (the premium can't be checked without a number).
+SALARY_FLOOR_PREMIUM_METRO = _env_float("SALARY_FLOOR_PREMIUM_METRO", None)
+
+SNEAKER_FLOOR_MONTHLY = lanes.LANE_BY_ID[1]["pay_floor_annual_usd"] / 12
 
 # Sources whose postings are eligible for filtering. New scrapers land here as
 # they're implemented. Anything else is rejected — keeps stray test postings
@@ -90,30 +106,35 @@ def _compile_reject_pattern(pat: str) -> Tuple[str, re.Pattern]:
 _REJECT_PATTERNS = [_compile_reject_pattern(p) for p in _load_reject_patterns()]
 
 
-# --- Location matching -----------------------------------------------------
+# --- Location rule ----------------------------------------------------------
 
-_TARGET_LOCATIONS = [
-    s.lower() for s in inventory.PREFERENCES.get("target_locations", [])
-]
+def _location_check(posting: Posting) -> Tuple[bool, str]:
+    """Pass if ANY location is acceptable. When none is, report the most
+    specific reason seen (premium/international) over the generic one."""
+    classes = lanes.classified_locations(posting)
+    if any(c["kind"] == "home" for c in classes):
+        return True, ""
+    if lanes.remote_type(posting) == "full":
+        return True, ""
 
-
-def _location_strings(posting: Posting) -> List[str]:
-    if posting.all_locations:
-        return list(posting.all_locations)
-    return [posting.location] if posting.location else []
-
-
-def _matches_target_location(posting: Posting) -> bool:
-    if not _TARGET_LOCATIONS:
-        return False
-    for loc in _location_strings(posting):
-        if not loc:
-            continue
-        low = loc.lower()
-        for target in _TARGET_LOCATIONS:
-            if target in low:
-                return True
-    return False
+    verified = pay_verified(posting)
+    reason = "outside target locations"
+    for c in classes:
+        if c["kind"] == "premium_metro":
+            if SALARY_FLOOR_PREMIUM_METRO is None:
+                reason = "premium metro: SALARY_FLOOR_PREMIUM_METRO not set"
+            elif not verified:
+                reason = "premium metro: pay unverified"
+            elif posting.salary_min >= SALARY_FLOOR_PREMIUM_METRO:
+                return True, ""
+            else:
+                reason = "premium metro: below premium floor"
+        elif c["kind"] == "international":
+            # Verified pay already cleared rule 1 after USD conversion.
+            if verified:
+                return True, ""
+            reason = "international: pay unverified"
+    return False, reason
 
 
 # --- Public API ------------------------------------------------------------
@@ -125,11 +146,14 @@ def should_keep(posting: Posting) -> Tuple[bool, str]:
     suitable for log/footer surfacing. Single short-circuit on first
     failing rule.
     """
-    # 1. Salary floor — only enforced when salary_min is known. Postings with
-    # missing salary data pass this rule and get evaluated later (scorer may
-    # downrank them on its own merits).
-    if posting.salary_min is not None and posting.salary_min < SALARY_FLOOR:
-        return False, "below salary floor"
+    # 1. Salary floor — only enforced when pay is verified (USD-monthly
+    # known). Unverified pay passes here; the page flags it.
+    if pay_verified(posting):
+        if posting.salary_min < SALARY_FLOOR:
+            return False, "below salary floor"
+        if (lanes.assign_lane(posting)["lane"] == 1
+                and posting.salary_min < SNEAKER_FLOOR_MONTHLY):
+            return False, "below sneaker-lane floor"
 
     # 2. Current employer.
     if posting.employer and _CURRENT_EMPLOYER_RE.search(posting.employer):
@@ -145,7 +169,9 @@ def should_keep(posting: Posting) -> Tuple[bool, str]:
         if regex.search(text):
             return False, f"disqualifying: {pat}"
 
-    # 5. Location — telework OR any target-location substring match.
-    if posting.telework_flag is True or _matches_target_location(posting):
-        return True, ""
-    return False, "outside target locations"
+    # 5. Authentication roles (sneaker domain only).
+    if lanes.is_authentication_role(posting) and not lanes.authentication_qualifies(posting):
+        return False, "authentication role: needs remote or supervisory at $100k+"
+
+    # 6. Location.
+    return _location_check(posting)

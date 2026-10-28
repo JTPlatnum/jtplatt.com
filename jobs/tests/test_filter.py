@@ -165,14 +165,219 @@ def test_outside_target_locations_rejects(monkeypatch):
     assert reason == "outside target locations"
 
 
-def test_telework_alone_passes_when_location_off_list(monkeypatch):
-    """telework=True alone clears rule 5 even when location is unmatched."""
+def test_hybrid_telework_off_list_rejects(monkeypatch):
+    """telework=True reads as hybrid; a hybrid office outside target
+    locations is rejected (changed 2026-10-28 lane rewrite)."""
     monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
     p = _posting(
         telework_flag=True,
         location="Atlanta, Georgia",
         all_locations=["Atlanta, Georgia"],
     )
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "outside target locations"
+
+
+def test_fully_remote_passes_when_location_off_list(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _posting(
+        telework_flag=True,
+        raw_text="This is a fully remote position.",
+        location="Atlanta, Georgia",
+        all_locations=["Atlanta, Georgia"],
+    )
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_explicit_remote_type_hybrid_overrides_text(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _posting(
+        remote_type="hybrid",
+        raw_text="fully remote",
+        location="Atlanta, Georgia",
+        all_locations=["Atlanta, Georgia"],
+    )
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is False
+
+
+@pytest.mark.parametrize("loc", [
+    "Santa Cruz, California", "Monterey, California", "Honolulu, Hawaii",
+    "Truckee, California", "Oceanside, California", "San Marcos, California",
+    "Placer County", "El Dorado Hills, CA",
+])
+def test_home_region_locations_pass(monkeypatch, loc):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    ok, _ = filter_mod.should_keep(
+        _posting(telework_flag=False, location=loc, all_locations=[loc]))
+    assert ok is True
+
+
+# --- Rule 6: premium metros (SF / NYC) --------------------------------------
+
+def _metro(loc: str, salary: float | None) -> Posting:
+    return _posting(telework_flag=False, location=loc, all_locations=[loc],
+                    salary_min=salary, salary_max=salary)
+
+
+def test_sf_passes_at_premium(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    ok, _ = filter_mod.should_keep(_metro("San Francisco, California", 13000.0))
+    assert ok is True
+
+
+def test_nyc_below_premium_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    ok, reason = filter_mod.should_keep(_metro("New York, NY", 10000.0))
+    assert ok is False
+    assert reason == "premium metro: below premium floor"
+
+
+def test_premium_metro_unverified_pay_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    ok, reason = filter_mod.should_keep(_metro("San Francisco, CA", None))
+    assert ok is False
+    assert reason == "premium metro: pay unverified"
+
+
+def test_premium_metro_unset_env_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", None)
+    ok, reason = filter_mod.should_keep(_metro("San Francisco, CA", 20000.0))
+    assert ok is False
+    assert "not set" in reason
+
+
+def test_new_york_state_is_not_premium_metro(monkeypatch):
+    """'Albany, New York' is upstate, not NYC — plain off-list reject."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    ok, reason = filter_mod.should_keep(_metro("Albany, New York", 20000.0))
+    assert ok is False
+    assert reason == "outside target locations"
+
+
+# --- Rule 6: international ----------------------------------------------------
+
+def _intl(**kw) -> Posting:
+    base = dict(telework_flag=False, location="Hanoi, Vietnam",
+                all_locations=["Hanoi, Vietnam"])
+    base.update(kw)
+    return _posting(**base)
+
+
+def test_100k_dong_fails_floor_after_conversion(monkeypatch):
+    """The canonical case: 100,000 VND/month converts to ~$4 and fails."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _intl(salary_min=100_000, salary_max=100_000, currency="VND", pay_period="monthly")
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "below salary floor"
+
+
+def test_international_with_verified_pay_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _intl(salary_min=110_000, salary_max=130_000, currency="EUR", pay_period="annual",
+              location="Berlin, Germany", all_locations=["Berlin, Germany"])
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_international_unverified_pay_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    ok, reason = filter_mod.should_keep(_intl(salary_min=None, salary_max=None))
+    assert ok is False
+    assert reason == "international: pay unverified"
+
+
+def test_unknown_currency_home_location_passes_unverified(monkeypatch):
+    """Unknown currency -> salary cleared, pay unverified, let through."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _posting(salary_min=500.0, salary_max=600.0, currency="ARS")
+    assert p.salary_min is None
+    assert p.pay_note == "unknown currency 'ARS'"
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+# --- Rule 1: sneaker-lane floor ------------------------------------------------
+
+def _sneaker(**kw) -> Posting:
+    base = dict(title="Product Line Manager", employer="Nike",
+                raw_text="Own the footwear product line.", telework_flag=False,
+                remote_type="full")
+    base.update(kw)
+    return _posting(**base)
+
+
+def test_sneaker_below_100k_rejects_even_above_normal_floor(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    ok, reason = filter_mod.should_keep(_sneaker(salary_min=8000.0))
+    assert ok is False
+    assert reason == "below sneaker-lane floor"
+
+
+def test_sneaker_at_100k_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    ok, _ = filter_mod.should_keep(_sneaker(salary_min=100_000 / 12))
+    assert ok is True
+
+
+def test_sneaker_unverified_pay_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    ok, _ = filter_mod.should_keep(_sneaker(salary_min=None, salary_max=None))
+    assert ok is True
+
+
+# --- Rule 5: authentication ------------------------------------------------------
+
+def test_bench_authenticator_unverified_pay_rejects(monkeypatch):
+    """On-site, non-supervisory, no posted pay: rule 1 can't catch it
+    (unverified passes), so rule 5 does."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _sneaker(title="Sneaker Authenticator", remote_type=None,
+                 location="Sacramento, California",
+                 salary_min=None, salary_max=None)
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason.startswith("authentication role")
+
+
+def test_bench_authenticator_low_pay_rejects_at_floor(monkeypatch):
+    """Verified low pay is caught earlier by the sneaker-lane floor."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _sneaker(title="Sneaker Authenticator", remote_type=None,
+                 salary_min=3500.0, salary_max=4000.0)
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "below sneaker-lane floor"
+
+
+def test_remote_authenticator_without_verified_pay_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _sneaker(title="Authenticator", salary_min=None, salary_max=None)
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason.startswith("authentication role")
+
+
+def test_authentication_manager_at_100k_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _sneaker(title="Authentication Operations Manager", remote_type=None,
+                 location="Sacramento, California",
+                 salary_min=10_000.0, salary_max=12_000.0)
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_it_authentication_engineer_not_caught_by_sneaker_rule(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    p = _posting(title="Identity and Authentication Specialist")
     ok, _ = filter_mod.should_keep(p)
     assert ok is True
 
