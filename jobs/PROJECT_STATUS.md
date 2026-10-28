@@ -1,77 +1,59 @@
 # PROJECT_STATUS.md
 
-**Last updated:** 2026-06-30
+**Last updated:** 2026-10-28
 
 ## Current State
 
-**v1 is live and running daily, fully automated.** The full pipeline runs end-to-end:
-a **Mac launchd job** (`~/Library/LaunchAgents/com.jtplatt.jobs.plist`, lives outside the
-repo) fires daily at **06:00 PT**, runs `main.py` (upsert → hard-filter → Tier 1 score →
-render), then `publish.sh` rsyncs `output/index.html` + `data/jobs.db` to the server.
-`server.py` is **deployed and live** at https://jobs.jtplatt.com behind Flask HTTP basic
-auth (`/health` returns `ok`, `/` returns 401 unauthenticated), on Opalstack (host
-`vps233`, app `jt_jobs`, port 18675, Python 3.12.13). The page serves real daily output.
-Four of five sources are live — **EdJoin currently returns 0 records** (filter-param
-regression, see Known Regressions). Tier 2 (LLM), email, and the governmentjobs source
-remain unbuilt by design. Full test suite passes (221 tests).
+**Multi-lane job agent, crawl on the Mac, delivered by weekly email.** No longer state-IT only:
+every posting is sorted into one of five priority lanes (1 sneakers/collectibles,
+2 overseas, 3 remote knowledge work, 4 education, 5 Sacramento state IT fallback), then
+hard-filtered and Tier 1 scored. See SPEC.md "Lanes".
 
-**Architecture (locked):** the box is CentOS 7 (glibc 2.17) and cannot run
-Playwright/Chromium, which the CalCareers + CSU sources need. So the crawl runs on the
-**Mac** (where Playwright works) and publishes `output/index.html` + `data/jobs.db` to
-the server; the server only serves the page. `deploy.sh` ships code to the server;
-`publish.sh` does the Mac → server data sync (built; runs daily via launchd).
+- **Daily crawl (crawl only):** Mac launchd job `com.jtplatt.jobs` (06:00 PT) runs
+  `main.py`: fetch → upsert → filter → score → render. `publish.sh` was **removed** from
+  the daily run on 2026-10-28 (jobs.jtplatt.com returned 502 every day). Tracked copy of
+  the plist: `launchd/com.jtplatt.jobs.plist`.
+- **Sources live:** USAJobs, CalCareers, CSU, and **Nike** (Workday JSON API, added
+  2026-10-28). EdJoin deactivated (see Known Regressions).
+- **Delivery: weekly digest email** (`notify.py`), Sundays 07:30 via its own launchd job
+  `com.jtplatt.jobs.digest`. Gmail SMTP, up to 12 jobs, at most 6 sneaker-lane, no score
+  threshold. Replaces both the website and the old T1 >= 80 "perfect fit" email.
+- **Website retired:** the Opalstack app at jobs.jtplatt.com is dead (502) and out of the
+  pipeline. `server.py`, `deploy.sh`, `publish.sh` remain in the repo, unused.
+- Test suite: 324 passing.
 
 ## What's Done
 
 - [x] Repo skeleton, venv at `./venv/`, pinned `requirements.txt`
-- [x] `data/inventory.py` — career inventory, sole title/keyword source
-- [x] `crawler/base.py` — abstract `Source` class + `Posting` dataclass
-- [x] **USAJobs source** — official API, query config, field mapping verified from probe
-- [x] **CalCareers source** — live, via Playwright
-- [x] **CSU source** — live, via Playwright (all campuses)
-- [x] **EdJoin source** — live, 5-lane queries with pagination, listing-API-first mapping
-- [x] `filter.py` — hard pass/fail rules before scoring
-- [x] `score.py` — Tier 1 rule-based scoring (title + classification)
-- [x] `store.py` — SQLite persistence layer
-- [x] `render.py` + `templates/results.html` + `static/styles.css` — results page
-- [x] `main.py` — production entry point, upsert-then-filter pipeline, `--dry-run`
-- [x] `server.py` — Flask app, HTTP basic auth, serves HTML at `/`, `/health` probe
-- [x] `deploy.sh` — server-only Opalstack deploy, **verified live** (see notes below)
-- [x] **`publish.sh`** (repo root) — Mac → server rsync of `output/index.html` +
-  `data/jobs.db`, with an auth-gated `/health` probe. **Built and live.**
-- [x] **Mac launchd job** — `~/Library/LaunchAgents/com.jtplatt.jobs.plist` (outside repo),
-  daily **06:00 PT** local crawl + publish. **Installed; end-to-end run confirmed.**
-- [x] Test suite — 221 passing
+- [x] `data/inventory.py` — career inventory (`SKILLS` = honest record) + separate
+  `LANE_PREFERENCES` (lane keywords, never a claim of experience)
+- [x] `crawler/base.py` — `Source` + `Posting` (now with currency, pay_period, remote_type)
+- [x] **Sources:** USAJobs (API), CalCareers + CSU (Playwright), **Nike (Workday CxS API)**
+- [x] `pay.py` + `data/currency.yaml` — salary normalized to USD-monthly at ingest
+- [x] `lanes.py` — lane assignment, location/region and remote-vs-hybrid classification
+- [x] `filter.py` — pay floors (normal, $100k sneaker lane, SF/NYC premium), auth-role
+  rule, location rule; lane 1 also accepts Beaverton/Boston/LA and unverified-pay overseas
+- [x] `score.py` — lane-based Tier 1 (lane 30, skills 20, title ±20, pay 15, location 10,
+  recency 5)
+- [x] `store.py`, `render.py`, `main.py` (`--dry-run`)
+- [x] `notify.py` — weekly digest, `python -m notify --send-digest` / `--preview`;
+  test email confirmed 2026-10-28
+- [x] Retired: `server.py`, `deploy.sh`, `publish.sh` (website path; kept in repo, unused)
 
 ## What's Not Built Yet
 
-The Mac → server ops loop is complete (deploy + publish + launchd all live). What remains
-is deferred-by-design feature work. These files exist as one-line stubs:
+- [ ] More sneaker/collectibles sources (see What's Next)
+- [ ] `score_llm.py` — Tier 2 LLM scoring (deferred; the digest doesn't need it)
+- [ ] `crawler/sources/governmentjobs.py` — optional, low priority now
+- [ ] EdJoin rebuild (Known Regressions)
 
-- [ ] **`crawler/sources/governmentjobs.py`** — multi-tenant scraper (Sacramento County/City, etc.)
-- [ ] **`score_llm.py`** — Tier 2 LLM scoring (daily top 10, Anthropic API)
-- [ ] **`notify.py`** — email on perfect-fit (Tier 1 >= 80 AND Tier 2 >= 8)
-- [ ] Threshold tuning (after data accumulates)
+## What's Next
 
-Future polish (not blocking): split server-only vs crawler-only requirements so the
-server stops compiling/installing Playwright (and greenlet) it never uses.
-
-## What's Next (suggested order)
-
-The daily pipeline is built and running, so priorities shift to maintenance + deferred
-features:
-
-1. **Fix the EdJoin regression** — 0 records since 2026-06-26 (was 234 on 2026-06-03).
-   Highest-value fix: it's effectively a dead source right now. Triage path in Known
-   Regressions below.
-2. **Let data accumulate** — 2–4 weeks of daily runs before any threshold tuning.
-3. **Tier 2 LLM scoring (`score_llm.py`)** — still deferred until a real T1 >= 80 candidate
-   surfaces (current top T1 is 60, so the LLM has nothing to upgrade). Cost-conscious.
-4. **Email notifications (`notify.py`)** — deferred with Tier 2 (trigger T1 >= 80 AND
-   T2 >= 8); unblockable earlier by switching to a T1-only trigger if desired.
-5. **governmentjobs source** — optional v1.x; build only if the surface feels thin after
-   real data accumulates.
-6. **Threshold tuning** after 2–4 weeks of live data.
+1. **More sources:** StockX and GOAT (Greenhouse job boards), Adidas and New Balance
+   (Workday, same pattern as `nike.py`).
+2. **Threshold tuning, once those sources are in:** Tier 1 weights, the page buckets
+   (80 / 40), and lane-1 breadth (any Nike title with "product"/"operations" lands in
+   lane 1; "merchant" is missing from lane-1 keywords). Most Nike survivors score < 40.
 
 ## Spec Deviations (intentional, noted)
 
@@ -79,7 +61,8 @@ features:
   on **Playwright** instead (JS-heavy sites). Real choice, works — flagged here so the
   spec and reality don't silently diverge.
 - SPEC implied the crawl runs server-side (Opalstack cron). Reality: the crawl runs on
-  the **Mac** and publishes to the server — CentOS 7 (glibc 2.17) can't run Chromium.
+  the **Mac** (CentOS 7 / glibc 2.17 can't run Chromium). It no longer publishes anywhere;
+  results go out by weekly email.
 - `deploy.sh` sources **devtoolset-11** before pip: greenlet (a Playwright dep) compiles
   a C++ extension, and CentOS 7's system g++ 4.8 predates C++11. devtoolset statically
   links the newer libstdc++, so the built `.so` runs under the base system afterward.
@@ -89,25 +72,26 @@ features:
 
 ## Open Items for JT
 
-- **Mail provider** — `.env.example` still offers Mailgun / SendGrid / SMTP. Pick one
-  before `notify.py`.
-- **Salary floor** — `.env.example` ships a placeholder `SALARY_FLOOR=8000`. Set the real
-  ITS I monthly rate in local `.env`.
-- **Anthropic API key** — server `.env` only; needed for Tier 2.
-- ~~**Opalstack** — Python version / install path / WSGI pattern.~~ RESOLVED: Python
-  3.12.13, uWSGI 2.0.31, app at `/home/jtplatnum/apps/jt_jobs/`, port 18675. Deployed.
-- **City of Sacramento pension** — CalPERS or legacy SCERS for new hires? Drives `employers.yaml`.
+- **Reload the daily launchd job** so the publish removal takes effect (launchd caches the
+  old command until reloaded), and **install the digest job** (`launchd/com.jtplatt.jobs.digest.plist`
+  → `~/Library/LaunchAgents/`, then `launchctl bootstrap`).
+- **SF/NYC premium floor** — set `SALARY_FLOOR_PREMIUM_METRO=12500` ($150k/yr) in local
+  `.env`; unset = SF/NYC rejected.
+- **Salary floor** — confirm `SALARY_FLOOR` in local `.env` is the real ITS I monthly rate.
+- ~~**Mail provider**~~ RESOLVED 2026-10-28: Gmail SMTP for the weekly digest.
+- **City of Sacramento pension** — CalPERS or legacy SCERS for new hires?
 
 ## Known Risks
 
 - Scrapers break when source sites redesign. Playwright sources (CalCareers, CSU) are the
-  most fragile. Budget maintenance time; track per-source last-success.
-- LinkedIn / Indeed deliberately excluded — paid APIs not worth it. Some good roles missed.
-- Thresholds (Tier 1 >= 80, Tier 2 >= 8) are educated guesses. Tune after 2–4 weeks of data.
-- "Perfect fit" is fuzzy by definition. Aim is to cut noise, not eliminate it.
-- CentOS 7 (glibc 2.17) can't run Playwright/Chromium → the crawl runs on the Mac. Risk:
-  if the Mac is off at the scheduled run time, there's no fresh crawl that day. GitHub
-  Actions is the v2 fallback if this dependency becomes friction.
+  most fragile; Workday/Greenhouse JSON APIs are steadier but undocumented.
+- Remote vs hybrid is inferred from posting text and can be fooled (e.g. "fully remote
+  program"). Sources should set `remote_type` explicitly where they can.
+- Nike lists no structured salary; most Nike jobs are "pay unverified". Pay parsed from
+  description text treats "$" as USD (peso risk on Mexico postings).
+- The Mac must be awake for the 06:00 crawl and Sunday 07:30 digest; launchd fires missed
+  jobs on next wake, possibly together.
+- LinkedIn / Indeed deliberately excluded. Some good roles missed.
 
 ### Known Regressions
 
@@ -146,3 +130,7 @@ features:
 - **2026-06-26** — Two-phase deploy gate (review-only by default; DEPLOY_CONFIRM_RESTART=1 to actually cycle uWSGI).
 - **2026-06-30** — `publish.sh` built and live: Mac → server rsync of output/index.html + data/jobs.db with an auth-gated /health probe.
 - **2026-06-30** — Daily automation live: Mac launchd job (`~/Library/LaunchAgents/com.jtplatt.jobs.plist`, outside repo) runs the full crawl + publish at 06:00 PT; end-to-end pipeline confirmed working. v1 ops loop complete.
+- **2026-10-28** — Multi-lane rewrite: five priority lanes; lane keywords kept separate from SKILLS; output ranks by lane, then score.
+- **2026-10-28** — Pay normalized to USD-monthly at ingest; unknown currency / no salary = "pay unverified"; international and SF/NYC need verified pay, except lane 1.
+- **2026-10-28** — Nike source via Workday CxS JSON API (site `nke`, Retail Stores excluded, detail fetch for new jobs only). robots.txt disallows only the human `/nke/` pages.
+- **2026-10-28** — Weekly digest email replaces the website and the T1 >= 80 per-job alert. Website (jobs.jtplatt.com) retired; `publish.sh` removed from the daily run.
