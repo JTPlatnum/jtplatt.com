@@ -55,7 +55,7 @@ _US_STATES = [
     "Wisconsin", "Wyoming",
     "Puerto Rico", "Guam", "American Samoa", "U.S. Virgin Islands",
     "Northern Mariana Islands",
-    "United States", "USA", "US", "U.S.",
+    "United States", "United States of America", "USA", "US", "U.S.",
 ]
 # Two-letter abbreviations: "Sacramento, CA" must not read as overseas.
 _US_ABBREVS = [

@@ -15,7 +15,9 @@ Rules in order — cheap structural checks first, pattern checks last:
     5. authentication     sneaker-domain authenticator roles need (fully
                           remote OR supervisory) AND verified $100k+/yr
     6. location           home region | fully remote | international with
-                          verified pay | SF/NYC at SALARY_FLOOR_PREMIUM_METRO
+                          verified pay | SF/NYC at SALARY_FLOOR_PREMIUM_METRO.
+                          Lane 1 (sneakers) only: Beaverton/Boston/LA accepted, and
+                          international / SF / NYC pass with unverified pay.
 
 Salary is already USD-monthly (or None = unverified) by the time it gets
 here: crawler.base.Posting normalizes at construction via pay.py.
@@ -62,7 +64,10 @@ SALARY_FLOOR = _env_float("SALARY_FLOOR", "0") or 0.0
 # (the premium can't be checked without a number).
 SALARY_FLOOR_PREMIUM_METRO = _env_float("SALARY_FLOOR_PREMIUM_METRO", None)
 
-SNEAKER_FLOOR_MONTHLY = lanes.LANE_BY_ID[1]["pay_floor_annual_usd"] / 12
+_LANE1 = lanes.LANE_BY_ID[1]
+SNEAKER_FLOOR_MONTHLY = _LANE1["pay_floor_annual_usd"] / 12
+_LANE1_EXTRA_LOCATIONS = [s.lower() for s in _LANE1.get("extra_locations", [])]
+_LANE1_UNVERIFIED_OK = bool(_LANE1.get("unverified_pay_ok_everywhere"))
 
 # Sources whose postings are eligible for filtering. New scrapers land here as
 # they're implemented. Anything else is rejected — keeps stray test postings
@@ -70,7 +75,7 @@ SNEAKER_FLOOR_MONTHLY = lanes.LANE_BY_ID[1]["pay_floor_annual_usd"] / 12
 # "edjoin" removed 2026-07-08: source DEACTIVATED (LoadJobs endpoint
 # decommissioned, needs rebuild). Dropping it here stops stale EdJoin rows
 # already in jobs.db from leaking into results while the source is inactive.
-ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu"})
+ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu", "nike"})
 
 # Current employer JT is leaving — never surface a posting from FI$CAL.
 # Both spellings observed in the wild: "FI$CAL" (official) and "FISCal"
@@ -108,16 +113,29 @@ _REJECT_PATTERNS = [_compile_reject_pattern(p) for p in _load_reject_patterns()]
 
 # --- Location rule ----------------------------------------------------------
 
-def _location_check(posting: Posting) -> Tuple[bool, str]:
+def _location_check(posting: Posting, lane: Optional[int]) -> Tuple[bool, str]:
     """Pass if ANY location is acceptable. When none is, report the most
-    specific reason seen (premium/international) over the generic one."""
+    specific reason seen (premium/international) over the generic one.
+
+    Lane 1 is lane-aware: its extra_locations (Beaverton, Boston, Los Angeles)
+    are accepted, and
+    unverified pay is enough for international / premium metros. A VERIFIED
+    lane-1 salary below the premium floor still fails in SF/NYC."""
     classes = lanes.classified_locations(posting)
     if any(c["kind"] == "home" for c in classes):
         return True, ""
     if lanes.remote_type(posting) == "full":
         return True, ""
+    if lane == 1 and any(
+        extra in c["location"].lower()
+        for c in classes for extra in _LANE1_EXTRA_LOCATIONS
+    ):
+        return True, ""
 
     verified = pay_verified(posting)
+    if lane == 1 and _LANE1_UNVERIFIED_OK and not verified:
+        if any(c["kind"] in ("international", "premium_metro") for c in classes):
+            return True, ""
     reason = "outside target locations"
     for c in classes:
         if c["kind"] == "premium_metro":
@@ -148,11 +166,11 @@ def should_keep(posting: Posting) -> Tuple[bool, str]:
     """
     # 1. Salary floor — only enforced when pay is verified (USD-monthly
     # known). Unverified pay passes here; the page flags it.
+    lane = lanes.assign_lane(posting)["lane"]
     if pay_verified(posting):
         if posting.salary_min < SALARY_FLOOR:
             return False, "below salary floor"
-        if (lanes.assign_lane(posting)["lane"] == 1
-                and posting.salary_min < SNEAKER_FLOOR_MONTHLY):
+        if lane == 1 and posting.salary_min < SNEAKER_FLOOR_MONTHLY:
             return False, "below sneaker-lane floor"
 
     # 2. Current employer.
@@ -174,4 +192,4 @@ def should_keep(posting: Posting) -> Tuple[bool, str]:
         return False, "authentication role: needs remote or supervisory at $100k+"
 
     # 6. Location.
-    return _location_check(posting)
+    return _location_check(posting, lane)

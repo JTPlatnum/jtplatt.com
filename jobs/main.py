@@ -77,6 +77,7 @@ def _build_sources() -> List[Tuple[str, Any, Optional[List[Dict[str, Any]]]]]:
     # rebuild. Import + roster entry disabled so it isn't invoked during runs.
     # Code retained (crawler/sources/edjoin.py) for future reactivation.
     # from crawler.sources.edjoin import EdJoinSource  # noqa: PLC0415
+    from crawler.sources.nike import NikeSource  # noqa: PLC0415
     from crawler.sources.usajobs import USAJobsSource  # noqa: PLC0415
 
     sources_cfg_path = REPO_ROOT / "data" / "sources.yaml"
@@ -88,6 +89,7 @@ def _build_sources() -> List[Tuple[str, Any, Optional[List[Dict[str, Any]]]]]:
         ("usajobs", USAJobsSource(), None),
         ("calcareers", CalCareersSource(), None),
         ("csu", CSUSource(), None),
+        ("nike", NikeSource(), None),
         # DEACTIVATED 2026-07-08 — see comment on the import above.
         # ("edjoin", EdJoinSource(), sources_cfg["edjoin"]["queries"]),
     ]

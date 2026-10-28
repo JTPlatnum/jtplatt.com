@@ -427,3 +427,91 @@ def test_salary_floor_wins_over_employer(monkeypatch):
     ok, reason = filter_mod.should_keep(p)
     assert ok is False
     assert reason == "below salary floor"
+
+
+# --- Lane-aware location (lane 1 / sneakers) ---------------------------------
+
+def _nike(**kw) -> Posting:
+    base = dict(source="nike", title="Director, Footwear Product Line Manager",
+                employer="NIKE, Inc.", raw_text="Lead the footwear product line.",
+                telework_flag=None, salary_min=None, salary_max=None)
+    base.update(kw)
+    return _posting(**base)
+
+
+def test_lane1_overseas_unverified_pay_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _nike(location="Shanghai, China Mainland", all_locations=["Shanghai, China Mainland"])
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_lane1_premium_metro_unverified_pay_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    p = _nike(location="New York, NY", all_locations=["New York, NY"])
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_lane1_premium_metro_verified_below_premium_still_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR_PREMIUM_METRO", 12500.0)
+    p = _nike(location="New York, NY", all_locations=["New York, NY"],
+              salary_min=9000.0, salary_max=10000.0)
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "premium metro: below premium floor"
+
+
+def test_lane1_beaverton_passes(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _nike(location="Beaverton, Oregon", all_locations=["Beaverton, Oregon"])
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+def test_beaverton_rejected_for_non_sneaker_lane(monkeypatch):
+    """Nike software engineer: no lane-1 function keyword in title."""
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _nike(title="Senior Software Engineer - AL/ML Platforms",
+              location="Beaverton, Oregon", all_locations=["Beaverton, Oregon"])
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "outside target locations"
+
+
+def test_non_lane1_overseas_unverified_still_rejects(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _nike(title="Software Engineer II", location="Karnataka, India",
+              all_locations=["Karnataka, India"])
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "international: pay unverified"
+
+
+def test_nike_source_allowed(monkeypatch):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
+    ok, _ = filter_mod.should_keep(_nike(location="Sacramento, California",
+                                         all_locations=["Sacramento, California"]))
+    assert ok is True
+
+
+@pytest.mark.parametrize("loc", ["Boston, Massachusetts", "Los Angeles, California"])
+def test_lane1_boston_and_la_pass(monkeypatch, loc):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _nike(title="Director, Global Footwear Product Management", employer="Converse",
+              location=loc, all_locations=[loc], salary_min=14_000.0, salary_max=30_000.0)
+    ok, _ = filter_mod.should_keep(p)
+    assert ok is True
+
+
+@pytest.mark.parametrize("loc", ["Boston, Massachusetts", "Los Angeles, California"])
+def test_boston_and_la_rejected_for_non_sneaker_lane(monkeypatch, loc):
+    monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 7000.0)
+    p = _posting(title="Senior Software Engineer", employer="Acme Corp",
+                 raw_text="Backend work.", telework_flag=False,
+                 location=loc, all_locations=[loc])
+    ok, reason = filter_mod.should_keep(p)
+    assert ok is False
+    assert reason == "outside target locations"

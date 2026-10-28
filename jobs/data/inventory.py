@@ -621,6 +621,15 @@ LANE_PREFERENCES = {
                 "factory", "quality control", "product line", "partnerships",
             ],
             "pay_floor_annual_usd": 100_000,  # hard floor
+            # Accepted locations for THIS lane only: Beaverton (Nike HQ),
+            # Boston (Converse HQ), Los Angeles (NikeSKIMS / media). Does not
+            # make these acceptable for any other lane.
+            "extra_locations": ["Beaverton", "Boston", "Los Angeles"],
+            # Lane 1 lets overseas and SF/NYC postings through without
+            # verified pay (marked "pay unverified"). Sneaker employers rarely
+            # post salary; JT judges these himself. Other lanes still require
+            # verified pay there.
+            "unverified_pay_ok_everywhere": True,
         },
         {
             "id": 2,

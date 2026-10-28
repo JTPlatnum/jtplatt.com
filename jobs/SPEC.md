@@ -47,6 +47,7 @@ A posting that fails any one of these is dropped. Not shown, not scored, not ema
    - International, only with verified pay (it already cleared the floor after USD conversion; this is what keeps "100k dong" out).
    - San Francisco / New York City, only with verified pay >= `SALARY_FLOOR_PREMIUM_METRO` (monthly USD). Unset env = SF/NYC rejected.
    - Anything else rejected.
+   - **Lane 1 (sneakers) exception:** Beaverton (Nike HQ), Boston (Converse HQ), and Los Angeles (NikeSKIMS / media) are also accepted, and international / SF / NYC postings pass with unverified pay (marked "pay unverified"). A verified lane-1 salary below the premium floor still fails in SF/NYC. These three cities are NOT accepted for any other lane, and every other lane still needs verified pay for international / SF / NYC. Config: `LANE_PREFERENCES` lane 1 `extra_locations`, `unverified_pay_ok_everywhere`.
 
 **Remote vs hybrid** (`lanes.remote_type`): explicit `Posting.remote_type` wins; a location string that is itself remote ("Anywhere in the U.S. (remote job)") = full; the word "hybrid" = hybrid; a full-remote phrase ("fully remote", "100% remote", "work from anywhere") = full; `telework_flag` or a bare remote/telework mention = hybrid.
 
@@ -131,6 +132,7 @@ Page rebuilds at the end of each cron run.
 | EdJoin (edjoin.org) | Scrape | CA K-12 + community colleges |
 | CSU Careers | Scrape — system TBD during implementation | All 23 CSU campuses statewide — CalPERS-covered staff. Covers Sac State, Monterey Bay, San Marcos, etc. |
 | USAJobs | Official API (developer.usajobs.gov) | Federal incl. DODEA, State Dept |
+| Nike | Workday CxS JSON API (`nike.wd1.myworkdayjobs.com/wday/cxs/nike/nke/jobs`) | Site `nke` only (`nke2` = US retail, skipped). "Retail Stores" job family excluded via `appliedFacets` (facets are include-only: every other family id is applied). Pages of 20, total from page 1. Detail GET only for job ids not already stored; known jobs re-yield stored detail fields. No structured salary: parsed from description text when a "$X to $Y" salary range appears, else pay unverified. Known risk: Mexican postings also write pesos as "$", so a peso range in that format would be read as USD; revisit when a Mexico-heavy source is added. robots.txt disallows the human `/nke/` pages, not the API path; 1 run/day at 2s spacing. |
 
 ### Deferred / research items (not v1)
 
@@ -206,6 +208,7 @@ jobs/
 │       ├── governmentjobs.py
 │       ├── edjoin.py
 │       ├── usajobs.py
+│       ├── nike.py
 │       ├── peacecorps.py
 │       └── makingwaves.py
 ├── data/
