@@ -47,10 +47,16 @@ Public sites get hit gently:
 
 ## Email Discipline
 
-- Send only when Tier 1 >= 80 AND Tier 2 >= 8 (current thresholds; in `.env`)
-- Never re-email the same job ID
-- One job per email (no digests for v1)
-- If email send fails, log it; do NOT silently drop — mark the job for retry next run
+Email is a **weekly digest** (`notify.py`), not per-job alerts. It replaces the old Tier 1 >= 80 AND Tier 2 >= 8 "perfect fit" email and the results website.
+
+- Sent once a week, Sundays 07:30, by its own launchd agent (`com.jtplatt.jobs.digest`). Never add sending to the daily crawl.
+- Up to 12 jobs from the active window (last_seen within 14 days), after hard filters and Tier 1 — same path as the results page; never re-implement filtering or scoring in notify.py.
+- Per-lane cap: at most 6 lane-1 (sneaker) jobs; remaining slots from lanes 2–5 by score, then unlaned. Lane-1 cap is hard (no refill).
+- No score threshold. Low-scoring "pay unverified" jobs are included on purpose.
+- Grouped by lane (sneakers first, unlaned last), highest score first within a lane.
+- Gmail SMTP, STARTTLS on 587. Credentials only from `.env`.
+- Test on demand with `python -m notify --preview out.html` (no send) or `--send-digest` (real send). The test suite must never send real email — always mock SMTP.
+- If the send fails, log it and exit non-zero; don't silently drop.
 
 ## Hard Rules (from SOUL.md)
 

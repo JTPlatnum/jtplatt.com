@@ -92,13 +92,19 @@ Costs are negligible — pennies/day. Use `claude-sonnet-4-20250514` or current 
 
 ---
 
-## Email Trigger
+## Email Digest (weekly)
 
-JT gets an email only if a posting hits **Tier 1 >= 80 AND Tier 2 >= 8**.
+Replaces the old per-posting "perfect fit" alert (Tier 1 >= 80 AND Tier 2 >= 8) and the need to browse the results page.
 
-Email contains: title, employer, salary, location, apply link, Tier 2 rationale, gaps. One email per posting (never re-email after dedup).
-
-Everything else lives on the results page. He browses there.
+- **When:** Sundays 07:30 local via its own launchd agent, `com.jtplatt.jobs.digest` (source: `jobs/launchd/com.jtplatt.jobs.digest.plist`). Independent of the daily 06:00 crawl agent; reads whatever is in `data/jobs.db`.
+- The daily crawl agent (`com.jtplatt.jobs`, tracked copy at `jobs/launchd/com.jtplatt.jobs.plist`) runs `main.py` only. The `publish.sh` step (Mac -> Opalstack) was removed 2026-10-28; the digest replaces the website.
+- **What:** up to 12 jobs (`notify.DIGEST_SIZE`), from the same path as the results page: active jobs (last_seen within 14 days) -> hard filters -> Tier 1. **No score threshold.**
+- **Per-lane cap:** at most 6 lane-1 jobs (`notify.LANE1_CAP`), highest score first; remaining slots from lanes 2-5 by score; leftover slots from unlaned jobs. The lane-1 cap is hard: if other lanes run dry the digest is shorter. Displayed by lane (1 first, unlaned last), score desc, one heading per lane.
+- **Per job:** title (linked to the apply URL), employer, location, pay (annual USD range or "pay unverified"), score. Lane is the group heading.
+- **Format:** multipart plain text + simple single-column HTML with inline styles. No images, no remote resources, no tracking.
+- **Transport:** Gmail SMTP, STARTTLS on 587. Env: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD` (Google App Password), `EMAIL_TO`. Missing env = exit 1, nothing sent.
+- **On demand:** `python -m notify --send-digest` (send now) or `python -m notify --preview out.html` (write HTML, send nothing), run from `jobs/`.
+- No per-job dedup across weeks: a job still active next Sunday can appear again.
 
 ---
 
@@ -225,7 +231,10 @@ jobs/
 ├── score.py                     # Tier 1
 ├── score_llm.py                 # Tier 2
 ├── store.py                     # SQLite I/O
-├── notify.py                    # Email
+├── notify.py                    # Weekly digest email
+├── launchd/
+│   ├── com.jtplatt.jobs.plist         # Daily crawl schedule (installed copy in ~/Library/LaunchAgents)
+│   └── com.jtplatt.jobs.digest.plist  # Weekly digest schedule (install copy in ~/Library/LaunchAgents)
 ├── render.py                    # Build HTML
 ├── templates/
 │   └── results.html

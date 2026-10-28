@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.jtplatt.jobs.digest</string>
+
+    <!-- Weekly digest email. Separate from com.jtplatt.jobs (the daily 06:00
+         crawl), which this does NOT modify or depend on: it reads whatever is
+         in data/jobs.db. Source of truth lives in the repo at
+         jobs/launchd/com.jtplatt.jobs.digest.plist; installed copy goes in
+         ~/Library/LaunchAgents/. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>echo "===== jt_jobs_digest START $(date '+%F %T %Z') ====="; /Users/jtplatnum/Development/jtplatt.com/jobs/venv/bin/python -m notify --send-digest; echo "===== jt_jobs_digest END rc=$? $(date '+%T') ====="</string>
+    </array>
+
+    <!-- python -m notify resolves from here. -->
+    <key>WorkingDirectory</key>
+    <string>/Users/jtplatnum/Development/jtplatt.com/jobs</string>
+
+    <!-- Sunday (Weekday 0) 07:30 local: 90 min after the 06:00 crawl starts
+         (crawl is ~7 min; Nike adds a few). If the Mac is asleep/off, launchd
+         coalesces the missed event and fires once on the next wake/boot. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>0</integer>
+        <key>Hour</key>
+        <integer>7</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+
+    <!-- Only on the schedule, never on load. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/jtplatnum/Library/Logs/jt_jobs/digest.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/jtplatnum/Library/Logs/jt_jobs/digest.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>

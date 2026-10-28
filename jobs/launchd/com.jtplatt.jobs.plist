@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.jtplatt.jobs</string>
+
+    <!-- Run main.py (full crawl, all sources incl. Playwright). Timestamped
+         banners + exit code go to the log. publish.sh (Mac -> Opalstack
+         push) removed 2026-10-28: the site 502'd daily and the weekly email
+         digest (com.jtplatt.jobs.digest) replaces it. Source of truth for
+         this file: jobs/launchd/com.jtplatt.jobs.plist in the repo. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>echo "===== jt_jobs START $(date '+%F %T %Z') ====="; /Users/jtplatnum/Development/jtplatt.com/jobs/venv/bin/python /Users/jtplatnum/Development/jtplatt.com/jobs/main.py; echo "===== jt_jobs END rc=$? $(date '+%T') ====="</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/jtplatnum/Development/jtplatt.com</string>
+
+    <!-- 06:00 local time daily. If the Mac is asleep/off at 06:00, launchd
+         coalesces the missed event and fires once on the next wake/boot. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Don't fire when the agent is first loaded; only on the schedule. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/jtplatnum/Library/Logs/jt_jobs/cron.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/jtplatnum/Library/Logs/jt_jobs/cron.log</string>
+
+    <!-- launchd gives a minimal PATH; include the dirs rsync/ssh/curl live in. -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>
