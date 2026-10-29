@@ -12,6 +12,9 @@ from crawler.base import Posting
 # --- Level parsing ------------------------------------------------------------
 
 @pytest.mark.parametrize("title,level,band", [
+    ("Associate Product Manager - Topps Trading Cards", "associate", (75000, 105000)),
+    ("Footwear Merchandising Associate", "associate", (75000, 105000)),
+    ("Associate Director, Brand Marketing", "director", (200000, 310000)),
     ("Professional, Footwear Development", "professional", (90000, 120000)),
     ("Senior Merchant, Boys Run & Train Apparel", "senior_professional", (110000, 140000)),
     ("Senior, Costing Analyst, Local Creation GC", "senior_professional", (110000, 140000)),

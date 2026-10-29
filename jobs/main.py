@@ -73,6 +73,7 @@ def _build_sources() -> List[Tuple[str, Any, Optional[List[Dict[str, Any]]]]]:
 
     from crawler.sources.calcareers import CalCareersSource  # noqa: PLC0415
     from crawler.sources.csu import CSUSource  # noqa: PLC0415
+    from crawler.sources.greenhouse import GreenhouseSource  # noqa: PLC0415
     # DEACTIVATED 2026-07-08: EdJoin /Home/LoadJobs decommissioned; source needs
     # rebuild. Import + roster entry disabled so it isn't invoked during runs.
     # Code retained (crawler/sources/edjoin.py) for future reactivation.
@@ -90,6 +91,7 @@ def _build_sources() -> List[Tuple[str, Any, Optional[List[Dict[str, Any]]]]]:
         ("calcareers", CalCareersSource(), None),
         ("csu", CSUSource(), None),
         ("nike", NikeSource(), None),
+        ("greenhouse", GreenhouseSource(), None),
         # DEACTIVATED 2026-07-08 — see comment on the import above.
         # ("edjoin", EdJoinSource(), sources_cfg["edjoin"]["queries"]),
     ]

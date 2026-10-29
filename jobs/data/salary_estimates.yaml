@@ -8,6 +8,10 @@
 # Level detection order lives in estimate.py (most senior first). Keys here
 # must match the keys there.
 levels:
+  associate:
+    label: Associate
+    min: 75000
+    max: 105000
   professional:
     label: Professional
     min: 90000

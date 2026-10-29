@@ -63,6 +63,9 @@ LEVEL_RULES: List[Tuple[str, re.Pattern]] = [
     ("senior_manager", re.compile(rf"\b{_SENIOR}\s+manager\b", re.IGNORECASE)),
     ("lead", re.compile(r"\b(?:lead|principal|expert)\b|\bspecialist\s+(?:ii|2)\b",
                         re.IGNORECASE)),
+    # Associate beats Manager: "Associate Product Manager" is an associate
+    # role. Director/VP/Senior Manager/Lead still win ("Associate Director").
+    ("associate", re.compile(r"\bassociate\b", re.IGNORECASE)),
     ("manager", re.compile(r"\bmanager\b", re.IGNORECASE)),
     ("senior_professional", re.compile(rf"\b{_SENIOR}(?!\w)", re.IGNORECASE)),
     ("professional", re.compile(r"\bprofessional\b", re.IGNORECASE)),
