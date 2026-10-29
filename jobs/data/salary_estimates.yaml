@@ -1,0 +1,51 @@
+# Title-level -> estimated US base salary (annual USD), consumed by estimate.py.
+#
+# Applied only to sneaker-lane (lane 1) postings with NO verified pay. These
+# are ESTIMATES, not posted figures: the digest marks them "est. ... *actual
+# salary range not posted", and they must never flow into application or
+# resume output. Bands grounded in Nike H1B filings + levels.fyi/Glassdoor.
+#
+# Level detection order lives in estimate.py (most senior first). Keys here
+# must match the keys there.
+levels:
+  professional:
+    label: Professional
+    min: 90000
+    max: 120000
+  senior_professional:
+    label: Senior Professional
+    min: 110000
+    max: 140000
+  lead:
+    label: Lead / Specialist II
+    min: 125000
+    max: 180000
+  manager:
+    label: Manager
+    min: 140000
+    max: 200000
+  senior_manager:
+    label: Senior Manager
+    min: 170000
+    max: 230000
+  director:
+    label: Director
+    min: 200000
+    max: 310000
+  senior_director_vp:
+    label: Senior Director / VP
+    min: 280000
+    max: 420000
+
+# Title level unreadable. Conservative on purpose.
+fallback:
+  label: Unknown level
+  min: 90000
+  max: 130000
+
+# Overseas sneaker postings whose TITLE carries a local-hire marker ("Local
+# Creation", "GC Local", "Local", "ITC" = Nike India tech center) are local-national pay, not expat: the band
+# is multiplied by this before the $100k floor. Overseas postings WITHOUT a
+# marker keep full US bands (likely expat / regional leadership). No
+# per-country discount on purpose: Nike pays expat roles near US bands.
+local_hire_multiplier: 0.4

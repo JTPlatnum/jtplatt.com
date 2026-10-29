@@ -28,9 +28,13 @@ NIKE_HI = _p("N1", source="nike", title="Director, Footwear Product Line Manager
              employer="NIKE, Inc.", location="Shanghai, China Mainland",
              all_locations=["Shanghai, China Mainland"],
              raw_text="footwear sneaker merchandising supply chain sourcing factory")
-NIKE_LO = _p("N2", source="nike", title="Operations Specialist", employer="NIKE, Inc.",
+NIKE_LO = _p("N2", source="nike", title="Senior Operations Specialist", employer="NIKE, Inc.",
              location="Beaverton, Oregon", all_locations=["Beaverton, Oregon"],
              raw_text="Nike.")
+# No readable level -> fallback estimate $90k min, below the $100k sneaker floor.
+NIKE_NO_LEVEL = _p("N3", source="nike", title="Operations Specialist", employer="NIKE, Inc.",
+                   location="Beaverton, Oregon", all_locations=["Beaverton, Oregon"],
+                   raw_text="Nike.")
 STATE_IT = _p("S1", title="Information Technology Specialist II",
               salary_min=9000.0, salary_max=11000.0)
 EDU = _p("E1", source="csu", title="Instructional Designer",
@@ -46,7 +50,7 @@ STALE = _p("OLD", title="Information Technology Specialist III", salary_min=1200
 def db(tmp_path, monkeypatch):
     monkeypatch.setattr(filter_mod, "SALARY_FLOOR", 0.0)
     store.init_db(tmp_path / "test.db")
-    for p in (NIKE_LO, STATE_IT, EDU, UNLANED, FILTERED_OUT, NIKE_HI, STALE):
+    for p in (NIKE_LO, NIKE_NO_LEVEL, STATE_IT, EDU, UNLANED, FILTERED_OUT, NIKE_HI, STALE):
         store.upsert_job(p)
     # Push STALE outside the 14-day active window.
     store._get_conn().execute(
@@ -61,7 +65,7 @@ def test_digest_order_lane_then_score(db):
     jobs, _ = notify.build_digest()
     assert [j.title for j in jobs] == [
         "Director, Footwear Product Line Manager",   # lane 1, higher score
-        "Operations Specialist",                     # lane 1, lower score
+        "Senior Operations Specialist",              # lane 1, lower score
         "Instructional Designer",                    # lane 4
         "Information Technology Specialist II",      # lane 5
         "Receptionist",                              # unlaned last
@@ -73,6 +77,7 @@ def test_stale_and_filtered_jobs_excluded(db):
     titles = {j.title for j in notify.build_digest()[0]}
     assert "Information Technology Specialist III" not in titles  # last_seen 2020
     assert "Business Analyst" not in titles                       # Atlanta, filtered
+    assert "Operations Specialist" not in titles                  # est. below sneaker floor
 
 
 def test_low_scores_included_no_threshold(db):
@@ -101,7 +106,10 @@ def test_pay_text_verified_and_unverified(db):
     by_title = {j.title: j for j in notify.build_digest()[0]}
     assert by_title["Information Technology Specialist II"].pay == "$108,000-$132,000/yr"
     assert by_title["Receptionist"].pay == "$98,400/yr"
-    assert by_title["Operations Specialist"].pay == "pay unverified"
+    assert by_title["Senior Operations Specialist"].pay == (
+        "est. $110k-$140k *actual salary range not posted")
+    assert by_title["Director, Footwear Product Line Manager"].pay == (   # Shanghai
+        "est. $200k-$310k *actual salary not posted; assumes expat/US pay")
 
 
 # --- Rendering ---------------------------------------------------------------------
@@ -111,7 +119,8 @@ def test_html_has_links_and_fields_and_no_images(db):
     out = notify.render_html(jobs, total, TODAY)
     assert "href='https://example.test/N1'" in out
     assert "NIKE, Inc." in out and "Shanghai, China Mainland" in out
-    assert "pay unverified" in out and "score " in out
+    assert "est. $200k-$310k *actual salary not posted; assumes expat/US pay" in out
+    assert "score " in out
     assert "<img" not in out.lower()
     assert "name='viewport'" in out
 
@@ -216,7 +225,8 @@ _NAMES = {1: "Sneakers / collectibles", 2: "Overseas", 3: "Remote knowledge work
 
 def _kept(lane, score, title):
     posting = SimpleNamespace(title=title, employer="E", location="L", all_locations=None,
-                              salary_min=None, salary_max=None, url=f"https://x.test/{title}")
+                              salary_min=None, salary_max=None, estimate_min=None,
+                              estimate_max=None, url=f"https://x.test/{title}")
     return posting, {"score": score, "lane": {"lane": lane, "name": _NAMES[lane]}}
 
 
@@ -256,3 +266,52 @@ def test_lane1_cap_is_hard_when_others_run_dry():
     jobs = notify.select_jobs(kept)
     assert len(jobs) == 7
     assert sum(j.lane == 1 for j in jobs) == 6
+
+
+# --- Estimate display ---------------------------------------------------------------
+
+def _pay_posting(**kw):
+    base = dict(title="Lead, Footwear", salary_min=None, salary_max=None,
+                estimate_min=None, estimate_max=None,
+                location="Beaverton, Oregon", all_locations=None)
+    base.update(kw)
+    return SimpleNamespace(**base)
+
+
+def test_pay_text_estimate_marked_as_not_posted():
+    p = _pay_posting(estimate_min=200000.0, estimate_max=310000.0)
+    assert notify._pay_text(p) == "est. $200k-$310k *actual salary range not posted"
+
+
+def test_pay_text_verified_pay_wins_over_estimate():
+    p = _pay_posting(salary_min=10000.0, salary_max=12500.0,
+                     estimate_min=200000.0, estimate_max=310000.0)
+    assert notify._pay_text(p) == "$120,000-$150,000/yr"
+
+
+def test_pay_text_no_pay_no_estimate_is_unverified():
+    assert notify._pay_text(_pay_posting()) == "pay unverified"
+
+
+def test_estimate_styled_as_unverified_in_html():
+    j = notify.DigestJob(title="t", employer="e", location="l",
+                         pay="est. $90k-$130k *actual salary range not posted",
+                         lane=1, lane_name="Sneakers / collectibles", score=1,
+                         url="https://x.test/t")
+    out = notify.render_html([j], 1, TODAY)
+    assert "<span style='color:#8a5a00;'>est. $90k-$130k *actual salary range not posted</span>" in out
+    assert "est. $90k-$130k *actual salary range not posted" in notify.render_text([j], 1, TODAY)
+
+
+def test_pay_text_overseas_estimate_assumes_expat():
+    p = _pay_posting(estimate_min=125000.0, estimate_max=180000.0,
+                     location="South, Singapore, Singapore")
+    assert notify._pay_text(p) == (
+        "est. $125k-$180k *actual salary not posted; assumes expat/US pay")
+
+
+def test_pay_text_overseas_local_hire_estimate():
+    p = _pay_posting(title="Senior Director, Apparel Local Creation GC",
+                     estimate_min=112000.0, estimate_max=168000.0,
+                     location="Shanghai, China Mainland")
+    assert notify._pay_text(p) == "est. $112k-$168k *local-hire role"

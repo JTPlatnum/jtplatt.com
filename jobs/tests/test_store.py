@@ -274,3 +274,43 @@ def test_get_active_jobs_includes_bookkeeping_columns(db):
     assert "id" in r
     assert "first_seen_at" in r
     assert "last_seen_at" in r
+
+
+# --- Estimate columns + migration ------------------------------------------
+
+def test_estimate_fields_roundtrip(db):
+    store.upsert_job(_posting(estimate_min=200000.0, estimate_max=310000.0,
+                              estimate_source="level_table"))
+    (row,) = store.get_active_jobs()
+    assert (row["estimate_min"], row["estimate_max"], row["estimate_source"]) == (
+        200000.0, 310000.0, "level_table")
+
+
+def test_estimate_fields_update_on_upsert(db):
+    store.upsert_job(_posting(estimate_min=200000.0, estimate_max=310000.0,
+                              estimate_source="level_table"))
+    store.upsert_job(_posting())
+    (row,) = store.get_active_jobs()
+    assert row["estimate_min"] is None and row["estimate_source"] is None
+
+
+def test_init_db_adds_estimate_columns_to_existing_db(tmp_path):
+    """A pre-estimate jobs table gains the nullable columns; rows survive."""
+    import sqlite3
+    path = tmp_path / "old.db"
+    conn = sqlite3.connect(str(path))
+    conn.executescript(store.SCHEMA.replace(
+        "    estimate_min    REAL,\n    estimate_max    REAL,\n    estimate_source TEXT,\n", ""))
+    conn.execute(
+        "INSERT INTO jobs (source, source_job_id, title, employer, url, raw_text,"
+        " first_seen_at, last_seen_at) VALUES ('nike','R-1','t','e','u','r',"
+        " '2026-01-01T00:00:00','2026-01-01T00:00:00')")
+    conn.commit()
+    conn.close()
+
+    conn = store.init_db(path)
+    cols = {r["name"] for r in conn.execute("PRAGMA table_info(jobs)")}
+    assert {"estimate_min", "estimate_max", "estimate_source"} <= cols
+    row = conn.execute("SELECT title, estimate_min FROM jobs").fetchone()
+    assert (row["title"], row["estimate_min"]) == ("t", None)
+    store.init_db(path)  # idempotent: second run adds nothing, no error

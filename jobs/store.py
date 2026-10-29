@@ -46,6 +46,9 @@ CREATE TABLE IF NOT EXISTS jobs (
     all_locations   TEXT,
     telework_flag   INTEGER,
     posted_date     TEXT,
+    estimate_min    REAL,
+    estimate_max    REAL,
+    estimate_source TEXT,
     first_seen_at   TEXT NOT NULL,
     last_seen_at    TEXT NOT NULL,
     UNIQUE(source, source_job_id)
@@ -97,6 +100,23 @@ def _now() -> str:
     return _utc_now().isoformat(timespec="seconds")
 
 
+# Nullable columns added after v1. CREATE TABLE IF NOT EXISTS skips existing
+# databases, so add any that are missing. Additive only; no data touched.
+_ADDED_JOB_COLUMNS = [
+    ("estimate_min", "REAL"),
+    ("estimate_max", "REAL"),
+    ("estimate_source", "TEXT"),
+]
+
+
+def _migrate(conn: sqlite3.Connection) -> None:
+    have = {row["name"] for row in conn.execute("PRAGMA table_info(jobs)")}
+    for name, sql_type in _ADDED_JOB_COLUMNS:
+        if name not in have:
+            conn.execute(f"ALTER TABLE jobs ADD COLUMN {name} {sql_type}")
+            log.info("store: added jobs.%s column", name)
+
+
 def init_db(path: Path) -> sqlite3.Connection:
     """Open (or reopen) the SQLite database at path and create tables if missing.
     Idempotent — safe to call repeatedly. Closes any prior global connection."""
@@ -112,6 +132,7 @@ def init_db(path: Path) -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     conn.executescript(SCHEMA)
+    _migrate(conn)
     conn.commit()
     _conn = conn
     return conn
@@ -192,8 +213,9 @@ def upsert_job(posting: Posting) -> Tuple[int, bool]:
                 source, source_job_id, title, employer, url, raw_text,
                 classification, salary_min, salary_max, location,
                 all_locations, telework_flag, posted_date,
+                estimate_min, estimate_max, estimate_source,
                 first_seen_at, last_seen_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 posting.source, posting.source_job_id, posting.title,
@@ -202,6 +224,7 @@ def upsert_job(posting: Posting) -> Tuple[int, bool]:
                 posting.location, _encode_locations(posting.all_locations),
                 _bool_to_int(posting.telework_flag),
                 _encode_posted_date(posting.posted_date),
+                posting.estimate_min, posting.estimate_max, posting.estimate_source,
                 now, now,
             ),
         )
@@ -215,7 +238,8 @@ def upsert_job(posting: Posting) -> Tuple[int, bool]:
             title = ?, employer = ?, url = ?, raw_text = ?,
             classification = ?, salary_min = ?, salary_max = ?,
             location = ?, all_locations = ?, telework_flag = ?,
-            posted_date = ?, last_seen_at = ?
+            posted_date = ?, estimate_min = ?, estimate_max = ?,
+            estimate_source = ?, last_seen_at = ?
         WHERE id = ?
         """,
         (
@@ -224,6 +248,7 @@ def upsert_job(posting: Posting) -> Tuple[int, bool]:
             posting.location, _encode_locations(posting.all_locations),
             _bool_to_int(posting.telework_flag),
             _encode_posted_date(posting.posted_date),
+            posting.estimate_min, posting.estimate_max, posting.estimate_source,
             now,
             job_id,
         ),
@@ -291,7 +316,8 @@ def get_active_jobs(seen_within_days: int = 14) -> List[Dict[str, Any]]:
         """
         SELECT id, source, source_job_id, title, employer, url, raw_text,
                classification, salary_min, salary_max, location, all_locations,
-               telework_flag, posted_date, first_seen_at, last_seen_at
+               telework_flag, posted_date, estimate_min, estimate_max,
+               estimate_source, first_seen_at, last_seen_at
         FROM jobs
         WHERE last_seen_at >= ?
         ORDER BY last_seen_at DESC

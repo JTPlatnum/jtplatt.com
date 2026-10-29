@@ -53,15 +53,35 @@ class DigestJob:
     title: str
     employer: str
     location: str
-    pay: str  # "$120,000-$180,000/yr" or "pay unverified"
+    # "$120,000-$180,000/yr", "pay unverified", or a lane-1 estimate (never
+    # verified pay): "est. $200k-$310k *actual salary range not posted" (US),
+    # "... *actual salary not posted; assumes expat/US pay" (overseas), or
+    # "est. $112k-$168k *local-hire role" (overseas local-hire)
+    pay: str
     lane: Optional[int]
     lane_name: str
     score: int
     url: str
 
 
+ESTIMATE_MARKERS = {
+    "us": "*actual salary range not posted",
+    "expat": "*actual salary not posted; assumes expat/US pay",
+    "local_hire": "*local-hire role",
+}
+
+
+def _k(annual: float) -> str:
+    return f"${annual / 1000:,.0f}k"
+
+
 def _pay_text(posting) -> str:
     if posting.salary_min is None:
+        if posting.estimate_min is not None:
+            hi = posting.estimate_max or posting.estimate_min
+            import estimate  # noqa: PLC0415
+            marker = ESTIMATE_MARKERS[estimate.estimate_basis(posting)]
+            return f"est. {_k(posting.estimate_min)}-{_k(hi)} {marker}"
         return "pay unverified"
     lo = posting.salary_min * 12
     hi = (posting.salary_max or posting.salary_min) * 12
@@ -182,7 +202,8 @@ def render_html(jobs: Sequence[DigestJob], total_kept: int, today: date) -> str:
             f"<h2 style='font-size:16px;margin:24px 0 8px;padding-bottom:4px;"
             f"border-bottom:2px solid #111111;'>{e(label)}</h2>")
         for j in group:
-            pay_style = "color:#8a5a00;" if j.pay == "pay unverified" else ""
+            unverified = j.pay == "pay unverified" or j.pay.startswith("est. ")
+            pay_style = "color:#8a5a00;" if unverified else ""
             parts.append(
                 "<div style='padding:12px 0;border-bottom:1px solid #dddddd;'>"
                 f"<a href='{e(j.url, quote=True)}' style='font-size:16px;font-weight:600;"

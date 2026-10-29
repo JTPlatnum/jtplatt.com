@@ -36,6 +36,10 @@ A posting that fails any one of these is dropped. Not shown, not scored, not ema
    - Pay is normalized to USD-monthly when a `Posting` is constructed (`pay.py`, rates in `data/currency.yaml`: USD, EUR, GBP, VND, IDR, THB, CNY, JPY, KRW). Sources set `currency` and `pay_period`; defaults are USD / monthly.
    - Unknown currency or pay period: salary cleared, posting let through, marked **pay unverified**.
    - No salary: let through, marked **pay unverified**.
+   - **Sneaker-lane salary estimate** (`estimate.py`, bands in `data/salary_estimates.yaml`): a lane-1 posting with no verified pay gets an estimated annual USD base range from its title level (Professional, Senior Professional, Lead / Specialist II, Manager, Senior Manager, Director, Senior Director / VP; unreadable level = conservative fallback). The sneaker floor is applied to `estimate_min`: below $100k/yr = dropped. Verified pay always wins over the estimate.
+     - Overseas with no local-hire marker in the title: full US band (assumes expat / US pay).
+     - Overseas with a local-hire marker in the title (`local` token, e.g. "Local Creation", "GC Local"; or "ITC" = Nike India tech center): band x `local_hire_multiplier` (0.4). No per-country discount.
+     - Estimates are never verified pay: digest display and this floor only. Not used in scoring, never in application or resume output.
    - Outside the sneaker lane, $100k/yr is a strong scoring bonus, not a cutoff.
 2. **Current employer.** FI$CAL / FISCal rejected.
 3. **Source allow-list.** `filter.ALLOWED_SOURCES`.
@@ -100,7 +104,7 @@ Replaces the old per-posting "perfect fit" alert (Tier 1 >= 80 AND Tier 2 >= 8) 
 - The daily crawl agent (`com.jtplatt.jobs`, tracked copy at `jobs/launchd/com.jtplatt.jobs.plist`) runs `main.py` only. The `publish.sh` step (Mac -> Opalstack) was removed 2026-10-28; the digest replaces the website.
 - **What:** up to 12 jobs (`notify.DIGEST_SIZE`), from the same path as the results page: active jobs (last_seen within 14 days) -> hard filters -> Tier 1. **No score threshold.**
 - **Per-lane cap:** at most 6 lane-1 jobs (`notify.LANE1_CAP`), highest score first; remaining slots from lanes 2-5 by score; leftover slots from unlaned jobs. The lane-1 cap is hard: if other lanes run dry the digest is shorter. Displayed by lane (1 first, unlaned last), score desc, one heading per lane.
-- **Per job:** title (linked to the apply URL), employer, location, pay (annual USD range or "pay unverified"), score. Lane is the group heading.
+- **Per job:** title (linked to the apply URL), employer, location, pay (annual USD range, "pay unverified", or a lane-1 estimate: "est. $X-$Y *actual salary range not posted" (US), "est. $X-$Y *actual salary not posted; assumes expat/US pay" (overseas), "est. $X-$Y *local-hire role" (overseas local-hire)), score. Lane is the group heading.
 - **Format:** multipart plain text + simple single-column HTML with inline styles. No images, no remote resources, no tracking.
 - **Transport:** Gmail SMTP, STARTTLS on 587. Env: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD` (Google App Password), `EMAIL_TO`. Missing env = exit 1, nothing sent.
 - **On demand:** `python -m notify --send-digest` (send now) or `python -m notify --preview out.html` (write HTML, send nothing), run from `jobs/`.
@@ -166,7 +170,7 @@ SQLite at `data/jobs.db`.
 
 Tables:
 
-- `jobs` — id, source, source_job_id, title, employer, url, salary_min, salary_max (USD-monthly, already normalized; NULL = pay unverified), location, telework_flag, raw_text, first_seen, last_seen, status (active/closed). `currency`, `pay_period`, `remote_type`, `pay_note` are Posting fields but NOT stored yet.
+- `jobs` — id, source, source_job_id, title, employer, url, salary_min, salary_max (USD-monthly, already normalized; NULL = pay unverified), location, telework_flag, raw_text, estimate_min, estimate_max (annual USD, NULL unless lane-1 estimate), estimate_source ("level_table" or NULL), first_seen, last_seen, status (active/closed). `currency`, `pay_period`, `remote_type`, `pay_note` are Posting fields but NOT stored yet.
 - `scores` — job_id, tier1_score, tier1_components_json, tier2_score, tier2_rationale, tier2_gaps_json, scored_at
 - `emails` — job_id, sent_at, subject
 - `runs` — id, started_at, finished_at, source, postings_found, errors_json

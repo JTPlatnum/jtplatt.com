@@ -40,6 +40,12 @@ class Posting:
     remote_type: Optional[str] = None
     # Set by normalization: why pay is unverified, or None when it's verified.
     pay_note: Optional[str] = None
+    # ESTIMATED annual USD base range from the title level (estimate.py),
+    # set only for sneaker-lane postings without verified pay. Never verified
+    # pay: digest display + sneaker-floor filter only, never application output.
+    estimate_min: Optional[float] = None
+    estimate_max: Optional[float] = None
+    estimate_source: Optional[str] = None  # "level_table" | None
 
     def __post_init__(self) -> None:
         from pay import normalize_posting  # noqa: PLC0415

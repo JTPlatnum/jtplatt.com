@@ -108,6 +108,7 @@ def _fetch_all_sources(
     mode no upsert occurs and every yielded posting counts as 'new' for
     summary purposes.
     """
+    import estimate  # noqa: PLC0415
     import store  # noqa: PLC0415
 
     succeeded: List[str] = []
@@ -127,6 +128,7 @@ def _fetch_all_sources(
                 if dry_run:
                     new_count += 1
                 else:
+                    estimate.apply_estimate(posting)
                     _job_id, is_new = store.upsert_job(posting)
                     if is_new:
                         new_count += 1
@@ -162,6 +164,9 @@ def _row_to_posting(row: Dict[str, Any]):
         all_locations=row.get("all_locations"),
         telework_flag=row.get("telework_flag"),
         posted_date=row.get("posted_date"),
+        estimate_min=row.get("estimate_min"),
+        estimate_max=row.get("estimate_max"),
+        estimate_source=row.get("estimate_source"),
     )
 
 
@@ -173,6 +178,7 @@ def _filter_and_score(
     Returns (kept_with_scores, rejected_reasons, total_active).
     kept_with_scores: list of (Posting, score_result_dict).
     """
+    import estimate  # noqa: PLC0415
     import filter as filter_mod  # noqa: PLC0415
     import store  # noqa: PLC0415
     from score import score_posting  # noqa: PLC0415
@@ -184,6 +190,8 @@ def _filter_and_score(
     rejected_reasons: Counter = Counter()
     for row in active_rows:
         posting = _row_to_posting(row)
+        # Recompute so rows stored before the estimate layer get one too.
+        estimate.apply_estimate(posting)
         ok, reason = filter_mod.should_keep(posting)
         if ok:
             kept.append((posting, score_posting(posting)))

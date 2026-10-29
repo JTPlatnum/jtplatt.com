@@ -8,7 +8,9 @@ Rules in order — cheap structural checks first, pattern checks last:
 
     1. salary floor       verified USD-monthly pay only. SALARY_FLOOR env
                           (monthly USD) for every lane; sneaker lane also
-                          needs $100k/yr. Unverified pay passes (flagged).
+                          needs $100k/yr. Unverified pay passes (flagged),
+                          except lane 1 with a title-level estimate
+                          (estimate.py): estimate_min must clear $100k.
     2. current employer   FI$CAL / FISCal — JT is leaving
     3. source allow-list  structural placeholder; widens as sources land
     4. disqualifying req  data/reject_requirements.yaml substrings
@@ -65,7 +67,8 @@ SALARY_FLOOR = _env_float("SALARY_FLOOR", "0") or 0.0
 SALARY_FLOOR_PREMIUM_METRO = _env_float("SALARY_FLOOR_PREMIUM_METRO", None)
 
 _LANE1 = lanes.LANE_BY_ID[1]
-SNEAKER_FLOOR_MONTHLY = _LANE1["pay_floor_annual_usd"] / 12
+SNEAKER_FLOOR_ANNUAL = float(_LANE1["pay_floor_annual_usd"])
+SNEAKER_FLOOR_MONTHLY = SNEAKER_FLOOR_ANNUAL / 12
 _LANE1_EXTRA_LOCATIONS = [s.lower() for s in _LANE1.get("extra_locations", [])]
 _LANE1_UNVERIFIED_OK = bool(_LANE1.get("unverified_pay_ok_everywhere"))
 
@@ -172,6 +175,11 @@ def should_keep(posting: Posting) -> Tuple[bool, str]:
             return False, "below salary floor"
         if lane == 1 and posting.salary_min < SNEAKER_FLOOR_MONTHLY:
             return False, "below sneaker-lane floor"
+    elif lane == 1 and posting.estimate_min is not None:
+        # No verified pay: the title-level estimate (estimate.py, annual
+        # USD) stands in for the sneaker floor only.
+        if posting.estimate_min < SNEAKER_FLOOR_ANNUAL:
+            return False, "below sneaker-lane floor (estimated)"
 
     # 2. Current employer.
     if posting.employer and _CURRENT_EMPLOYER_RE.search(posting.employer):
