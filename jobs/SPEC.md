@@ -79,6 +79,7 @@ Computed in `score.py`. Ranks within a lane. Components:
 | Location | 10 | 10 fully remote or SE Asia/Europe; 7 other overseas; 5 hybrid |
 | Recency | 5 | Posting <= 7 days old |
 | Preferred country lock | +10 | Lane 2 only: remote-board role locked to Japan / Vietnam / Thailand (`lanes.preferred_country_lock`) |
+| AI resilience | +4 / -3 | Re-rank only, never a filter (`score.ai_resilience`). Decided from the title: +4 resilient (authentication, verification, inspection, appraisal, grading, fraud / trust & safety, compliance, audit; partnerships, business development, account management, sales, negotiation; operations, supervision, plant/floor, people management (manager, director, head of), training; QA titles only when the body describes physical goods). -3 exposed (software engineer/developer/programmer, front/back end, full stack, data entry, data/reporting analyst, tier-1 / help desk / customer support, content writer / copywriter, bookkeeping), cancelled by a senior / lead / principal / staff / architect / manager / director / head / chief / VP / supervisor signal in the title. Else 0. Body text is not scanned for the keywords (boilerplate like "EEO compliance" would hit every posting). |
 
 Score dict: `{"score", "lane", "components"}`. `lane` carries lane id/name, why it fired, `overseas_region`, `remote_type`.
 

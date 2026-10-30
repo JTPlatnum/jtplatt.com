@@ -24,6 +24,12 @@ Weights (sum to 100 at the cap; title can subtract 20):
     preferred country lock    10    lane 2 only: remote-board role locked to
                                     Japan / Vietnam / Thailand, so it ranks
                                     above other country-locked roles
+    AI resilience            +4/-3  re-rank only (never a filter): +4 roles
+                                    where human judgment, trust, relationships,
+                                    or physical presence is the product; -3
+                                    routine solo knowledge work with no
+                                    senior/lead/management signal; else 0.
+                                    See ai_resilience().
 
 Final score is clamped to [0, 100].
 
@@ -148,6 +154,70 @@ def _score_preferred_lock(posting: Posting, lane: Dict[str, Any]) -> Dict[str, A
     return {"points": 0, "fired_by": None}
 
 
+# --- AI resilience ---------------------------------------------------------
+#
+# Decided from the TITLE. Body text is not scanned for these keywords:
+# boilerplate ("EEO compliance", "training provided", "operations") would
+# give nearly every posting the bonus. raw_text is used only to tell QA of
+# physical goods from software QA.
+
+AI_RESILIENT_POINTS = 4
+AI_EXPOSED_POINTS = -3
+
+_RESILIENT_TITLE_RE = re.compile(
+    r"\b("
+    # judgment / trust / physical verification
+    r"authenticat\w*|verification|verifier|inspect(?:ion|or)s?|apprais\w*|"
+    r"grad(?:ing|er)|fraud|trust (?:&|and) safety|compliance|audit\w*|"
+    # relationships / negotiation
+    r"partnerships?|business development|bd|account (?:manager|management|executive)|"
+    r"sales|negotiat\w*|"
+    # physical world / supervisory / people
+    r"operations|supervisor|supervision|plant|floor|foreman|superintendent|"
+    r"people manager|manager|director|head of|trainer|training"
+    r")\b",
+    re.IGNORECASE,
+)
+_QA_TITLE_RE = re.compile(r"\b(qa|quality (?:assurance|control|inspector|technician))\b", re.IGNORECASE)
+_PHYSICAL_GOODS_RE = re.compile(
+    r"\b(footwear|sneakers?|apparel|garments?|factory|manufacturing|materials|"
+    r"physical products?|goods|merchandise|warehouse|production line|trading cards?)\b",
+    re.IGNORECASE,
+)
+_EXPOSED_TITLE_RE = re.compile(
+    r"\b("
+    r"software (?:engineer|developer)|developer|programmer|coder|"
+    r"(?:front|back)[- ]?end|full[- ]?stack|web developer|"
+    r"data entry|data analyst|reporting analyst|report writer|"
+    r"tier[- ]?(?:1|one|i)|help ?desk|service desk|customer support|"
+    r"support (?:specialist|representative|rep|agent)|first[- ]line|"
+    r"content writer|copywriter|writer|bookkeep\w*"
+    r")\b",
+    re.IGNORECASE,
+)
+# Managing the work beats doing it: cancels the exposed penalty.
+_SENIOR_SIGNAL_RE = re.compile(
+    r"\b(senior|sr\.?|lead|principal|staff|architect|manager|management|"
+    r"director|head|chief|vp|supervisor)(?!\w)",
+    re.IGNORECASE,
+)
+
+
+def ai_resilience(posting: Posting) -> Dict[str, Any]:
+    """Re-rank signal for how exposed a role is to AI automation. Adjusts
+    points only; never drops a posting. +4 resilient, -3 exposed, 0 neutral."""
+    title = posting.title or ""
+    m = _RESILIENT_TITLE_RE.search(title)
+    if m:
+        return {"points": AI_RESILIENT_POINTS, "tier": "resilient", "matched": m.group(1).lower()}
+    if _QA_TITLE_RE.search(title) and _PHYSICAL_GOODS_RE.search(posting.raw_text or ""):
+        return {"points": AI_RESILIENT_POINTS, "tier": "resilient", "matched": "physical-goods QA"}
+    m = _EXPOSED_TITLE_RE.search(title)
+    if m and not _SENIOR_SIGNAL_RE.search(title):
+        return {"points": AI_EXPOSED_POINTS, "tier": "exposed", "matched": m.group(1).lower()}
+    return {"points": 0, "tier": "neutral", "matched": None}
+
+
 def _score_recency(posted_date: Optional[date], now: date) -> Dict[str, Any]:
     if posted_date is None:
         return {"points": 0, "age_days": None}
@@ -169,7 +239,7 @@ def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any
 
     lane: lanes.assign_lane() output (lane id 1-5 or None, name, reason,
     overseas_region, remote_type). components keys: lane_fit,
-    background_match, title_match, pay, location, recency, preferred_lock. Each carries at
+    background_match, title_match, pay, location, recency, preferred_lock, ai_resilience. Each carries at
     minimum a "points" int plus fields describing what fired.
     """
     now = now or date.today()
@@ -182,6 +252,7 @@ def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any
         "location": _score_location(lane),
         "recency": _score_recency(posting.posted_date, now),
         "preferred_lock": _score_preferred_lock(posting, lane),
+        "ai_resilience": ai_resilience(posting),
     }
     total = sum(c["points"] for c in components.values())
     clamped = max(0, min(100, total))

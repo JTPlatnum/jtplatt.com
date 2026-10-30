@@ -25,7 +25,7 @@ def test_returns_score_lane_and_components_keys():
     assert set(result.keys()) == {"score", "lane", "components"}
     assert set(result["components"].keys()) == {
         "lane_fit", "background_match", "title_match",
-        "pay", "location", "recency", "preferred_lock",
+        "pay", "location", "recency", "preferred_lock", "ai_resilience",
     }
     assert set(result["lane"].keys()) == {
         "lane", "name", "reason", "overseas_region", "remote_type",
@@ -279,3 +279,35 @@ def test_strong_lane_3_posting_clears_80():
     result = score_posting(p)
     assert result["lane"]["lane"] == 3
     assert result["score"] >= 80
+
+
+# --- AI resilience (re-rank only) ---------------------------------------------
+
+def test_authenticator_outscores_identical_pay_junior_dev():
+    common = dict(salary_min=9000.0, salary_max=10000.0, raw_text="Standard duties.")
+    auth = score_posting(_make(title="Authenticator", **common))
+    dev = score_posting(_make(title="Junior Software Engineer", **common))
+    assert auth["components"]["ai_resilience"]["points"] == 4
+    assert dev["components"]["ai_resilience"]["points"] == -3
+    others = [k for k in auth["components"] if k != "ai_resilience"]
+    assert all(auth["components"][k]["points"] == dev["components"][k]["points"] for k in others)
+    assert auth["score"] == dev["score"] + 7
+
+
+def test_senior_or_lead_dev_has_no_exposed_penalty():
+    for title in ("Senior Software Engineer", "Lead Developer", "Sr. Full Stack Developer",
+                  "Software Engineering Manager", "Software Architect"):
+        assert score_posting(_make(title=title))["components"]["ai_resilience"]["points"] >= 0, title
+
+
+def test_physical_goods_qa_resilient_software_qa_neutral():
+    from score import ai_resilience
+    assert ai_resilience(_make(title="QA Specialist", raw_text="Inspect footwear at the factory."))["tier"] == "resilient"
+    assert ai_resilience(_make(title="QA Specialist", raw_text="Test our web app."))["tier"] == "neutral"
+
+
+def test_body_boilerplate_does_not_award_bonus():
+    from score import ai_resilience
+    p = _make(title="Graphic Designer", raw_text="EEO compliance. Training provided. Operations team.")
+    assert ai_resilience(p)["points"] == 0
+
