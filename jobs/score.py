@@ -25,8 +25,8 @@ Weights (sum to 100 at the cap; title can subtract 20):
                                     Japan / Vietnam / Thailand, so it ranks
                                     above other country-locked roles
     AI resilience            +4/-3  re-rank only (never a filter): +4 roles
-                                    where human judgment, trust, relationships,
-                                    or physical presence is the product; -3
+                                    where verification / trust or client
+                                    relationships are the product; -3
                                     routine solo knowledge work with no
                                     senior/lead/management signal; else 0.
                                     See ai_resilience().
@@ -171,10 +171,7 @@ _RESILIENT_TITLE_RE = re.compile(
     r"grad(?:ing|er)|fraud|trust (?:&|and) safety|compliance|audit\w*|"
     # relationships / negotiation
     r"partnerships?|business development|bd|account (?:manager|management|executive)|"
-    r"sales|negotiat\w*|"
-    # physical world / supervisory / people
-    r"operations|supervisor|supervision|plant|floor|foreman|superintendent|"
-    r"people manager|manager|director|head of|trainer|training"
+    r"sales|negotiat\w*"
     r")\b",
     re.IGNORECASE,
 )
@@ -195,7 +192,8 @@ _EXPOSED_TITLE_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
-# Managing the work beats doing it: cancels the exposed penalty.
+# Managing the work beats doing it: cancels the exposed penalty. It does
+# NOT earn the +4 on its own (coordination roles aren't inherently resilient).
 _SENIOR_SIGNAL_RE = re.compile(
     r"\b(senior|sr\.?|lead|principal|staff|architect|manager|management|"
     r"director|head|chief|vp|supervisor)(?!\w)",

@@ -311,3 +311,17 @@ def test_body_boilerplate_does_not_award_bonus():
     p = _make(title="Graphic Designer", raw_text="EEO compliance. Training provided. Operations team.")
     assert ai_resilience(p)["points"] == 0
 
+
+
+def test_management_titles_alone_earn_no_bonus():
+    from score import ai_resilience
+    for title in ("Manager", "Director, Marketing", "Program Manager", "Project Manager",
+                  "Product Manager", "Operations Supervisor", "Training Coordinator"):
+        assert ai_resilience(_make(title=title))["points"] == 0, title
+
+
+def test_relationship_and_verification_titles_keep_bonus():
+    from score import ai_resilience
+    for title in ("Partnerships Manager", "Director, Business Development", "Account Manager",
+                  "Sales Executive", "Fraud Analyst", "Compliance Auditor"):
+        assert ai_resilience(_make(title=title))["points"] == 4, title
