@@ -158,9 +158,26 @@ def test_not_fully_remote_never_lane3():
     assert lanes.assign_lane(p)["lane"] != 3
 
 
-@pytest.mark.parametrize("word", ["data", "process", "content"])
+@pytest.mark.parametrize("word", ["data", "process", "content", "sales", "product", "systems",
+                                  "technical", "research", "revenue", "project manager",
+                                  "program manager", "operations", "marketing", "analyst"])
 def test_common_words_count_in_title_not_description(word):
     in_body = _remote(None, title="Team Lead", raw_text=f"You will handle {word} daily.")
     assert lanes.assign_lane(in_body)["lane"] is None
     in_title = _remote(None, title=f"{word.title()} Specialist")
     assert lanes.assign_lane(in_title)["lane"] == 3
+
+
+@pytest.mark.parametrize("title,body", [
+    ("Senior Cost Manager / Quantity Surveyor",
+     "Report to the project manager on technical cost systems."),
+    ("Support Center Rep II, Inbound",
+     "Answer product questions, log research notes, hand off to sales systems."),
+])
+def test_broad_description_words_alone_do_not_enter_lane3(title, body):
+    assert lanes.assign_lane(_remote(None, title=title, raw_text=body))["lane"] is None
+
+
+def test_specific_description_word_still_enters_lane3():
+    p = _remote(None, title="Team Lead", raw_text="Partner with our account executive team.")
+    assert lanes.assign_lane(p)["reason"] == "fully remote + description 'account executive'"
