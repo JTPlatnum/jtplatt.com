@@ -284,10 +284,14 @@ _LANE5_LOCS = [s.lower() for s in LANE_BY_ID[5]["locations"]]
 _LANE3 = LANE_BY_ID[3]
 _LANE3_EXCLUDE_RE = _phrase_re(_LANE3.get("excluded_title_keywords", []))
 _LANE3_FIT_TITLE_RE = _phrase_re(_LANE3.get("fit_title_keywords", []))
-# Description fit: core + fit keywords minus "IT", which would match "it" in
-# any body text (matching is case-insensitive).
+# Description fit: core + fit keywords, minus words too common in job bodies
+# to mean anything there. "IT" would match "it" (matching is case-insensitive);
+# "data" / "process" / "content" appear in almost every description. All four
+# still count in TITLES.
+_LANE3_TITLE_ONLY = frozenset({"IT", "data", "process", "content"})
 _LANE3_TEXT_FIT_RE = _phrase_re(
-    k for k in _LANE3["title_keywords"] + _LANE3.get("fit_title_keywords", []) if k != "IT"
+    k for k in _LANE3["title_keywords"] + _LANE3.get("fit_title_keywords", [])
+    if k not in _LANE3_TITLE_ONLY
 )
 
 

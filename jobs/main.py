@@ -25,6 +25,7 @@ import argparse
 import logging
 import logging.handlers
 import os
+import re
 import sys
 from collections import Counter
 from datetime import datetime
@@ -156,6 +157,52 @@ def _fetch_all_sources(
 
 # --- Filter + score -------------------------------------------------------
 
+# Corporate suffixes ignored when matching employers across sources.
+_CORP_SUFFIXES = frozenset({"inc", "llc", "ltd", "limited", "corp", "corporation", "co", "company", "the"})
+
+
+def _norm(text: Optional[str], drop: frozenset = frozenset()) -> str:
+    words = re.sub(r"[^a-z0-9]+", " ", (text or "").lower()).split()
+    return " ".join(w for w in words if w not in drop)
+
+
+def dedupe_key(posting) -> Tuple[str, str]:
+    """Normalized (employer, title): lowercase, punctuation stripped,
+    corporate suffixes dropped from the employer."""
+    return _norm(posting.employer, _CORP_SUFFIXES), _norm(posting.title)
+
+
+def dedupe_cross_source(
+    kept: List[Tuple[Any, Dict[str, Any]]],
+) -> Tuple[List[Tuple[Any, Dict[str, Any]]], int]:
+    """Collapse the same job posted on two boards (e.g. StockX Category
+    Manager on Greenhouse and We Work Remotely) into one entry.
+
+    Match: same dedupe_key from DIFFERENT sources. Same-key postings from one
+    source are separate reqs (e.g. one role in two cities) and all stay.
+    Winner: real posted pay beats pay unverified; tie -> first seen (input
+    order). Returns (deduped, number_collapsed)."""
+    from pay import pay_verified  # noqa: PLC0415
+
+    out: List[Tuple[Any, Dict[str, Any]]] = []
+    by_key: Dict[Tuple[str, str], List[int]] = {}
+    collapsed = 0
+    for item in kept:
+        posting = item[0]
+        key = dedupe_key(posting)
+        match = next(
+            (i for i in by_key.get(key, []) if out[i][0].source != posting.source), None
+        )
+        if match is None:
+            by_key.setdefault(key, []).append(len(out))
+            out.append(item)
+            continue
+        collapsed += 1
+        if pay_verified(posting) and not pay_verified(out[match][0]):
+            out[match] = item
+    return out, collapsed
+
+
 def _row_to_posting(row: Dict[str, Any]):
     """Reconstruct a Posting from a get_active_jobs dict row. Drops the
     bookkeeping columns (id, first_seen_at, last_seen_at)."""
@@ -214,6 +261,9 @@ def _filter_and_score(
     )
     for reason, n in rejected_reasons.most_common():
         log.info("filter.reject: %d × %s", n, reason)
+
+    kept, collapsed = dedupe_cross_source(kept)
+    log.info("dedupe: %d cross-source duplicates collapsed, %d kept", collapsed, len(kept))
 
     return kept, dict(rejected_reasons), len(active_rows)
 

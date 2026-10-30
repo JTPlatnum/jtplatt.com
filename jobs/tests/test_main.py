@@ -245,3 +245,46 @@ def test_output_path_relative_resolves_to_repo_root(monkeypatch):
 def test_output_path_default_when_env_unset(monkeypatch):
     monkeypatch.delenv("JOBS_OUTPUT_PATH", raising=False)
     assert main_mod._output_path() == main_mod.DEFAULT_OUTPUT_PATH
+
+
+# --- Cross-source dedupe -----------------------------------------------------
+
+def _dup(source, jid, title="Category Manager", employer="StockX", pay=None):
+    return (Posting(source=source, source_job_id=jid, title=title, employer=employer,
+                    url=f"https://example.test/{source}/{jid}", raw_text="",
+                    salary_min=pay, salary_max=pay), {"score": 1})
+
+
+def test_dedupe_collapses_same_job_across_sources():
+    kept = [_dup("greenhouse", "1"), _dup("weworkremotely", "2", title="Category  Manager!")]
+    out, n = main_mod.dedupe_cross_source(kept)
+    assert n == 1 and [p.source for p, _ in out] == ["greenhouse"]
+
+
+def test_dedupe_real_pay_wins_over_unverified():
+    kept = [_dup("weworkremotely", "2"), _dup("greenhouse", "1", pay=10000.0)]
+    out, n = main_mod.dedupe_cross_source(kept)
+    assert n == 1 and [p.source for p, _ in out] == ["greenhouse"]
+
+
+def test_dedupe_tie_keeps_first_seen():
+    kept = [_dup("weworkremotely", "2", pay=9000.0), _dup("greenhouse", "1", pay=10000.0)]
+    out, _ = main_mod.dedupe_cross_source(kept)
+    assert [p.source for p, _ in out] == ["weworkremotely"]
+
+
+def test_dedupe_keeps_same_source_reqs():
+    kept = [_dup("greenhouse", "1"), _dup("greenhouse", "2")]
+    out, n = main_mod.dedupe_cross_source(kept)
+    assert n == 0 and len(out) == 2
+
+
+def test_dedupe_ignores_corporate_suffix_and_case():
+    kept = [_dup("greenhouse", "1", employer="StockX, Inc."), _dup("remoteok", "2", employer="stockx")]
+    assert main_mod.dedupe_cross_source(kept)[1] == 1
+
+
+def test_dedupe_different_title_or_employer_not_collapsed():
+    kept = [_dup("greenhouse", "1"), _dup("remoteok", "2", title="Category Manager - Apparel"),
+            _dup("himalayas", "3", employer="GOAT Group")]
+    assert main_mod.dedupe_cross_source(kept)[1] == 0

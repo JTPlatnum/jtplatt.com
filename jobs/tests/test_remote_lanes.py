@@ -156,3 +156,11 @@ def test_not_fully_remote_never_lane3():
                 url="https://example.test/x", raw_text="analytics",
                 location="Atlanta, Georgia", all_locations=["Atlanta, Georgia"])
     assert lanes.assign_lane(p)["lane"] != 3
+
+
+@pytest.mark.parametrize("word", ["data", "process", "content"])
+def test_common_words_count_in_title_not_description(word):
+    in_body = _remote(None, title="Team Lead", raw_text=f"You will handle {word} daily.")
+    assert lanes.assign_lane(in_body)["lane"] is None
+    in_title = _remote(None, title=f"{word.title()} Specialist")
+    assert lanes.assign_lane(in_title)["lane"] == 3
