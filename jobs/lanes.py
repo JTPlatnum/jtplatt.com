@@ -283,7 +283,41 @@ _AUTH_MIN_MONTHLY = _AUTH["min_annual_usd"] / 12
 _LANE5_LOCS = [s.lower() for s in LANE_BY_ID[5]["locations"]]
 _LANE3 = LANE_BY_ID[3]
 _LANE3_EXCLUDE_RE = _phrase_re(_LANE3.get("excluded_title_keywords", []))
-_LANE3_FIT_TITLE_RE = _phrase_re(_LANE3.get("fit_title_keywords", []))
+
+# Word variants for lane-3 fit TITLES, so "engineer" catches "Head of
+# Engineering" and "marketing" catches "Growth Marketer". A closed suffix
+# list, not open prefix matching: words shorter than _MIN_STEM stay exact
+# ("IT", "QA", "data"), and a stem never matches bare ("marketing" -> marketer,
+# never "market"). Phrases only take a plural. No "-ment": "development" would
+# pull in "Management Development". Descriptions stay exact: variants there
+# ("auditing", "development", "architects") let the false positives back in.
+_MIN_STEM = 5
+_VARIANT_SUFFIXES = ("s", "es", "ing", "ed")
+_STEM_ENDINGS = ("ing", "er")
+_STEM_SUFFIXES = ("er", "ers", "ing")
+
+
+def _word_variants(keyword: str) -> set:
+    out = {keyword}
+    if " " in keyword:
+        out.add(keyword + "s")
+        return out
+    if len(keyword) < _MIN_STEM:
+        return out
+    out.update(keyword + s for s in _VARIANT_SUFFIXES)
+    for end in _STEM_ENDINGS:
+        stem = keyword[:-len(end)]
+        if keyword.endswith(end) and len(stem) >= _MIN_STEM:
+            out.update(stem + s for s in _STEM_SUFFIXES)
+            break
+    return out
+
+
+def _variants(keywords: Iterable[str]) -> List[str]:
+    return [v for k in keywords for v in _word_variants(k)]
+
+
+_LANE3_FIT_TITLE_RE = _phrase_re(_variants(_LANE3.get("fit_title_keywords", [])))
 # Description fit: core + fit keywords, minus words too common in job bodies
 # to mean anything there. "IT" would match "it" (matching is case-insensitive);
 # the rest appear in almost every description (a quantity surveyor's posting

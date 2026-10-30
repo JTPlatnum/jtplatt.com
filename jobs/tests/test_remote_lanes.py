@@ -181,3 +181,33 @@ def test_broad_description_words_alone_do_not_enter_lane3(title, body):
 def test_specific_description_word_still_enters_lane3():
     p = _remote(None, title="Team Lead", raw_text="Partner with our account executive team.")
     assert lanes.assign_lane(p)["reason"] == "fully remote + description 'account executive'"
+
+
+# --- Lane 3 fit-title word variants -------------------------------------------------
+
+@pytest.mark.parametrize("title,word", [
+    ("Head of Engineering", "engineering"),
+    ("Performance & Growth Marketer", "marketer"),
+    ("Salesforce Developers", "developers"),
+    ("Copywriting Lead", "copywriting"),
+    ("Senior Account Managers", "account managers"),
+])
+def test_fit_title_variant_enters_lane3(title, word):
+    assert lanes.assign_lane(_remote(None, title=title))["reason"] == f"fully remote + fit title {word!r}"
+
+
+@pytest.mark.parametrize("title", ["Market Associate", "Engine Room Lead",
+                                   "Director of Management Development"])
+def test_bare_stem_and_ment_forms_do_not_match(title):
+    assert lanes.assign_lane(_remote(None, title=title))["lane"] is None
+
+
+@pytest.mark.parametrize("word", ["IT", "QA", "data", "FP&A"])
+def test_short_words_stay_exact(word):
+    assert lanes._word_variants(word) == {word}
+
+
+def test_variants_are_title_only():
+    p = _remote(None, title="Team Lead",
+                raw_text="Support auditing, career development, and our architects.")
+    assert lanes.assign_lane(p)["lane"] is None
