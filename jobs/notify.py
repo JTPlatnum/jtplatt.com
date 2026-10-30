@@ -62,6 +62,23 @@ class DigestJob:
     lane_name: str
     score: int
     url: str
+    # Display name of the source; Remotive / Remote OK / WWR / Himalayas
+    # terms require attribution.
+    source: str = ""
+
+
+# Display names for the "via <source>" attribution on each job.
+SOURCE_NAMES = {
+    "usajobs": "USAJobs",
+    "calcareers": "CalCareers",
+    "csu": "CSU Careers",
+    "nike": "Nike Careers",
+    "greenhouse": "Greenhouse",
+    "remotive": "Remotive",
+    "remoteok": "Remote OK",
+    "weworkremotely": "We Work Remotely",
+    "himalayas": "Himalayas",
+}
 
 
 ESTIMATE_MARKERS = {
@@ -109,6 +126,7 @@ def to_digest_job(posting, result: Dict[str, Any]) -> DigestJob:
         lane_name=lane["name"] or "Unlaned",
         score=result["score"],
         url=posting.url,
+        source=SOURCE_NAMES.get(posting.source, posting.source),
     )
 
 
@@ -172,7 +190,7 @@ def render_text(jobs: Sequence[DigestJob], total_kept: int, today: date) -> str:
             lines += [
                 f"{j.title}",
                 f"  {j.employer} | {j.location}",
-                f"  {j.pay} | score {j.score}",
+                f"  {j.pay} | score {j.score}" + (f" | via {j.source}" if j.source else ""),
                 f"  {j.url}",
                 "",
             ]
@@ -212,7 +230,9 @@ def render_html(jobs: Sequence[DigestJob], total_kept: int, today: date) -> str:
                 f"<div style='font-size:14px;color:#555555;'>{e(j.location)}</div>"
                 f"<div style='font-size:14px;margin-top:4px;'>"
                 f"<span style='{pay_style}'>{e(j.pay)}</span>"
-                f" &middot; score {j.score}</div>"
+                f" &middot; score {j.score}"
+                + (f" &middot; via {e(j.source)}" if j.source else "")
+                + "</div>"
                 "</div>")
     parts.append("</div></body></html>")
     return "".join(parts)

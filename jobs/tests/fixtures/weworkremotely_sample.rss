@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss">
+  <channel>
+    <title>We Work Remotely: Product Jobs</title>
+    <link>https://weworkremotely.com/categories/remote-product-jobs.rss</link>
+    <description>We Work Remotely: Product Jobs</description>
+    <language>en-US</language>
+    <ttl>60</ttl>
+    <item>
+      <title>Typeform: Senior AI Engineer - EU</title>
+      <region>Anywhere in the World</region>
+      <country></country>
+      <state></state>
+      <skills></skills>
+      <category>Product</category>
+      <type>Full-Time</type>
+      <description>
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; Germany (Remote) ; Ireland (Remote); Netherlands (Remote) ; Portugal (Remote) ; Spain (Remote) ; United Kingdom (Remote) 
+&lt;/p&gt;
+
+&lt;div class="content-intro"&gt;&lt;h3&gt;Who we are&lt;/h3&gt;
+&lt;p&gt;Typeform is a refreshingly different form builder. We help over 150,000 businesses collect the data they need with forms, surveys, and quizzes that people enjoy. Designed to look striking and feel effortless to fill out, Typeform drives 500 million responses every year—and integrates with essential tools like Slack, Zapier, and Hubspot.&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;span class="s1"&gt;&lt;span&gt;Typeform is fully remote by design. For this role, we can hire candidates based in the UK, Ireland, Germany, Portugal, Spain or The Netherlands&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;strong&gt;About the team&lt;/strong&gt;&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;The AI Engineering team builds the systems and capabilities behind Typeform’s AI products, including Research Flow, our platform for combining quantitative research with deeper qualitative insights.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;We use machine learning, large language models, RAG, and agentic systems to help customers collect, understand, and act on information in more conversational and personalised ways.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Through Research Flow, this includes helping customers design studies, run AI-moderated conversations with adaptive follow-up questions, and turn responses into useful insights.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;The team owns the journey from experimentation through to production. This includes AI application development, evaluation, infrastructure, deployment, observability, reliability, and performance.&lt;/p&gt;
+&lt;p&gt;You will work closely with Product Managers, Software Engineers, Data Scientists, Data Engineers, and Analytics teams to turn promising AI ideas into secure, scalable, and dependable customer experiences.&lt;/p&gt;
+&lt;h3&gt;About the role&lt;/h3&gt;
+&lt;p class="isSelectedEnd"&gt;As a Senior AI Engineer at Typeform, you will be instrumental in building and evolving the AI capabilities behind Research Flow, alongside our broader AI products.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Your work will help customers understand the “why” behind responses and move from research questions to informed decisions faster.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Your scope will span generative AI applications, enterprise RAG systems, agentic workflows, model evaluation, machine learning pipelines, and the infrastructure required to run them reliably at scale.&lt;/p&gt;
+&lt;p&gt;This is a hands-on engineering role with strong ownership. You will turn ideas and prototypes into production systems used by our customers, with direct influence on their quality and performance. You will also help define the technical standards for developing, evaluating, deploying, and monitoring AI across Typeform.&lt;/p&gt;
+&lt;h3&gt;Things you will do&lt;/h3&gt;
+&lt;h3&gt;Build and deliver AI products&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Design, build, and deploy generative AI capabilities across Typeform’s products, with a key contribution to Research Flow.&lt;/li&gt;
+&lt;li&gt;Develop applications using large language models, RAG, vector search, and agentic systems.&lt;/li&gt;
+&lt;li&gt;Build services and APIs that allow product teams to integrate AI capabilities into customer experiences.&lt;/li&gt;
+&lt;li&gt;Turn prototypes into reliable production systems with clear measures of performance and quality.&lt;/li&gt;
+&lt;li&gt;Explore new ways for customers to collect, understand, and act on information using AI.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Build scalable AI systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Design and operate machine learning services and workflows using Python, Docker, Kubernetes, and AWS.&lt;/li&gt;
+&lt;li&gt;Build reliable pipelines for batch and real time processing using technologies such as Kafka and Airflow.&lt;/li&gt;
+&lt;li&gt;Design solutions using vector databases to support retrieval, recommendations, personalisation, and semantic search.&lt;/li&gt;
+&lt;li&gt;Use MLflow to manage experiments, model versions, registries, and deployments.&lt;/li&gt;
+&lt;li&gt;Improve the reliability, performance, scalability, and cost efficiency of our AI systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Evaluate and improve AI quality&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Build automated evaluation pipelines for generative AI applications, including the conversational and analytical capabilities behind Research Flow.&lt;/li&gt;
+&lt;li&gt;Develop benchmarks that measure accuracy, relevance, reliability, fairness, latency, and cost.&lt;/li&gt;
+&lt;li&gt;Evaluate retrieval strategies, including chunking, embeddings, context selection, and reranking.&lt;/li&gt;
+&lt;li&gt;Monitor AI systems in production and identify opportunities to improve their quality and performance.&lt;/li&gt;
+&lt;li&gt;Create safeguards that reduce unexpected behaviour and protect customer data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Shape our AI engineering practice&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Establish reusable patterns and technical standards for building, evaluating, and releasing AI systems.&lt;/li&gt;
+&lt;li&gt;Help teams make informed decisions about models, frameworks, infrastructure, performance, and cost.&lt;/li&gt;
+&lt;li&gt;Apply strong engineering practices across testing, security, observability, version control, and deployment.&lt;/li&gt;
+&lt;li&gt;Share technical knowledge and support the development of other engineers.&lt;/li&gt;
+&lt;li&gt;Keep up with relevant AI research, tools, and engineering practices, applying what is useful to Typeform.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Collaborate across Typeform&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Partner with Product, Engineering, Data Science, Data Engineering, and Analytics teams to connect AI investments with customer and business needs.&lt;/li&gt;
+&lt;li&gt;Work with Data Scientists to turn experiments and models into reliable production services.&lt;/li&gt;
+&lt;li&gt;Communicate technical concepts, risks, and tradeoffs clearly to technical and nontechnical partners.&lt;/li&gt;
+&lt;li&gt;Contribute to technical planning and help shape the direction of AI across Typeform.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;What you bring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;At least four years of experience building and deploying machine learning or AI systems in production.&lt;/li&gt;
+&lt;li&gt;Strong Python and software engineering skills.&lt;/li&gt;
+&lt;li&gt;Experience building production services using Python frameworks such as FastAPI.&lt;/li&gt;
+&lt;li&gt;Practical experience developing generative AI applications using large language models, RAG, tool use, or agentic systems.&lt;/li&gt;
+&lt;li&gt;Experience with frameworks such as PyTorch, LangChain, LangGraph, or similar technologies.&lt;/li&gt;
+&lt;li&gt;A strong understanding of enterprise RAG systems, including chunking, embeddings, retrieval, reranking, evaluation, and monitoring.&lt;/li&gt;
+&lt;li&gt;Experience creating automated evaluations for generative AI applications.&lt;/li&gt;
+&lt;li&gt;Experience with AWS, Docker, Kubernetes, Terraform, and continuous integration and deployment practices.&lt;/li&gt;
+&lt;li&gt;Experience using services such as AWS SageMaker or AWS Bedrock.&lt;/li&gt;
+&lt;li&gt;Experience with Kafka, vector databases, or other technologies used for real time and high dimensional data processing.&lt;/li&gt;
+&lt;li&gt;Experience managing machine learning workflows using MLflow.&lt;/li&gt;
+&lt;li&gt;Experience monitoring production systems with tools such as Datadog or OpenSearch.&lt;/li&gt;
+&lt;li&gt;The ability to balance quality, speed, reliability, scalability, and cost when making technical decisions.&lt;/li&gt;
+&lt;li&gt;Strong communication skills and experience collaborating with Product, Engineering, and Data teams.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Extra awesome&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Experience working in a B2B SaaS product company.&lt;/li&gt;
+&lt;li&gt;Experience with orchestration tools such as Airflow or Argo Workflows.&lt;/li&gt;
+&lt;li&gt;Familiarity with SQL, Spark, Snowflake, or other data processing technologies.&lt;/li&gt;
+&lt;li&gt;Experience building systems that combine structured data, unstructured data, and generative AI.&lt;/li&gt;
+&lt;li&gt;Experience with AI security, privacy, responsible AI, prompt injection protection, or data leakage prevention.&lt;/li&gt;
+&lt;li&gt;Experience improving the latency and cost of AI systems operating at scale.&lt;/li&gt;
+&lt;/ul&gt;&lt;div class="content-conclusion"&gt;&lt;p&gt;*Typeform drives hundreds of millions of interactions each year, enabling conversational, human-centered experiences across the globe. We &lt;strong&gt;move as one team&lt;/strong&gt;, empowering our collective efforts by valuing each individual’s unique perspective. This fosters &lt;strong&gt;strong bonds&lt;/strong&gt; grounded in respect, transparency, and trust. We &lt;strong&gt;champion our diverse customer base&lt;/strong&gt; by anticipating their needs and addressing their challenges with priority. Committed to excellence, we&lt;strong&gt; hold high expectations &lt;/strong&gt;for ourselves and each other, continuously striving to deliver exceptional results.&lt;/p&gt;
+&lt;p&gt;We are proud to be an equal-opportunity employer. We celebrate diversity and stand firmly against discrimination and harassment of any kind—whether based on race, color, ancestry, religion, sex, national origin, sexual orientation, age, citizenship, marital status, disability, gender identity or expression, or veteran status. Everyone is welcome here.&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-eu"&gt;https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-eu&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Thu, 29 Oct 2026 07:30:52 +0000</pubDate>
+      <expires_at>Sat, 28 Nov 2026 07:30:52 +0000</expires_at>
+      <guid>https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-eu</guid>
+      <link>https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-eu</link>
+    </item>
+<item>
+      <title>Typeform: Senior AI Engineer - US</title>
+      <region>Anywhere in the World</region>
+      <country></country>
+      <state></state>
+      <skills></skills>
+      <category>Product</category>
+      <type>Full-Time</type>
+      <description>
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; United States (Remote) 
+&lt;/p&gt;
+
+&lt;div class="content-intro"&gt;&lt;h3&gt;Who we are&lt;/h3&gt;
+&lt;p&gt;Typeform is a refreshingly different form builder. We help over 150,000 businesses collect the data they need with forms, surveys, and quizzes that people enjoy. Designed to look striking and feel effortless to fill out, Typeform drives 500 million responses every year—and integrates with essential tools like Slack, Zapier, and Hubspot.&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;span class="s1"&gt;&lt;span&gt;Typeform is fully remote by design. For this role, we can hire candidates based in the ET timezone in the US.&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;strong&gt;About the team&lt;/strong&gt;&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;The AI Engineering team builds the systems and capabilities behind Typeform’s AI products, including Research Flow, our platform for combining quantitative research with deeper qualitative insights.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;We use machine learning, large language models, RAG, and agentic systems to help customers collect, understand, and act on information in more conversational and personalised ways.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Through Research Flow, this includes helping customers design studies, run AI-moderated conversations with adaptive follow-up questions, and turn responses into useful insights.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;The team owns the journey from experimentation through to production. This includes AI application development, evaluation, infrastructure, deployment, observability, reliability, and performance.&lt;/p&gt;
+&lt;p&gt;You will work closely with Product Managers, Software Engineers, Data Scientists, Data Engineers, and Analytics teams to turn promising AI ideas into secure, scalable, and dependable customer experiences.&lt;/p&gt;
+&lt;h3&gt;About the role&lt;/h3&gt;
+&lt;p class="isSelectedEnd"&gt;As a Senior AI Engineer at Typeform, you will be instrumental in building and evolving the AI capabilities behind Research Flow, alongside our broader AI products.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Your work will help customers understand the “why” behind responses and move from research questions to informed decisions faster.&lt;/p&gt;
+&lt;p class="isSelectedEnd"&gt;Your scope will span generative AI applications, enterprise RAG systems, agentic workflows, model evaluation, machine learning pipelines, and the infrastructure required to run them reliably at scale.&lt;/p&gt;
+&lt;p&gt;This is a hands-on engineering role with strong ownership. You will turn ideas and prototypes into production systems used by our customers, with direct influence on their quality and performance. You will also help define the technical standards for developing, evaluating, deploying, and monitoring AI across Typeform.&lt;/p&gt;
+&lt;h3&gt;Things you will do&lt;/h3&gt;
+&lt;h3&gt;Build and deliver AI products&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Design, build, and deploy generative AI capabilities across Typeform’s products, with a key contribution to Research Flow.&lt;/li&gt;
+&lt;li&gt;Develop applications using large language models, RAG, vector search, and agentic systems.&lt;/li&gt;
+&lt;li&gt;Build services and APIs that allow product teams to integrate AI capabilities into customer experiences.&lt;/li&gt;
+&lt;li&gt;Turn prototypes into reliable production systems with clear measures of performance and quality.&lt;/li&gt;
+&lt;li&gt;Explore new ways for customers to collect, understand, and act on information using AI.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Build scalable AI systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Design and operate machine learning services and workflows using Python, Docker, Kubernetes, and AWS.&lt;/li&gt;
+&lt;li&gt;Build reliable pipelines for batch and real time processing using technologies such as Kafka and Airflow.&lt;/li&gt;
+&lt;li&gt;Design solutions using vector databases to support retrieval, recommendations, personalisation, and semantic search.&lt;/li&gt;
+&lt;li&gt;Use MLflow to manage experiments, model versions, registries, and deployments.&lt;/li&gt;
+&lt;li&gt;Improve the reliability, performance, scalability, and cost efficiency of our AI systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Evaluate and improve AI quality&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Build automated evaluation pipelines for generative AI applications, including the conversational and analytical capabilities behind Research Flow.&lt;/li&gt;
+&lt;li&gt;Develop benchmarks that measure accuracy, relevance, reliability, fairness, latency, and cost.&lt;/li&gt;
+&lt;li&gt;Evaluate retrieval strategies, including chunking, embeddings, context selection, and reranking.&lt;/li&gt;
+&lt;li&gt;Monitor AI systems in production and identify opportunities to improve their quality and performance.&lt;/li&gt;
+&lt;li&gt;Create safeguards that reduce unexpected behaviour and protect customer data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Shape our AI engineering practice&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Establish reusable patterns and technical standards for building, evaluating, and releasing AI systems.&lt;/li&gt;
+&lt;li&gt;Help teams make informed decisions about models, frameworks, infrastructure, performance, and cost.&lt;/li&gt;
+&lt;li&gt;Apply strong engineering practices across testing, security, observability, version control, and deployment.&lt;/li&gt;
+&lt;li&gt;Share technical knowledge and support the development of other engineers.&lt;/li&gt;
+&lt;li&gt;Keep up with relevant AI research, tools, and engineering practices, applying what is useful to Typeform.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Collaborate across Typeform&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Partner with Product, Engineering, Data Science, Data Engineering, and Analytics teams to connect AI investments with customer and business needs.&lt;/li&gt;
+&lt;li&gt;Work with Data Scientists to turn experiments and models into reliable production services.&lt;/li&gt;
+&lt;li&gt;Communicate technical concepts, risks, and tradeoffs clearly to technical and nontechnical partners.&lt;/li&gt;
+&lt;li&gt;Contribute to technical planning and help shape the direction of AI across Typeform.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;What you bring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;At least four years of experience building and deploying machine learning or AI systems in production.&lt;/li&gt;
+&lt;li&gt;Strong Python and software engineering skills.&lt;/li&gt;
+&lt;li&gt;Experience building production services using Python frameworks such as FastAPI.&lt;/li&gt;
+&lt;li&gt;Practical experience developing generative AI applications using large language models, RAG, tool use, or agentic systems.&lt;/li&gt;
+&lt;li&gt;Experience with frameworks such as PyTorch, LangChain, LangGraph, or similar technologies.&lt;/li&gt;
+&lt;li&gt;A strong understanding of enterprise RAG systems, including chunking, embeddings, retrieval, reranking, evaluation, and monitoring.&lt;/li&gt;
+&lt;li&gt;Experience creating automated evaluations for generative AI applications.&lt;/li&gt;
+&lt;li&gt;Experience with AWS, Docker, Kubernetes, Terraform, and continuous integration and deployment practices.&lt;/li&gt;
+&lt;li&gt;Experience using services such as AWS SageMaker or AWS Bedrock.&lt;/li&gt;
+&lt;li&gt;Experience with Kafka, vector databases, or other technologies used for real time and high dimensional data processing.&lt;/li&gt;
+&lt;li&gt;Experience managing machine learning workflows using MLflow.&lt;/li&gt;
+&lt;li&gt;Experience monitoring production systems with tools such as Datadog or OpenSearch.&lt;/li&gt;
+&lt;li&gt;The ability to balance quality, speed, reliability, scalability, and cost when making technical decisions.&lt;/li&gt;
+&lt;li&gt;Strong communication skills and experience collaborating with Product, Engineering, and Data teams.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Extra awesome&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Experience working in a B2B SaaS product company.&lt;/li&gt;
+&lt;li&gt;Experience with orchestration tools such as Airflow or Argo Workflows.&lt;/li&gt;
+&lt;li&gt;Familiarity with SQL, Spark, Snowflake, or other data processing technologies.&lt;/li&gt;
+&lt;li&gt;Experience building systems that combine structured data, unstructured data, and generative AI.&lt;/li&gt;
+&lt;li&gt;Experience with AI security, privacy, responsible AI, prompt injection protection, or data leakage prevention.&lt;/li&gt;
+&lt;li&gt;Experience improving the latency and cost of AI systems operating at scale.&lt;/li&gt;
+&lt;/ul&gt;&lt;div class="content-conclusion"&gt;&lt;p&gt;*Typeform drives hundreds of millions of interactions each year, enabling conversational, human-centered experiences across the globe. We &lt;strong&gt;move as one team&lt;/strong&gt;, empowering our collective efforts by valuing each individual’s unique perspective. This fosters &lt;strong&gt;strong bonds&lt;/strong&gt; grounded in respect, transparency, and trust. We &lt;strong&gt;champion our diverse customer base&lt;/strong&gt; by anticipating their needs and addressing their challenges with priority. Committed to excellence, we&lt;strong&gt; hold high expectations &lt;/strong&gt;for ourselves and each other, continuously striving to deliver exceptional results.&lt;/p&gt;
+&lt;p&gt;We are proud to be an equal-opportunity employer. We celebrate diversity and stand firmly against discrimination and harassment of any kind—whether based on race, color, ancestry, religion, sex, national origin, sexual orientation, age, citizenship, marital status, disability, gender identity or expression, or veteran status. Everyone is welcome here.&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-us"&gt;https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-us&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Thu, 29 Oct 2026 07:30:52 +0000</pubDate>
+      <expires_at>Sat, 28 Nov 2026 07:30:52 +0000</expires_at>
+      <guid>https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-us</guid>
+      <link>https://weworkremotely.com/remote-jobs/typeform-senior-ai-engineer-us</link>
+    </item>
+  </channel>
+</rss>

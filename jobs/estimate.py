@@ -8,7 +8,8 @@ maps to an estimated US base range (annual USD):
     estimate_source               "level_table", or None
 
 Estimates are kept separate from salary_min/salary_max on purpose: they are
-never verified pay. filter.py uses estimate_min for the sneaker-lane floor;
+never verified pay. Remote-board sources (lanes.REMOTE_BOARD_SOURCES) never
+get one. filter.py uses estimate_min for the sneaker-lane floor;
 notify.py shows them marked as estimates. Nothing else may read them, and
 they must never flow into application or resume output.
 
@@ -107,9 +108,13 @@ def apply_estimate(posting: Any, lane: Optional[int] = None) -> None:
     otherwise. Pass `lane` when the caller already assigned it."""
     from pay import pay_verified  # noqa: PLC0415
 
+    import lanes  # noqa: PLC0415
+
     if lane is None:
-        import lanes  # noqa: PLC0415
         lane = lanes.assign_lane(posting)["lane"]
+    # Remote boards: only real posted pay, never an estimate.
+    if posting.source in lanes.REMOTE_BOARD_SOURCES:
+        lane = None
     if lane == 1 and not pay_verified(posting):
         lo, hi = estimate_for_title(posting.title)
         if estimate_basis(posting) == "local_hire":

@@ -226,7 +226,8 @@ _NAMES = {1: "Sneakers / collectibles", 2: "Overseas", 3: "Remote knowledge work
 def _kept(lane, score, title):
     posting = SimpleNamespace(title=title, employer="E", location="L", all_locations=None,
                               salary_min=None, salary_max=None, estimate_min=None,
-                              estimate_max=None, url=f"https://x.test/{title}")
+                              estimate_max=None, source="remotive",
+                              url=f"https://x.test/{title}")
     return posting, {"score": score, "lane": {"lane": lane, "name": _NAMES[lane]}}
 
 

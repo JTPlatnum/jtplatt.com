@@ -1,0 +1,163 @@
+{
+ "comments": "21/08/2026: Cursor pagination is now available and is the preferred way to page through the feed. Pass the nextCursor value from each response back as ?cursor=. It is faster than offset and will never return the same job twice. The offset parameter is deprecated and will be removed in a future release. 13/03/2026: The API has been updated to include the companySlug field in the response.",
+ "updatedAt": 1793375071,
+ "offset": 0,
+ "limit": 20,
+ "totalCount": 131321,
+ "nextCursor": "MjAyNi0xMC0zMFQxNTozODo0NS4yOTgwOThafDI0OTAyNDI",
+ "jobs": [
+  {
+   "title": "Head of Medical Value & Organized Systems Engagement",
+   "excerpt": "Job title: Head of Medical Value & Organized Systems Engagement • Location: Remote About the Job The Head of Medical Value & Organized Systems Engagement leads Sanofi's medical engagement strategy across payer and health-system stakeholders, overseeing three field-facing teams: National Payer Account Directors, Regional Payer Account Directors, and Medical OHS Account Directors.",
+   "companyName": "Sanofi",
+   "companySlug": "sanofi",
+   "companyLogo": "https://cdn-images.himalayas.app/c6aok35ufvp10wne0u8z9exj4f9v",
+   "employmentType": "Full Time",
+   "minSalary": 236250,
+   "maxSalary": 341250,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Director"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Medical-Affairs-Director",
+    "Value-Based-Healthcare-Director",
+    "Market-Access-Director",
+    "Engagement-Director",
+    "Payer-Relations-Director"
+   ],
+   "parentCategories": [],
+   "description": "<p><b>Job title</b>:<i> Head of Medical Value &amp; Organized Systems Engagement</i></p><br><ul><li><i>Location: Remote</i></li></ul><br><h3>About the Job</h3><br><p>The Head of Medical Value &amp; Organized Systems Engagement leads <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a>'s medical engagement strategy across payer and health-system stakeholders, overseeing three field-facing teams: National Payer Account Directors, Regional Payer Account Directors, and Medical OHS Account Directors. This role is accountable for positioning <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> as a strategic medical partner to payers, PBMs, GPOs, and organized health systems — moving beyond product-focused discussions to help address system- and population-level healthcare challenges and advance care delivery and patient outcomes. This high-visibility role plays a key part in building the team's future-state capabilities and ways of working as part of Integrated Evidence &amp; Patient Outcomes.</p><br><p>Join the engine of <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a>’s mission — where deep immunoscience meets bold, AI-powered research. In R&amp;D, you’ll drive breakthroughs that could turn the impossible into possible for millions.</p><h3>About <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a>\n</h3><p>We’re an R&amp;D-driven, AI-powered biopharma company committed to improving people’s lives and delivering compelling growth. Our deep understanding of the immune system – and innovative pipeline – enables us to invent medicines and vaccines that treat and protect millions of people around the world. Together, we chase the miracles of science to improve people’s lives.</p><br><h3>Main responsibilities:</h3><br><ul><li>Lead and develop the Medical Value &amp; Organized Systems Engagement team — National Payer Account Directors, Regional Payer Account Directors, and Medical OHS Account Directors — ensuring a cohesive, compliant One <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> approach to payer and health-system engagement.</li></ul><ul><li>Engage with and direct scientific exchange with national payers, PBMs, and GPOs through the National Payer Account Director team to inform coverage and formulary decisions.</li></ul><ul><li>Direct engagement with regional and state plans through the Regional Payer Account Director team, tailoring clinical and value evidence to each plan's population.</li></ul><ul><li>Serve as the enterprise medical lead for assigned health systems through the Medical OHS Account Director team, bringing <a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> evidence into care pathways, quality improvement, clinical decision support, and research partnerships spanning translational, pre-clinical, and clinical research, and driving care gap initiatives and quality measure alignment in partnership with Population Health.</li></ul><ul><li>Partner across the Integrated Evidence &amp; Patient Outcomes pillars — Integrated Evidence, Real World Evidence, Population Health, and Data Foundation — so payer and health-system teams can act on real-world evidence, AI/ML-enabled insights, and data built for emerging tools like LLM-based scientific exchange.</li></ul><ul><li>Help guide real-world evidence, outcomes research, and clinical trial partnership priorities relevant to payer and health-system engagement, in partnership with the Real World Evidence and Medical Evidence teams.</li></ul><ul><li>Partner with commercial leadership to ensure medical and commercial strategy are fully integrated at the account level, while preserving medical independence and the medical/commercial firewall.</li></ul><ul><li>Collaborate with Market Access, HEVA, Population Health, TA Medical Units, and Medical Evidence teams to align field engagement and resources with medical and access priorities.</li></ul><ul><li>Capture and relay insights from payer and health-system stakeholders to inform internal medical, access, and R&amp;D priorities.</li></ul><ul><li>Define and track impact measures and KPIs that demonstrate medical value to the business and to customers; provide performance oversight through monitoring, reporting, and field engagement.</li></ul><ul><li>Own field budgets for the Medical Value &amp; Organized Systems Engagement team, ensuring strategic alignment with commercial account counterparts.</li></ul><ul><li>Ensure full compliance with all relevant policies, regulations, and governance processes across the team's activities.</li></ul><ul><li>Travel as required to support customers, external meetings, trainings, and other internal meetings (up to 50%).</li></ul><br><h3>About You</h3><br><ul><li>Advanced medical or scientific degree required (MD, PharmD, PhD, or equivalent).</li></ul><ul><li>10+ years of related industry and clinical experience, including field medical, MVO, payer, or health-system engagement roles, with field team leadership experience required.</li></ul><ul><li>High degree of knowledge of relevant healthcare systems, the evolving medical landscape, regulatory and payer environment, and public health and industry trends.</li></ul><ul><li>Deep understanding of data analytics, real-world evidence, quality improvement, and clinical informatics.</li></ul><ul><li>Strong interpersonal skills, with the ability to forge effective business partnerships and participate in multi-disciplinary teams.</li></ul><ul><li>Fluency in spoken and written business English.</li></ul><br><p>Preferred Qualifications:</p><ul><li>Additional advanced degree in business, HEOR, health policy, or population health.</li></ul><ul><li>Prior experience in a health system, pharmacy, population health, managed care, or quality leadership role.</li></ul><ul><li>Experience with EHR-based clinical decision support, AI-driven care pathways, and other digital health and analytics technologies.</li></ul><ul><li>Proven track record of team leadership and people development.</li></ul><ul><li>Demonstrated change management experience, with a track record of building a team or function from present to future state.</li></ul><ul><li>Proven ability to utilize time and project management strategies to manage a complex environment and guide teams with varied skill levels.</li></ul><ul><li>Experience operating compliantly at the medical/commercial interface.</li></ul><br><h3>Why Choose Us</h3><ul>\n<li>Bring the miracles of science to life alongside a supportive, future-focused team.</li>\n<li>Discover endless opportunities to grow your talent and drive your career, whether it’s through a promotion or lateral move, at home or internationally.</li>\n<li>Enjoy a thoughtful, well-crafted rewards package that recognizes your contribution and amplifies your impact.</li>\n<li>Take good care of yourself and your family, with a wide range of health and wellbeing benefits including high-quality healthcare, prevention and wellness programs and at least 14 weeks’ gender-neutral parental leave.</li>\n<li>Be part of a pioneering biopharma company that engages patients early in drug development and uses their insights to design studies that reflect real-world needs.</li>\n<li>Help improve the lives of millions of people globally by making drug development quicker and more effective.</li>\n<li>Work at the forefront of drug discovery, harnessing cutting-edge AI, data, and digital platforms to push the boundaries of science.</li>\n</ul><p><a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> US Services and its U.S. affiliates are Equal Opportunity employers committed to a culturally inclusive workforce. All qualified applicants will receive consideration for employment without regard to race; color; creed; religion; national origin; age; ancestry; nationality; marital, domestic partnership or civil union status; sex, gender, gender identity or expression; affectional or sexual orientation; disability; veteran or military status or liability for military status; domestic violence victim status; atypical cellular or blood trait; genetic information (including the refusal to submit to genetic testing) or any other characteristic protected by law.</p><br><h3>#GD-SG</h3><h3>#vhd</h3><h3>Pursue <i>progress</i>, discover <i>extraordinary</i>\n</h3><p>Better is out there. Better medications, better outcomes, better science. But progress doesn’t happen without people – people from different backgrounds, in different locations, doing different roles, all united by one thing: a desire to make miracles happen. So, let’s be those people.</p><p><a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> US endeavours to make our career center accessible to any and all users. If you are experiencing difficulty and need assistance applying online, please call 1-866-SANOFI2 (1-866-726-6342) or click here</p><p><i>US and Puerto Rico Residents Only</i></p><p><a href=\"https://himalayas.app/companies/sanofi\">Sanofi</a> Inc. and its U.S. affiliates are Equal Opportunity employers committed to a culturally inclusive workforce. All qualified applicants will receive consideration for employment without regard to race; color; creed; religion; national origin; age; ancestry; nationality; marital, domestic partnership or civil union status; sex, gender, gender identity or expression; affectional or sexual orientation; disability; veteran or military status or liability for military status; domestic violence victim status; atypical cellular or blood trait; genetic information (including the refusal to submit to genetic testing) or any other characteristic protected by law.</p><p><i>North America Applicants Only</i></p><h3>The salary range for this position is:</h3>$236,250.00 - $341,250.00<br><p>All compensation will be determined commensurate with demonstrated experience. Employees may be eligible to participate in Company employee benefit programs, and additional benefits information can be found here.</p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1793375059,
+   "expiryDate": 1798559058,
+   "applicationLink": "https://himalayas.app/companies/sanofi/jobs/head-of-medical-value-organized-systems-engagement?utm_source=api",
+   "guid": "https://himalayas.app/companies/sanofi/jobs/head-of-medical-value-organized-systems-engagement"
+  },
+  {
+   "title": "Transaction Monitoring Lead (Card & Crypto Payments)",
+   "excerpt": "About ReapReap is a global financial technology company headquartered in Hong Kong with employees across multiple countries.",
+   "companyName": "Reap",
+   "companySlug": "reap",
+   "companyLogo": "https://cdn-images.himalayas.app/8mn3kg05ong2s17p9r42ks5uvs7d",
+   "employmentType": "Full Time",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Senior"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "Malaysia",
+    "Philippines",
+    "Taiwan"
+   ],
+   "timezoneRestrictions": [
+    8
+   ],
+   "categories": [
+    "Monitoring-Team-Lead",
+    "Transaction-Monitoring-Analyst",
+    "AML-Investigator",
+    "Financial-Crime-Analyst",
+    "Blockchain-Compliance-Analyst"
+   ],
+   "parentCategories": [],
+   "description": "<h4><strong>About <a href=\"https://himalayas.app/companies/reap\">Reap</a></strong></h4><p><a href=\"https://himalayas.app/companies/reap\">Reap</a> is a global financial technology company headquartered in Hong Kong with employees across multiple countries. We enable financial connectivity and access for businesses worldwide by combining traditional finance with stablecoins for efficient money movement.</p><p>Through our stablecoin-powered corporate cards, payments, and expense management tools, we streamline financial operations and help businesses scale. Our APIs enable businesses to integrate stablecoin-enabled finance into their own products and services—from issuing Visa cards to facilitating cross-border payments.</p><p>Backed by leading investors including Acorn Pacific, Index Ventures and HashKey Capital, <a href=\"https://himalayas.app/companies/reap\">Reap</a> is building the future of borderless, stablecoin-enabled finance.</p><h4><strong>Why <a href=\"https://himalayas.app/companies/reap\">Reap</a>?</strong></h4><p>We are seeking a hands-on Subject Matter Expert in Transaction Monitoring to lead complex investigations while building the next generation of our monitoring capability. You will clear critical backlogs, tune and design detection logic, and establish SOPs that scale our program across card schemes and digital asset flows. This is a builder role for someone who thrives in ambiguity, moves fast, and brings order to complexity.</p><h4><strong>What You’ll Do</strong></h4><h5>1) Transaction Monitoring &amp; Investigations (hands-on)</h5><ul>\n<li><p>Lead investigations into high-risk and complex alerts spanning AML, fraud, and crypto-specific typologies.</p></li>\n<li><p>Triage and clear existing backlogs for card scheme (Visa) and digital asset alerts within SLAs, documenting rationale and outcomes.</p></li>\n<li><p>Prepare and file SARs/STRs with the JFIU and other authorities where required, maintaining robust audit trails.</p></li>\n<li><p>Perform deep-dive forensic analysis across fiat and blockchain transaction webs, leveraging blockchain analytics where appropriate.</p></li>\n</ul><h5>2) System Optimization &amp; Rule Tuning</h5><ul>\n<li><p>Serve as the primary operational stakeholder for the Transaction Monitoring vendor as we migrate to automated systems.</p></li>\n<li><p>Analyze alert performance, reduce false positives, and propose rule-tuning changes in partnership with Product and Engineering.</p></li>\n<li><p>Design, test, and promote new scenarios/typologies tailored to PSP and crypto-asset risks, with clear success metrics.</p></li>\n</ul><h5>3) Process Governance &amp; Procedure Creation</h5><ul>\n<li><p>Draft, maintain, and own SOPs for the TM function, aligned with policies owned by FCC.</p></li>\n<li><p>Translate regulatory and scheme requirements into actionable process steps and control points.</p></li>\n<li><p>Define L1 vs. L2 escalation matrices, investigation standards, and QC checkpoints.</p></li>\n</ul><h5>4) Mentorship &amp; Leadership</h5><ul>\n<li><p>Serve as subject matter expert for TM, mentoring peers and setting investigation quality standards.</p></li>\n<li><p>Provide on-call guidance for complex cases, perform spot checks and QC reviews, and document best practices.</p></li>\n<li><p>Lead knowledge-sharing sessions, write playbooks, and uplevel the team's capability through example and coaching.</p></li>\n</ul><h4><strong>What We’re Looking For</strong></h4><h5>Must-haves</h5><ul>\n<li><p>8-12+ years focused on Transaction Monitoring.</p></li>\n<li><p>Background in Fintech, Payments (card issuing and/or acquiring), or Web3/Crypto with a clear grasp of differences between fiat rails and blockchain flows.</p></li>\n<li><p>Deep knowledge of Visa/Mastercard scheme monitoring obligations and relevant AML and fraud typologies.</p></li>\n<li><p>Hands-on experience with modern TM and blockchain analytics tools (e.g., Unit21, Flagright, Chainalysis, Elliptic) and the ability to articulate rule logic.</p></li>\n<li><p>Start-up mindset: willing to clear alerts while building strategy, comfortable operating in evolving environments.</p></li>\n</ul><h5>Nice-to-haves</h5><ul>\n<li><p>CAMS, CFE, or ICA International Diploma in AML.</p></li>\n<li><p>Prior experience standing up a TM function or migrating from manual to automated monitoring.</p></li>\n<li><p>Working proficiency in SQL and/or data visualization for rule performance analysis and experiment design.</p></li>\n</ul><h5>Why You'll Love it Here</h5><ul>\n<li><p>Flexible hybrid/remote work environment with a global, collaborative team.</p></li>\n<li><p>Use of AI tools at work — and the space to learn, experiment, and grow with them.</p></li>\n<li><p>A culture of innovation, inclusion, and continuous learning.</p></li>\n</ul><p><strong><em>After submitting your application, please check your inbox for a confirmation email. If you don't see it, kindly check your spam or junk folder and adjust your settings to ensure future communication reaches your inbox. You can follow the steps</em></strong><strong><em>here</em></strong><strong><em>.</em></strong></p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1793374969,
+   "expiryDate": 1798558969,
+   "applicationLink": "https://himalayas.app/companies/reap/jobs/transaction-monitoring-lead-card-crypto-payments?utm_source=api",
+   "guid": "https://himalayas.app/companies/reap/jobs/transaction-monitoring-lead-card-crypto-payments"
+  },
+  {
+   "title": "Recruiter",
+   "excerpt": "About CharterFounded in 1997, Victoria headquartered Charter has grown into one of Canada’s foremost fastest growing Information Technology providers in the country, providing a broad array of high value product and service solutions to clients operating some of the most mission critical networks and applications.",
+   "companyName": "Charter",
+   "companySlug": "charter",
+   "companyLogo": "",
+   "employmentType": "Full Time",
+   "minSalary": 80000,
+   "maxSalary": 80000,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Mid-level"
+   ],
+   "currency": "CAD",
+   "locationRestrictions": [
+    "Canada"
+   ],
+   "timezoneRestrictions": [
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3.5
+   ],
+   "categories": [
+    "Technical-Recruiter",
+    "IT-Recruiter",
+    "Recruiter",
+    "Staffing-Recruiter",
+    "Talent-Acquisition-Specialist"
+   ],
+   "parentCategories": [
+    "Human Resources"
+   ],
+   "description": "<h3>About <a href=\"https://himalayas.app/companies/charter\">Charter</a>\n</h3><p>Founded in 1997, Victoria headquartered <a href=\"https://himalayas.app/companies/charter\">Charter</a> has grown into one of Canada’s foremost fastest growing Information Technology providers in the country, providing a broad array of high value product and service solutions to clients operating some of the most mission critical networks and applications.</p><p>If you are looking to be an integral part of a vibrant, success-based environment with the core values of empowerment, flexibility, agility, innovation, high knowledge based, life balanced, and high ethics deeply embedded into the everyday culture then <a href=\"https://himalayas.app/companies/charter\">Charter</a> is a place for you to look. We are a high energy business focused team, providing the highest possible customer experience, with best-in-class engineering support.</p><h3>Overview</h3><p><a href=\"https://himalayas.app/companies/charter\">Charter</a> is seeking a high-performing IT Recruiter with experience in staff augmentation to support our growing delivery team. In this role, you will partner closely with account managers, clients, and internal stakeholders to quickly identify and deliver top-tier IT talent for contract and project-based engagements.</p><p>You thrive in a fast-paced, client-driven environment and understand the urgency, quality, and relationship management required to succeed in staff augmentation.</p><h3>Key Responsibilities</h3><ul>\n<li>Partner with Account Managers and clients to understand technical requirements, timelines, and project expectations</li>\n<li>Source, screen, and qualify IT professionals for contract and contract-to-hire opportunities</li>\n<li>Build and maintain a strong pipeline of pre-qualified candidates across key skill areas (e.g., cloud, DevOps, cybersecurity, software development, data)</li>\n<li>Deliver high-quality candidate submissions within tight deadlines and service-level expectations</li>\n<li>Conduct technical and behavioral screenings to ensure alignment with client needs and project scope</li>\n<li>Prepare candidates for client interviews and manage the interview process end-to-end</li>\n<li>Negotiate rates, terms, and onboarding logistics for contract placements</li>\n<li>Maintain consistent communication with consultants during assignments to ensure engagement and retention</li>\n<li>Track and manage candidate activity in ATS/CRM systems</li>\n<li>Stay current on IT market trends, in-demand skills, and competitive talent landscapes</li>\n</ul><h3>Required Qualifications</h3><ul>\n<li>2+ years of experience in IT recruiting, preferably in a staff augmentation or agency environment</li>\n<li>Strong understanding of IT roles, technologies, and project-based hiring needs</li>\n<li>Experience working with demanding timelines and multiple open requirements</li>\n<li>Excellent communication, negotiation, and relationship management skills</li>\n<li>Proficiency with sourcing tools (LinkedIn Recruiter, job boards, Boolean search) and ATS platforms</li>\n</ul><p><em><a href=\"https://himalayas.app/companies/charter\">Charter</a> is an equal-opportunity employer committed to inclusive, barrier-free recruitment and selection processes. Diversity forms the foundation for excellence and <a href=\"https://himalayas.app/companies/charter\">Charter</a> seeks team members who will work respectfully and constructively with everyone. We encourage applications from members of groups that have been historically underrepresented on any grounds listed under the Human Rights Code, including gender, sexual orientation, gender identity or expression, racialization, disability, political belief, religion, marital or family status, age and/or self-identify as Indigenous (status, non-status, Metis, and Inuit). To request an accommodation in completing an employment application, pre-employment testing, interviewing or otherwise participating in the employee selection process, please direct your inquiries to people @charter.ca</em></p>Salary: $80,000<p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1793374963,
+   "expiryDate": 1798558962,
+   "applicationLink": "https://himalayas.app/companies/charter/jobs/recruiter?utm_source=api",
+   "guid": "https://himalayas.app/companies/charter/jobs/recruiter"
+  },
+  {
+   "title": "Freelance Mechanical CAD&Simulation Engineer - AI Trainer",
+   "excerpt": "About the role Help train and evaluate AI agents that work inside a real CAD environment on long engineering tasks, work that would take an expert 10–15 hours.",
+   "companyName": "Mindrift",
+   "companySlug": "mindrift",
+   "companyLogo": "https://cdn-images.himalayas.app/xq3hn9b4xx58golfhgf8twc4izd7",
+   "employmentType": "Part Time",
+   "minSalary": 31,
+   "maxSalary": 31,
+   "salaryPeriod": "hourly",
+   "seniority": [
+    "Senior"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "Portugal"
+   ],
+   "timezoneRestrictions": [
+    -1,
+    0
+   ],
+   "categories": [
+    "Mechanical-CAD-Designer",
+    "Cad-Engineer",
+    "Simulation-Engineer",
+    "Mechanical-Engineer"
+   ],
+   "parentCategories": [
+    "Hardware Engineer"
+   ],
+   "description": "<h3>About the role </h3><p>Help train and evaluate AI agents that work inside a real CAD environment on long engineering tasks, work that would take an expert 10–15 hours. You'll design part geometry, build reference solutions, and judge the agent's attempts. You'll work alongside CFD engineers who simulate the geometry you build.</p><h3>Requirements</h3><ul>\n<li>A degree in Mechanical or Aerospace Engineering, or a related field. A Master's or PhD is a plus.</li>\n<li>5+ years of professional, hands-on CAD modelling (CATIA, SolidWorks, Siemens NX, Creo or similar). Experience preparing geometry for simulation (ANSYS or similar) is a strong plus.</li>\n<li><strong>An active professional CAD licence of your own (required).</strong></li>\n<li>Comfortable with Python and GitHub.</li>\n<li>English at B2 level or above.</li>\n</ul><h3>Project time expectations </h3><p>For this project, tasks are estimated to require around 10–20 hours per week during active phases, based on project requirements. This is an estimate, not a guaranteed workload, and applies only while the project is active. </p><h3>Compensation</h3><p>On this project, contributors can earn up to <strong>$31 per hour equivalent</strong>, depending on their level and pace of contribution. </p><p>Compensation varies across projects depending on scope, complexity, and required expertise. Please note that other projects on the platform may offer different earning levels based on their requirements.</p><p><strong>Why this freelance opportunity might be a great fit for you? </strong></p><ul>\n<li>Work fully remote on your own schedule with just a laptop and stable internet connection. </li>\n<li>Apply your expertise to real-world technology projects while gaining experience building high-quality solutions for a global platform. </li>\n<li>Participate in performance-based bonus programs that reward high-quality work and consistent delivery.</li>\n</ul><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1793374908,
+   "expiryDate": 1798558907,
+   "applicationLink": "https://himalayas.app/companies/mindrift/jobs/freelance-mechanical-cad-simulation-engineer-ai-trainer-5150485883?utm_source=api",
+   "guid": "https://himalayas.app/companies/mindrift/jobs/freelance-mechanical-cad-simulation-engineer-ai-trainer-5150485883"
+  }
+ ]
+}

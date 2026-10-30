@@ -78,7 +78,10 @@ _LANE1_UNVERIFIED_OK = bool(_LANE1.get("unverified_pay_ok_everywhere"))
 # "edjoin" removed 2026-07-08: source DEACTIVATED (LoadJobs endpoint
 # decommissioned, needs rebuild). Dropping it here stops stale EdJoin rows
 # already in jobs.db from leaking into results while the source is inactive.
-ALLOWED_SOURCES = frozenset({"usajobs", "calcareers", "csu", "nike", "greenhouse"})
+ALLOWED_SOURCES = frozenset({
+    "usajobs", "calcareers", "csu", "nike", "greenhouse",
+    "remotive", "remoteok", "weworkremotely", "himalayas",
+})
 
 # Current employer JT is leaving — never surface a posting from FI$CAL.
 # Both spellings observed in the wild: "FI$CAL" (official) and "FISCal"

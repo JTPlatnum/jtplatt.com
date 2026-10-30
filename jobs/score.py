@@ -21,6 +21,9 @@ Weights (sum to 100 at the cap; title can subtract 20):
     location                  10    10 fully remote or SE Asia/Europe;
                                     7 other overseas; 5 hybrid; else 0.
     recency                    5    posted_date within 7 days
+    preferred country lock    10    lane 2 only: remote-board role locked to
+                                    Japan / Vietnam / Thailand, so it ranks
+                                    above other country-locked roles
 
 Final score is clamped to [0, 100].
 
@@ -139,6 +142,12 @@ def _score_location(lane: Dict[str, Any]) -> Dict[str, Any]:
     return {"points": 0, "fired_by": None}
 
 
+def _score_preferred_lock(posting: Posting, lane: Dict[str, Any]) -> Dict[str, Any]:
+    if lane["lane"] == 2 and lanes.preferred_country_lock(posting):
+        return {"points": 10, "fired_by": "remote locked to Japan/Vietnam/Thailand"}
+    return {"points": 0, "fired_by": None}
+
+
 def _score_recency(posted_date: Optional[date], now: date) -> Dict[str, Any]:
     if posted_date is None:
         return {"points": 0, "age_days": None}
@@ -160,7 +169,7 @@ def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any
 
     lane: lanes.assign_lane() output (lane id 1-5 or None, name, reason,
     overseas_region, remote_type). components keys: lane_fit,
-    background_match, title_match, pay, location, recency. Each carries at
+    background_match, title_match, pay, location, recency, preferred_lock. Each carries at
     minimum a "points" int plus fields describing what fired.
     """
     now = now or date.today()
@@ -172,6 +181,7 @@ def score_posting(posting: Posting, now: Optional[date] = None) -> Dict[str, Any
         "pay": _score_pay(posting),
         "location": _score_location(lane),
         "recency": _score_recency(posting.posted_date, now),
+        "preferred_lock": _score_preferred_lock(posting, lane),
     }
     total = sum(c["points"] for c in components.values())
     clamped = max(0, min(100, total))

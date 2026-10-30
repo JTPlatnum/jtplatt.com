@@ -25,7 +25,7 @@ def test_returns_score_lane_and_components_keys():
     assert set(result.keys()) == {"score", "lane", "components"}
     assert set(result["components"].keys()) == {
         "lane_fit", "background_match", "title_match",
-        "pay", "location", "recency",
+        "pay", "location", "recency", "preferred_lock",
     }
     assert set(result["lane"].keys()) == {
         "lane", "name", "reason", "overseas_region", "remote_type",

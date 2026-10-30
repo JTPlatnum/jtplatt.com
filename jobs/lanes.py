@@ -143,6 +143,94 @@ def overseas_region(posting: Posting) -> Optional[str]:
     return None
 
 
+# --- Remote job boards -----------------------------------------------------
+
+# Remote-first boards. Their location strings say where the CANDIDATE may
+# live, not where an office is, and every posting is fully remote. Keyed by
+# source (not Posting.remote_type) because the DB doesn't store remote_type.
+REMOTE_BOARD_SOURCES = frozenset({"remotive", "remoteok", "weworkremotely", "himalayas"})
+
+_ANYWHERE_RE = re.compile(
+    r"\b(anywhere|worldwide|world|global|globally|international)\b|^\s*remote\s*$",
+    re.IGNORECASE,
+)
+_US_ELIGIBLE_RE = re.compile(
+    r"(?<![\w.])(usa|u\.s\.a?\.?|us|united states(?: of america)?|north america|americas)(?!\w)",
+    re.IGNORECASE,
+)
+# Positive non-US markers for remote-board candidate locations: regions plus
+# countries outside REGION_COUNTRIES (those are caught by classify_location).
+# Kept local to remote boards so other sources' overseas rule is unchanged.
+# "Georgia" is left out on purpose (US state).
+_NON_US_PLACES = [
+    "Europe", "EU", "EMEA", "LATAM", "Latin America", "South America",
+    "Central America", "Caribbean", "Asia", "APAC", "Asia Pacific", "Africa",
+    "Middle East", "Oceania",
+    "Canada", "Mexico", "Brazil", "Argentina", "Chile", "Colombia", "Peru",
+    "Ecuador", "Uruguay", "Paraguay", "Bolivia", "Venezuela", "Guatemala",
+    "Honduras", "El Salvador", "Nicaragua", "Costa Rica", "Panama",
+    "Dominican Republic", "Jamaica", "Trinidad and Tobago", "Bahamas",
+    "Barbados", "Belize", "India", "Pakistan", "Bangladesh", "Sri Lanka",
+    "Nepal", "China", "Hong Kong", "Taiwan", "Japan", "South Korea", "Korea",
+    "Mongolia", "Australia", "New Zealand", "South Africa", "Nigeria",
+    "Kenya", "Egypt", "Morocco", "Ghana", "Ethiopia", "Uganda", "Tanzania",
+    "Rwanda", "Tunisia", "Algeria", "Senegal", "Cameroon", "Zimbabwe",
+    "Zambia", "Botswana", "Namibia", "Mauritius", "Israel", "Turkey",
+    "Türkiye", "Saudi Arabia", "United Arab Emirates", "UAE", "Qatar",
+    "Kuwait", "Bahrain", "Oman", "Jordan", "Lebanon", "Armenia", "Azerbaijan",
+    "Kazakhstan", "Uzbekistan", "Kyrgyzstan", "Belarus", "Russia",
+]
+_NON_US_RE = _phrase_re(_NON_US_PLACES)
+
+# Country locks JT would consider (Tokyo / Hanoi / Bangkok); lane-2 bonus.
+_PREFERRED_LOCK_RE = re.compile(
+    r"\b(japan|tokyo|vietnam|viet nam|hanoi|ho chi minh|thailand|bangkok)\b",
+    re.IGNORECASE,
+)
+
+
+def _us_location(loc: str) -> bool:
+    """US phrase, home region, premium metro, or a US state / "City, ST"."""
+    if _US_ELIGIBLE_RE.search(loc):
+        return True
+    if classify_location(loc)["kind"] in ("home", "premium_metro"):
+        return True
+    suffix = loc.lower().rstrip(" ,.").rsplit(",", 1)[-1].strip()
+    return suffix in _US_SUFFIXES
+
+
+def _non_us_location(loc: str) -> bool:
+    """Positively non-US: a known region/country, or "City, Country"."""
+    return bool(_NON_US_RE and _NON_US_RE.search(loc)) or (
+        classify_location(loc)["kind"] == "international"
+    )
+
+
+def remote_board_scope(posting: Posting) -> Optional[str]:
+    """Candidate-location scope for a remote-board posting:
+    "anywhere" (no restriction / worldwide), "us" (US-eligible, possibly
+    among others), "overseas" (locked to non-US countries or regions), or
+    "unknown" (free text we can't place, e.g. a bare "Redwood City"; not
+    treated as overseas). None for every other source."""
+    if posting.source not in REMOTE_BOARD_SOURCES:
+        return None
+    locs = location_strings(posting)
+    if not locs or any(_ANYWHERE_RE.search(loc) for loc in locs):
+        return "anywhere"
+    if any(_us_location(loc) for loc in locs):
+        return "us"
+    if any(_non_us_location(loc) for loc in locs):
+        return "overseas"
+    return "unknown"
+
+
+def preferred_country_lock(posting: Posting) -> bool:
+    """Remote-board posting locked to Japan, Vietnam, or Thailand."""
+    return remote_board_scope(posting) == "overseas" and any(
+        _PREFERRED_LOCK_RE.search(loc) for loc in location_strings(posting)
+    )
+
+
 # --- Remote vs hybrid ------------------------------------------------------
 
 _FULL_REMOTE_RE = re.compile(
@@ -164,6 +252,8 @@ def remote_type(posting: Posting) -> Optional[str]:
     (conservative: CA state "telework" is usually hybrid)."""
     if posting.remote_type in ("full", "hybrid"):
         return posting.remote_type
+    if posting.source in REMOTE_BOARD_SOURCES:
+        return "full"
     if any(c["kind"] == "remote" for c in classified_locations(posting)):
         return "full"
     text = posting.raw_text or ""
@@ -228,8 +318,13 @@ def assign_lane(posting: Posting) -> Dict[str, Any]:
     if domain and function:
         return out(1, f"domain {domain[0]!r} + title {function[0]!r}")
 
-    # 2. Overseas: any non-US location.
-    if region:
+    # 2. Overseas: any non-US location. Remote boards go by candidate
+    # location instead: only a recognized non-US lock is overseas; worldwide,
+    # US-eligible, or unplaceable roles go on to lane 3.
+    scope = remote_board_scope(posting)
+    if scope == "overseas":
+        return out(2, "remote, locked to " + ", ".join(location_strings(posting)))
+    if region and scope is None:
         return out(2, f"overseas location ({region})")
 
     # 3. Remote knowledge work: fully remote AND knowledge-work title.
