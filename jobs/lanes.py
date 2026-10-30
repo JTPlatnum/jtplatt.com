@@ -281,6 +281,14 @@ _AUTH_TITLE_RE = _phrase_re(_AUTH["title_keywords"])
 _AUTH_SUPER_RE = _phrase_re(_AUTH["supervisory_keywords"])
 _AUTH_MIN_MONTHLY = _AUTH["min_annual_usd"] / 12
 _LANE5_LOCS = [s.lower() for s in LANE_BY_ID[5]["locations"]]
+_LANE3 = LANE_BY_ID[3]
+_LANE3_EXCLUDE_RE = _phrase_re(_LANE3.get("excluded_title_keywords", []))
+_LANE3_FIT_TITLE_RE = _phrase_re(_LANE3.get("fit_title_keywords", []))
+# Description fit: core + fit keywords minus "IT", which would match "it" in
+# any body text (matching is case-insensitive).
+_LANE3_TEXT_FIT_RE = _phrase_re(
+    k for k in _LANE3["title_keywords"] + _LANE3.get("fit_title_keywords", []) if k != "IT"
+)
 
 
 def _title_fields(posting: Posting) -> Tuple[Optional[str], Optional[str]]:
@@ -327,7 +335,8 @@ def assign_lane(posting: Posting) -> Dict[str, Any]:
     if region and scope is None:
         return out(2, f"overseas location ({region})")
 
-    # 3. Remote knowledge work: fully remote AND knowledge-work title.
+    # 3. Remote knowledge work: fully remote (worldwide / US-eligible; lane 2
+    # already took overseas) AND a core knowledge-work title.
     if rtype == "full":
         k = _hits(_LANE_RES[3]["title"], title, classification)
         if k:
@@ -342,6 +351,17 @@ def assign_lane(posting: Posting) -> Dict[str, Any]:
     k = _hits(_LANE_RES[5]["title"], title, classification)
     if k and any(any(s in loc.lower() for s in _LANE5_LOCS) for loc in location_strings(posting)):
         return out(5, f"Sacramento + title {k[0]!r}")
+
+    # 3 (wider fit gate). Fully remote, not an excluded field (clinical,
+    # legal counsel, trades), fit keyword in the title, else in the
+    # description. After lanes 4-5 so their title evidence wins.
+    if rtype == "full" and not _hits(_LANE3_EXCLUDE_RE, title, classification):
+        k = _hits(_LANE3_FIT_TITLE_RE, title, classification)
+        if k:
+            return out(3, f"fully remote + fit title {k[0]!r}")
+        k = _hits(_LANE3_TEXT_FIT_RE, posting.raw_text)
+        if k:
+            return out(3, f"fully remote + description {k[0]!r}")
 
     return out(None, "no lane rule fired")
 

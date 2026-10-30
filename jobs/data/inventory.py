@@ -648,11 +648,44 @@ LANE_PREFERENCES = {
             "key": "remote_knowledge",
             "name": "Remote knowledge work",
             "requires_fully_remote": True,
+            # Core titles: checked before lanes 4-5 (unchanged priority) and
+            # the only lane-3 keywords used for lane-fit scoring.
             "title_keywords": [
                 "business systems analyst", "systems analyst",
                 "business analyst", "analyst", "consultant", "consulting",
                 "information technology", "IT", "program analyst",
                 "operations analyst", "solutions analyst",
+            ],
+            # Wider fit gate: JT takes remote roles across tech/IT, finance,
+            # data, operations/PM, writing/research, and business. Checked
+            # AFTER lanes 4-5 (education / Sacramento title evidence wins):
+            # a fit keyword in the title, then core + fit keywords in the
+            # description (minus case-ambiguous "IT").
+            "fit_title_keywords": [
+                # tech / IT
+                "engineer", "developer", "systems", "technical", "data",
+                "analytics", "QA", "product", "architect", "devops",
+                "support engineer",
+                # finance / accounting
+                "finance", "accounting", "accountant", "financial analyst",
+                "FP&A", "revenue", "controller", "audit",
+                # operations / PM
+                "operations", "project manager", "program manager", "process",
+                # writing / content / research
+                "writer", "editor", "content", "copywriter", "research",
+                "documentation",
+                # business
+                "partnerships", "business development", "account manager",
+                "account executive", "customer success", "marketing", "sales",
+            ],
+            # Never enters lane 3 through the wider fit gate (title or
+            # description). Core-title matches above are unaffected.
+            "excluded_title_keywords": [
+                "nurse", "nursing", "RN", "LPN", "clinical", "clinician",
+                "physician", "doctor", "therapist", "pharmacist", "dentist",
+                "medical assistant", "attorney", "lawyer", "counsel",
+                "paralegal", "electrician", "plumber", "carpenter", "welder",
+                "mechanic", "HVAC", "technician", "driver",
             ],
             "text_keywords": [
                 "requirements gathering", "business analysis", "stakeholder",

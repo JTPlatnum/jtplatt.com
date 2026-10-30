@@ -316,3 +316,34 @@ def test_pay_text_overseas_local_hire_estimate():
                      estimate_min=112000.0, estimate_max=168000.0,
                      location="Shanghai, China Mainland")
     assert notify._pay_text(p) == "est. $112k-$168k *local-hire role"
+
+
+
+# --- Lane-3 reserve ---------------------------------------------------------------
+
+def test_lane3_reserve_beats_higher_scoring_lane2():
+    kept = [_kept(2, 90 - i, f"o{i}") for i in range(20)] + [_kept(3, 10 - i, f"r{i}") for i in range(6)]
+    jobs = notify.select_jobs(kept)
+    assert [j.title for j in jobs if j.lane == 3] == ["r0", "r1", "r2", "r3"]
+    assert sum(j.lane == 2 for j in jobs) == 8
+
+
+def test_lane3_can_exceed_reserve_on_score():
+    kept = [_kept(3, 90 - i, f"r{i}") for i in range(10)] + [_kept(2, 5, "o")]
+    jobs = notify.select_jobs(kept, size=8, lane1_cap=6)
+    assert sum(j.lane == 3 for j in jobs) == 8
+
+
+def test_unused_lane3_slots_return_to_pool():
+    kept = [_kept(2, 50 - i, f"o{i}") for i in range(20)] + [_kept(3, 1, "r0")]
+    jobs = notify.select_jobs(kept)
+    assert len(jobs) == 12
+    assert sum(j.lane == 3 for j in jobs) == 1
+    assert sum(j.lane == 2 for j in jobs) == 11
+
+
+def test_lane3_reserve_after_lane1_cap():
+    kept = ([_kept(1, 80, f"s{i}") for i in range(8)] + [_kept(2, 70, f"o{i}") for i in range(8)]
+            + [_kept(3, 1, f"r{i}") for i in range(8)])
+    jobs = notify.select_jobs(kept)
+    assert [sum(j.lane == n for j in jobs) for n in (1, 2, 3)] == [6, 2, 4]

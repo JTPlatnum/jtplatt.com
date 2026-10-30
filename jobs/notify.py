@@ -2,7 +2,8 @@
 
 Replaces the old per-job "perfect fit" alert (T1 >= 80 AND T2 >= 8). Once a
 week, emails up to DIGEST_SIZE active jobs: at most LANE1_CAP sneaker-lane
-jobs, the rest from lanes 2-5 by score, then unlaned (see select_jobs).
+jobs, LANE3_RESERVE slots held for lane 3, the rest from lanes 2-5 by score,
+then unlaned (see select_jobs).
 Grouped by lane (sneakers first, unlaned last), highest score first within a
 lane. No score threshold: low-scoring lane-1 jobs (pay unverified) are
 included.
@@ -39,6 +40,7 @@ sys.path.insert(0, str(REPO_ROOT))
 DB_PATH = REPO_ROOT / "data" / "jobs.db"
 DIGEST_SIZE = 12
 LANE1_CAP = 6  # sneaker lane gets at most half the digest
+LANE3_RESERVE = 4  # remote knowledge work: JT's target; lane 2 would crowd it out
 
 EXIT_OK = 0
 EXIT_FAILURE = 1
@@ -142,12 +144,16 @@ def select_jobs(
     kept: Sequence[Tuple[Any, Dict[str, Any]]],
     size: int = DIGEST_SIZE,
     lane1_cap: int = LANE1_CAP,
+    lane3_reserve: int = LANE3_RESERVE,
 ) -> List[DigestJob]:
     """Pick up to `size` jobs with a per-lane cap. No score threshold.
 
     1. Up to `lane1_cap` lane-1 (sneaker) jobs, highest score first.
-    2. Remaining slots from lanes 2-5 by score (any of those lanes).
-    3. Still-empty slots from unlaned jobs by score.
+    2. Up to `lane3_reserve` lane-3 jobs by score (reserved; fewer lane-3
+       jobs -> the unused slots go back to the general pool).
+    3. Remaining slots from lanes 2-5 by score (any of those lanes,
+       including more lane 3).
+    4. Still-empty slots from unlaned jobs by score.
     The lane-1 cap is hard: if the other lanes run dry, the digest is shorter
     rather than refilled with more sneaker jobs.
 
@@ -156,8 +162,13 @@ def select_jobs(
     jobs = [to_digest_job(p, r) for p, r in kept]
     lane1 = sorted((j for j in jobs if j.lane == 1), key=_by_score)[:lane1_cap]
     remaining = size - len(lane1)
-    others = sorted((j for j in jobs if j.lane not in (1, None)), key=_by_score)[:remaining]
-    remaining -= len(others)
+    lane3 = sorted((j for j in jobs if j.lane == 3), key=_by_score)[:min(lane3_reserve, remaining)]
+    remaining -= len(lane3)
+    reserved = {id(j) for j in lane3}
+    others = sorted((j for j in jobs if j.lane not in (1, None) and id(j) not in reserved),
+                    key=_by_score)[:remaining]
+    others = lane3 + others
+    remaining = size - len(lane1) - len(others)
     unlaned = sorted((j for j in jobs if j.lane is None), key=_by_score)[:max(0, remaining)]
     return sorted(lane1 + others + unlaned, key=_lane_order)
 

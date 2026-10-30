@@ -111,3 +111,48 @@ def test_digest_line_shows_source():
     assert j.source == "Remotive"
     assert "| via Remotive" in notify.render_text([j], 1, notify.date(2026, 11, 1))
     assert "&middot; via Remotive" in notify.render_html([j], 1, notify.date(2026, 11, 1))
+
+
+
+# --- Lane 3 wider fit gate ----------------------------------------------------------
+
+@pytest.mark.parametrize("title", ["Product Marketing Manager", "Senior Accountant",
+                                   "Content Writer", "Customer Success Manager",
+                                   "DevOps Engineer", "FP&A Lead"])
+def test_fit_title_enters_lane3(title):
+    lane = lanes.assign_lane(_remote(["United States"], title=title))
+    assert lane["lane"] == 3, title
+
+
+def test_description_fit_enters_lane3():
+    p = _remote(None, title="Team Lead", raw_text="You will own our analytics dashboards.")
+    assert lanes.assign_lane(p)["reason"] == "fully remote + description 'analytics'"
+
+
+def test_it_word_in_description_does_not_count():
+    p = _remote(None, title="Team Lead", raw_text="We love it when it works.")
+    assert lanes.assign_lane(p)["lane"] is None
+
+
+@pytest.mark.parametrize("title", ["Remote Physician", "Clinical Data Management Lead",
+                                   "General Counsel", "HVAC Technician", "Registered Nurse (RN)"])
+def test_excluded_fields_stay_unlaned(title):
+    p = _remote(None, title=title, raw_text="data analytics content")
+    assert lanes.assign_lane(p)["lane"] is None, title
+
+
+def test_core_title_still_lane3_even_if_excluded_word():
+    p = _remote(None, title="Data Analyst, Clinical Data Effectiveness")
+    assert lanes.assign_lane(p)["lane"] == 3
+
+
+def test_education_title_beats_wider_fit():
+    p = _remote(None, title="Sr. Instructional Designer, Learning Operations")
+    assert lanes.assign_lane(p)["lane"] == 4
+
+
+def test_not_fully_remote_never_lane3():
+    p = Posting(source="usajobs", source_job_id="x", title="Marketing Manager", employer="E",
+                url="https://example.test/x", raw_text="analytics",
+                location="Atlanta, Georgia", all_locations=["Atlanta, Georgia"])
+    assert lanes.assign_lane(p)["lane"] != 3
